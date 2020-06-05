@@ -23,7 +23,8 @@ const Navbar = () => {
     <Nav>
       <Item primary>Proofed</Item>
       <div style={{ display: "flex" }}>
-        <Item>Current Affairs</Item>
+        <Item>+ Book</Item>
+        <Item>+ Current Affair</Item>
         <Item>Sign Up/In</Item>
       </div>
     </Nav>
