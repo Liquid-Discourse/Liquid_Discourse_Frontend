@@ -8,6 +8,7 @@ import logo from "./logo.svg";
 import "./App.css";
 
 import { useAuth0 } from "./react-auth0-spa";
+import history from "./utils/history";
 
 function App() {
   const { loading } = useAuth0();
@@ -19,7 +20,7 @@ function App() {
   return (
     <div>
       <Navbar />
-      <Router>
+      <Router history={history}>
         <Route path="/" exact component={Home} />
         <Route path="/profile" exact component={Profile} />
       </Router>
