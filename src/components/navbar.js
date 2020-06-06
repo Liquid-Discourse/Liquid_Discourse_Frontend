@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useAuth0 } from "../react-auth0-spa";
 
 const Nav = styled.div`
   display: flex;
@@ -19,13 +20,18 @@ const Item = styled.div`
 `;
 
 const Navbar = () => {
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+
   return (
     <Nav>
       <Item primary>Proofed</Item>
       <div style={{ display: "flex" }}>
         <Item>+ Book</Item>
         <Item>+ Current Affair</Item>
-        <Item>Sign Up/In</Item>
+        {!isAuthenticated && (
+          <Item onClick={() => loginWithRedirect({})}>Sign In</Item>
+        )}
+        {isAuthenticated && <Item onClick={() => logout()}>Sign Out</Item>}
       </div>
     </Nav>
   );
