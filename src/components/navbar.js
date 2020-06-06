@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Nav = styled.div`
   display: flex;
@@ -21,7 +22,10 @@ const Item = styled.div`
 const Navbar = () => {
   return (
     <Nav>
-      <Item primary>Proofed</Item>
+      <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+        {" "}
+        <Item primary>Proofed</Item>
+      </Link>
       <div style={{ display: "flex" }}>
         <Item>+ Book</Item>
         <Item>+ Current Affair</Item>
