@@ -123,14 +123,14 @@ const Home = () => {
         }}
       >
         <BookCard
-          name="Becoming"
-          author="Michelle Obama"
+          name="Are Prisons Obsolete"
+          author="Angela Davis"
           topics={["blacklivesmatter"]}
           recommenders="10 recommenders"
         />
         <BookCard
-          name="Becoming"
-          author="Michelle Obama"
+          name="Between the World and Me"
+          author="Ta-Nehisi Coates"
           topics={["blacklivesmatter"]}
           recommenders="10 recommenders"
         />
@@ -150,19 +150,19 @@ const Home = () => {
         }}
       >
         <Card
-          name="Becoming"
+          name="Barack Obama"
           upvotes="#blacklivesmatter"
           books="100 books"
           recommenders="10 recommenders"
         />
         <Card
-          name="The Burning House"
+          name="Roxanne Gay"
           upvotes="#blacklivesmatter"
           books="100 books"
           recommenders="10 recommenders"
         />
         <Card
-          name="The New Jim Crow"
+          name="Kendrick Sampson"
           upvotes="#blacklivesmatter"
           books="100 books"
           recommenders="10 recommenders"
