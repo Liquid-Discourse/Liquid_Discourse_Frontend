@@ -5,6 +5,7 @@ import Profile from "./pages/profile";
 import Navbar from "./components/navbar";
 import CurrentAffair from "./pages/current-affair";
 import Book from "./pages/book";
+import Review from "./pages/review";
 
 import logo from "./logo.svg";
 import "./App.css";
@@ -27,6 +28,7 @@ function App() {
         <Route path="/profile" exact component={Profile} />
         <Route path="/current-affair/:id" exact component={CurrentAffair} />
         <Route path="/book/:id" exact component={Book} />
+        <Route path="/review" exact component={Review} />
       </Router>
     </div>
   );

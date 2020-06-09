@@ -31,7 +31,10 @@ const Navbar = () => {
         <Item primary>Proofed</Item>
       </Link>
       <div style={{ display: "flex" }}>
-        <Item>+ Book</Item>
+        <Link to="/review" style={{ textDecoration: "none", color: "black" }}>
+          {" "}
+          <Item>+ Book Review</Item>
+        </Link>
         <Item>+ Current Affair</Item>
         {!isAuthenticated && (
           <Item onClick={() => loginWithRedirect({})}>Sign In</Item>
