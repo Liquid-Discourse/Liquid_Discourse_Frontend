@@ -6,8 +6,11 @@ const Border = styled.div`
   box-shadow: 2px 2px 10px rgb(220, 220, 220);
   border-radius: 10px;
   min-width: 250px;
-  height: 250px;
+  height: 300px;
   position: relative;
+  &:hover {
+    background-color: #ff9e80;
+  }
 `;
 
 const Title = styled.div`
@@ -16,6 +19,11 @@ const Title = styled.div`
   padding-top: 20%;
   font-size: 3.3vh;
   font-family: Montaga;
+  width: 250px;
+  min-width: 250px;
+  max-width: 250px;
+  word-wrap: break-word;
+  text-align: center;
 `;
 const SubTitle = styled.div`
   display: flex;
@@ -35,6 +43,21 @@ const Item = styled.div`
   padding: 3px;
   width: 200px;
   font-family: Poppins;
+  word-wrap: break-word;
+`;
+
+const Review = styled.div`
+  position: relative;
+  left: -50%;
+  font-size: 1.7vh;
+  margin-bottom: 5%;
+  background-color: rgb(240, 240, 240);
+  border-radius: 8px;
+  padding: 3px;
+  margin-right: 3px;
+  width: 96px;
+  font-family: Poppins;
+  word-wrap: break-word;
 `;
 
 const BookCard = ({ id, name, author, topics, recommenders }) => {
@@ -67,6 +90,10 @@ const BookCard = ({ id, name, author, topics, recommenders }) => {
           {" "}
           <div style={{ marginLeft: "4px" }}>{recommenders}</div>
         </Item>
+        <div style={{ display: "flex" }}>
+          <Review>500 reviews</Review>
+          <Review>8/10 stars</Review>
+        </div>
       </div>
     </Border>
   );

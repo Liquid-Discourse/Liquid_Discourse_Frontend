@@ -6,10 +6,12 @@ const Border = styled.div`
   box-shadow: 2px 2px 10px rgb(220, 220, 220);
   border-radius: 10px;
   min-width: 250px;
-  height: 250px;
+  width: 250px;
+  max-width: 250px;
+  height: 300px;
   position: relative;
   &:hover {
-    background-color: yellow;
+    background-color: #ffff8d;
   }
 `;
 
@@ -19,6 +21,10 @@ const Title = styled.div`
   padding-top: 20%;
   font-size: 3.3vh;
   font-family: Montaga;
+  width: 250px;
+  min-width: 250px;
+  max-width: 250px;
+  word-wrap: break-word;
 `;
 
 const Item = styled.div`

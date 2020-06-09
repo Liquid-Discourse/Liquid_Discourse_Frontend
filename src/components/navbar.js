@@ -18,6 +18,7 @@ const Item = styled.div`
   margin-bottom: 10px;
   font-family: ${(props) => (props.primary ? "Montaga" : "Poppins")};
   font-size: ${(props) => (props.primary ? "3vh" : "1.7vh")};
+  cursor: pointer;
 `;
 
 const Navbar = () => {
