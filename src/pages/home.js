@@ -4,8 +4,8 @@ import BookCard from "../components/book-card";
 import styled from "styled-components";
 
 const Title = styled.div`
-  margin-top: 5%;
-  font-size: 3vh;
+  margin-top: 7%;
+  font-size: 2.7vh;
   font-family: Montaga;
   display: flex;
   align-items: center;
