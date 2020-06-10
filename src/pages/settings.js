@@ -9,6 +9,7 @@ const Settings = () => {
   useEffect(() => {
     const getSettings = async () => {
       const token = await getTokenSilently();
+      await console.log(token);
       const settings = await axios.get("http://localhost:7000/users/settings", {
         headers: {
           authorization: `Bearer ${token}`,
