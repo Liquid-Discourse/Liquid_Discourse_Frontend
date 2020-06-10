@@ -6,6 +6,7 @@ import Navbar from "./components/navbar";
 import CurrentAffair from "./pages/current-affair";
 import Book from "./pages/book";
 import Review from "./pages/review";
+import Settings from "./pages/settings";
 
 import logo from "./logo.svg";
 import "./App.css";
@@ -25,7 +26,8 @@ function App() {
       <Router history={history}>
         <Navbar />
         <Route path="/" exact component={Home} />
-        <Route path="/profile" exact component={Profile} />
+        <Route path="/users/:username" exact component={Profile} />
+        <Route path="/settings" exact component={Settings} />
         <Route path="/current-affair/:id" exact component={CurrentAffair} />
         <Route path="/book/:id" exact component={Book} />
         <Route path="/review" exact component={Review} />
