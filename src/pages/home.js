@@ -4,23 +4,23 @@ import BookCard from "../components/book-card";
 import styled from "styled-components";
 
 const Title = styled.div`
-  margin-top: 7%;
+  margin-top: 5%;
   font-size: 2.7vh;
   font-family: Montaga;
   display: flex;
   align-items: center;
   flex-direction: row;
-  margin-bottom: 3%;
+  margin-left: 5%;
 `;
 
 const SubTitle = styled.div`
+  margin-right: 5%;
   margin-top: 5%;
   font-size: 1.7vh;
   font-family: Poppins;
   display: flex;
   align-items: center;
   flex-direction: row;
-  margin-bottom: 3%;
 `;
 
 const CoverTitle = ({ name }) => (
@@ -89,7 +89,7 @@ const Home = () => {
         style={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "space-between",
+          justifyContent: "center",
         }}
       >
         <Card
@@ -119,7 +119,7 @@ const Home = () => {
         style={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "space-between",
+          justifyContent: "center",
         }}
       >
         <BookCard
@@ -146,7 +146,7 @@ const Home = () => {
         style={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "space-between",
+          justifyContent: "center",
         }}
       >
         <Card

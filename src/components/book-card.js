@@ -7,6 +7,7 @@ const Border = styled.div`
   border-radius: 10px;
   min-width: 250px;
   height: 300px;
+  margin: 3%;
   position: relative;
   &:hover {
     background-color: #ff9e80;

@@ -13,6 +13,7 @@ const Border = styled.div`
   &:hover {
     background-color: #ffff8d;
   }
+  margin: 3%;
 `;
 
 const Title = styled.div`
