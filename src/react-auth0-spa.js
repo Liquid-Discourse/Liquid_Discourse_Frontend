@@ -19,6 +19,27 @@ export const Auth0Provider = ({
   const [loading, setLoading] = useState(true);
   const [popupOpen, setPopupOpen] = useState(false);
 
+  const createUserIfNotExist = async (token) => {
+    return fetch(`${process.env.REACT_APP_API_URL}/users`, {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+      body: false,
+    });
+  };
+
+  const getUserInfoFromDB = async (token) => {
+    // create user if not exist
+    await createUserIfNotExist(token);
+    // get user information from db
+    return axios.get(`${process.env.REACT_APP_API_URL}/users/settings`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+  };
+
   useEffect(() => {
     const initAuth0 = async () => {
       const auth0FromHook = await createAuth0Client(initOptions);
@@ -37,16 +58,10 @@ export const Auth0Provider = ({
       setIsAuthenticated(isAuthenticated);
 
       if (isAuthenticated) {
-        // get user
+        // get token
         const token = await auth0FromHook.getTokenSilently();
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/users/settings`,
-          {
-            headers: {
-              authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        // get user info
+        const response = await getUserInfoFromDB(token);
         // set user
         setUser(response.data);
       }
@@ -66,16 +81,10 @@ export const Auth0Provider = ({
     } finally {
       setPopupOpen(false);
     }
-    // get user
+    // get token
     const token = await auth0Client.getTokenSilently();
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/users/settings`,
-      {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    // get user info from db
+    const response = await getUserInfoFromDB(token);
     // set user
     setUser(response.data);
     setIsAuthenticated(true);
@@ -84,16 +93,10 @@ export const Auth0Provider = ({
   const handleRedirectCallback = async () => {
     setLoading(true);
     await auth0Client.handleRedirectCallback();
-    // get user
+    // get token
     const token = await auth0Client.getTokenSilently();
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/users/settings`,
-      {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    // get user info from db
+    const response = await getUserInfoFromDB(token);
     setLoading(false);
     setIsAuthenticated(true);
     setUser(response.data);
