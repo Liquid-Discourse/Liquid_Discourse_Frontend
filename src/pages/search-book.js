@@ -65,17 +65,23 @@ const SearchBook = () => {
 
   const checkBook = async (book) => {
     console.log("checkbook", book.id);
-    let response = await axios.post("http://localhost:7000/books/getonebook", {
-      isbn: book.volumeInfo.industryIdentifiers[1].identifier,
-    });
+    let response = await axios.post(
+      `${process.env.REACT_APP_API_URL}/books/getonebook`,
+      {
+        isbn: book.volumeInfo.industryIdentifiers[1].identifier,
+      }
+    );
     console.log("response", response);
     if (response.data == "") {
       console.log("made it through");
-      let response = await axios.post("http://localhost:7000/books", {
-        isbn: book.volumeInfo.industryIdentifiers[1].identifier,
-        name: book.volumeInfo.title,
-        author: book.volumeInfo.authors,
-      });
+      let response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/books`,
+        {
+          isbn: book.volumeInfo.industryIdentifiers[1].identifier,
+          name: book.volumeInfo.title,
+          author: book.volumeInfo.authors,
+        }
+      );
       history.push({ pathname: "/add-review/" + response.data.id });
     } else {
       history.push({ pathname: "/add-review/" + response.data.id });

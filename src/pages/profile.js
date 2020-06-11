@@ -8,7 +8,7 @@ const Profile = (props) => {
   useEffect(() => {
     const getProfile = async () => {
       const profile = await axios.get(
-        `http://localhost:7000/users/profile/${props.match.params.username}`
+        `${process.env.REACT_APP_API_URL}/users/profile/${props.match.params.username}`
       );
       setProfile(profile);
     };

@@ -10,11 +10,14 @@ const Settings = () => {
     const getSettings = async () => {
       const token = await getTokenSilently();
       await console.log(token);
-      const settings = await axios.get("http://localhost:7000/users/settings", {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
+      const settings = await axios.get(
+        `${process.env.REACT_APP_API_URL}/users/settings`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setSettings(settings);
     };
     getSettings();

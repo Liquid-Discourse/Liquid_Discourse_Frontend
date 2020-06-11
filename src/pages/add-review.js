@@ -58,7 +58,7 @@ const AddReview = (props) => {
       ratingOutOfTen: reviewRating,
     };
 
-    await fetch("http://localhost:7000/book-reviews", {
+    await fetch(`${process.env.REACT_APP_API_URL}/book-reviews`, {
       method: "POST",
       body: JSON.stringify(body),
       headers: {
