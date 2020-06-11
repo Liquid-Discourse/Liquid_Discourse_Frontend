@@ -79,7 +79,7 @@ const SearchBook = () => {
         {
           isbn: book.volumeInfo.industryIdentifiers[1].identifier,
           name: book.volumeInfo.title,
-          author: book.volumeInfo.authors,
+          authors: book.volumeInfo.authors,
         }
       );
       history.push({ pathname: "/add-review/" + response.data.id });
