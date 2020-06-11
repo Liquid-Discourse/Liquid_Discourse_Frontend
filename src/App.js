@@ -7,6 +7,7 @@ import CurrentAffair from "./pages/current-affair";
 import Book from "./pages/book";
 import Review from "./pages/review";
 import Settings from "./pages/settings";
+import AddReview from "./pages/add-review";
 
 import logo from "./logo.svg";
 import "./App.css";
@@ -31,6 +32,7 @@ function App() {
         <Route path="/current-affair/:id" exact component={CurrentAffair} />
         <Route path="/book/:id" exact component={Book} />
         <Route path="/review" exact component={Review} />
+        <Route path="/add-review/:bookId" exact component={AddReview} />
       </Router>
     </div>
   );
