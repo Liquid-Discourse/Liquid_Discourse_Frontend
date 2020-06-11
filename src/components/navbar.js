@@ -79,7 +79,7 @@ const Navbar = () => {
                 fontSize: "1.7vh",
               }}
             >
-              {user.given_name}
+              {user?.database?.firstName}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="24"
@@ -92,13 +92,13 @@ const Navbar = () => {
             </div>
             <DropdownContent>
               <Link
-                to={"/user/" + user.given_name}
+                to={"/users/" + user?.database?.username}
                 style={{ textDecoration: "none", color: "black" }}
               >
                 <Item>Profile</Item>
               </Link>
               <Link
-                to={"/settings/" + user.given_name}
+                to={"/settings"}
                 style={{ textDecoration: "none", color: "black" }}
               >
                 <Item>Settings</Item>

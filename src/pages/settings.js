@@ -3,25 +3,7 @@ import { useAuth0 } from "../react-auth0-spa";
 import axios from "axios";
 
 const Settings = () => {
-  const { loading, user, getTokenSilently, getIdTokenClaims } = useAuth0();
-  const [settings, setSettings] = useState({});
-
-  useEffect(() => {
-    const getSettings = async () => {
-      const token = await getTokenSilently();
-      await console.log(token);
-      const settings = await axios.get(
-        `${process.env.REACT_APP_API_URL}/users/settings`,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setSettings(settings);
-    };
-    getSettings();
-  }, []);
+  const { loading, user } = useAuth0();
 
   if (loading) {
     return <div>Loading...</div>;
@@ -34,8 +16,8 @@ const Settings = () => {
   return (
     <>
       <h1>Via getSettings() from the backend</h1>
-      <img src={settings?.data?.database?.picture} alt="Profile" width="100" />
-      <code>{JSON.stringify(settings, null, 2)}</code>
+      <img src={user?.database?.picture} alt="Profile" width="100" />
+      <code>{JSON.stringify(user, null, 2)}</code>
     </>
   );
 };

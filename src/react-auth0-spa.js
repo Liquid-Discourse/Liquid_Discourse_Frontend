@@ -1,6 +1,7 @@
 // src/react-auth0-spa.js
 import React, { useState, useEffect, useContext } from "react";
 import createAuth0Client from "@auth0/auth0-spa-js";
+import axios from "axios";
 
 const DEFAULT_REDIRECT_CALLBACK = () =>
   window.history.replaceState({}, document.title, window.location.pathname);
@@ -23,8 +24,10 @@ export const Auth0Provider = ({
       const auth0FromHook = await createAuth0Client(initOptions);
       setAuth0(auth0FromHook);
 
-      if (window.location.search.includes("code=") &&
-          window.location.search.includes("state=")) {
+      if (
+        window.location.search.includes("code=") &&
+        window.location.search.includes("state=")
+      ) {
         const { appState } = await auth0FromHook.handleRedirectCallback();
         onRedirectCallback(appState);
       }
@@ -34,8 +37,18 @@ export const Auth0Provider = ({
       setIsAuthenticated(isAuthenticated);
 
       if (isAuthenticated) {
-        const user = await auth0FromHook.getUser();
-        setUser(user);
+        // get user
+        const token = await auth0FromHook.getTokenSilently();
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/users/settings`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        // set user
+        setUser(response.data);
       }
 
       setLoading(false);
@@ -53,18 +66,37 @@ export const Auth0Provider = ({
     } finally {
       setPopupOpen(false);
     }
-    const user = await auth0Client.getUser();
-    setUser(user);
+    // get user
+    const token = await auth0Client.getTokenSilently();
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/users/settings`,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    // set user
+    setUser(response.data);
     setIsAuthenticated(true);
   };
 
   const handleRedirectCallback = async () => {
     setLoading(true);
     await auth0Client.handleRedirectCallback();
-    const user = await auth0Client.getUser();
+    // get user
+    const token = await auth0Client.getTokenSilently();
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/users/settings`,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
     setLoading(false);
     setIsAuthenticated(true);
-    setUser(user);
+    setUser(response.data);
   };
   return (
     <Auth0Context.Provider
@@ -79,7 +111,7 @@ export const Auth0Provider = ({
         loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
         getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
         getTokenWithPopup: (...p) => auth0Client.getTokenWithPopup(...p),
-        logout: (...p) => auth0Client.logout(...p)
+        logout: (...p) => auth0Client.logout(...p),
       }}
     >
       {children}
