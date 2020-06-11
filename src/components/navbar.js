@@ -31,7 +31,10 @@ const Navbar = () => {
         <Item primary>Proofed</Item>
       </Link>
       <div style={{ display: "flex" }}>
-        <Link to="/review" style={{ textDecoration: "none", color: "black" }}>
+        <Link
+          to="/search-book"
+          style={{ textDecoration: "none", color: "black" }}
+        >
           {" "}
           <Item>+ Book Review</Item>
         </Link>

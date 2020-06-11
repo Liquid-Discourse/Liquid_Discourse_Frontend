@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -49,6 +50,7 @@ const SearchResult = styled.div`
 const SearchBook = () => {
   const [bookFound, setBookFound] = useState(null);
   const [searchValue, setSearchValue] = useState("");
+  let history = useHistory();
 
   const searchBook = async () => {
     console.log("search");
@@ -68,12 +70,15 @@ const SearchBook = () => {
     });
     console.log("response", response);
     if (response.data == "") {
-      await axios.post("http://localhost:7000/books/getonebook", {
+      console.log("made it through");
+      let response = await axios.post("http://localhost:7000/books", {
         isbn: book.volumeInfo.industryIdentifiers[1].identifier,
         name: book.volumeInfo.title,
-        authors: book.volumeInfo.authors,
-        googleId: book.id,
+        author: book.volumeInfo.authors,
       });
+      history.push({ pathname: "/add-review/" + response.data.id });
+    } else {
+      history.push({ pathname: "/add-review/" + response.data.id });
     }
   };
 
