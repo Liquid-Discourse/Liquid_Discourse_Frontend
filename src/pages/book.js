@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Card from "../components/current-affair-card";
-import styled from "styled-components";
 
 const Book = (props) => {
   const [book, setBook] = useState();
