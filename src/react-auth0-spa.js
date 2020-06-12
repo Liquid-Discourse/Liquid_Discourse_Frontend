@@ -30,6 +30,8 @@ export const Auth0Provider = ({
   };
 
   const getUserInfoFromDB = async (token) => {
+    //
+    console.log("Getting user info for...", token);
     // create user if not exist
     await createUserIfNotExist(token);
     // get user information from db
