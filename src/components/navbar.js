@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { useAuth0 } from "../react-auth0-spa";
 import { Link } from "react-router-dom";
-import { useHistory, withRouter } from "react-router-dom";
 
 const Nav = styled.div`
   display: flex;
@@ -49,13 +48,8 @@ const Dropdown = styled.div`
 
 const Navbar = () => {
   const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
-  const history = useHistory();
 
   console.log(user);
-
-  const goToSettings = () => {
-    return history.push({ pathname: "/settings" });
-  };
 
   return (
     <Nav>
@@ -103,7 +97,9 @@ const Navbar = () => {
               >
                 <Item>Profile</Item>
               </Link>
-              <Item onClick={goToSettings}>Settings</Item>
+              <a href="/settings">
+                <Item>Settings</Item>
+              </a>
               <Item onClick={() => logout()}>Logout</Item>
             </DropdownContent>
           </Dropdown>
