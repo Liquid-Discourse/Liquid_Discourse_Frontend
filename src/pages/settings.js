@@ -79,7 +79,7 @@ const SwitchInput = styled.input`
 `;
 
 const Settings = () => {
-  const { loading, user, getTokenSilently } = useAuth0();
+  const { loading, user, getTokenSilently, logout } = useAuth0();
   const history = useHistory();
   const [username, setUsername] = useState(null);
   const [publicProf, setPublicProf] = useState();
@@ -96,9 +96,10 @@ const Settings = () => {
     console.log("deleteuser", deleteUser);
     console.log("public", publicProf);
     if (deleteUser == true) {
-      await axios.get(`${process.env.REACT_APP_API_URL}/users/delete`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/users`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      logout();
     }
     await axios.patch(
       `${process.env.REACT_APP_API_URL}/users`,
