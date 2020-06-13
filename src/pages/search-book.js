@@ -65,12 +65,9 @@ const SearchBook = () => {
 
   const checkBook = async (book) => {
     console.log("checkbook", book.id);
-    let response = await axios.post(
-      `${process.env.REACT_APP_API_URL}/books/getonebook`,
-      {
-        isbn: book.volumeInfo.industryIdentifiers[1].identifier,
-      }
-    );
+    let response = await axios.get(`${process.env.REACT_APP_API_URL}/books`, {
+      params: { isbn: book.volumeInfo.industryIdentifiers[1].identifier },
+    });
     console.log("response", response);
     if (response.data == "") {
       console.log("made it through");
@@ -84,7 +81,7 @@ const SearchBook = () => {
       );
       history.push({ pathname: "/add-review/" + response.data.id });
     } else {
-      history.push({ pathname: "/add-review/" + response.data.id });
+      history.push({ pathname: "/add-review/" + response.data[0]?.id });
     }
   };
 
