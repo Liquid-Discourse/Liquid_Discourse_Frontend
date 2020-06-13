@@ -100,11 +100,13 @@ const Settings = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
     }
-    await axios.patch(`${process.env.REACT_APP_API_URL}/users`, {
-      headers: { Authorization: `Bearer ${token}` },
-      username: username,
-      profileIsPublic: publicProf,
-    });
+    await axios.patch(
+      `${process.env.REACT_APP_API_URL}/users`,
+      { username: username, profileIsPublic: publicProf },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     history.push({ pathname: "/" });
   };
 
