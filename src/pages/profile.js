@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useAuth0 } from "../react-auth0-spa";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -16,14 +15,15 @@ const TabList = styled.div`
   font-family: Poppins;
   font-size: 15px;
   overflow: hidden;
-  border-bottom: 1px solid grey;
+  border-bottom: 2px solid rbg(240, 240, 240);
+  box-shadow: 0px 2px 8px -4px rgb(200, 200, 200);
 `;
 const Tab = styled.div`
   float: left;
   border: none;
   cursor: pointer;
-  padding: 12px 14px;
-  transition: 0.3s;
+  padding: 10px 12px;
+  transition: 0.1s;
   border-radius: 10px 10px 0px 0px;
   background-color: ${(props) =>
     props.active ? "rgb(240, 240, 240)" : "white"};
@@ -32,17 +32,26 @@ const Tab = styled.div`
   }
 `;
 const TabContent = styled.div`
-  display: ${(props) => (props.open ? "block" : "none")};
+  display: ${(props) => (props.active ? "block" : "none")};
   padding: 6px 12px;
 `;
 
 const BookReviews = styled.div`
   font-family: Poppins;
+  box-shadow: 2px 2px 8px rgb(230, 230, 230);
+  border-radius: 10px;
+  min-width: 250px;
+  height: 150px;
+  margin: 3%;
+  position: relative;
+  &:hover {
+    background-color: #ff9e80;
+  }
 `;
 
 const Profile = (props) => {
   const [profile, setProfile] = useState({});
-  const [open, setOpen] = useState([1, 0, 0]);
+  const [active, setActive] = useState(0);
 
   useEffect(() => {
     const getProfile = async () => {
@@ -50,19 +59,16 @@ const Profile = (props) => {
         `${process.env.REACT_APP_API_URL}/users/profile/${props.match.params.username}`
       );
       setProfile(profile);
+      console.log("profile data", profile.data);
     };
     getProfile();
   }, []);
 
-  const openTab = (type) => {
-    for (let i = 0; i < open.length; i++) {
-      if (i === type) {
-        open[i] = 1;
-      } else {
-        open[i] = 0;
-      }
+  const handleClick = (e) => {
+    const index = parseInt(e.target.id, 0);
+    if (index !== active) {
+      setActive(index);
     }
-    setOpen(open);
   };
 
   return (
@@ -92,22 +98,25 @@ const Profile = (props) => {
         />
       </div>
       <TabList>
-        <Tab active={open[0]} onClick={() => openTab(0)}>
+        <Tab onClick={handleClick} active={active === 0} id={0}>
           Reviews
         </Tab>
-        <Tab active={open[1]} onClick={() => openTab(1)}>
+        <Tab onClick={handleClick} active={active === 1} id={1}>
           Topics
         </Tab>
-        <Tab active={open[2]} onClick={() => openTab(2)}>
+        <Tab onClick={handleClick} active={active === 2} id={2}>
           Bookshelf
         </Tab>
       </TabList>
-      <TabContent open={open[0]}>
+      <TabContent active={active === 0}>
         {profile?.data?.bookReviews.map((b, i) => (
-          <BookReviews key={i}>{b}</BookReviews>
+          <BookReviews key={i}>
+            <div>{b.book.name}</div>
+            <div>{b.ratingOutOfTen}/10</div>
+          </BookReviews>
         ))}
       </TabContent>
-      <TabContent open={open[1]}>
+      <TabContent active={active === 1}>
         {profile?.data?.preferredTopics.map((b, i) => (
           <BookReviews key={i}>{b}</BookReviews>
         ))}
