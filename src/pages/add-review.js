@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAuth0 } from "../react-auth0-spa";
+import TagSelect from "../components/tag-select";
 
 const Container = styled.div`
   margin: 5%;
@@ -49,14 +50,18 @@ const Button = styled.button`
 const AddReview = (props) => {
   const [reviewText, setReviewText] = useState("");
   const [reviewRating, setReviewRating] = useState(0);
+  const [reviewTopicTags, setReviewTopicTags] = useState([]);
   const { getTokenSilently } = useAuth0();
 
   const submit = async () => {
     const token = await getTokenSilently();
+
     const body = {
       bookId: props.match.params.bookId,
       ratingOutOfTen: reviewRating,
+      suggestedTags: reviewTopicTags.map((tag) => tag.value),
     };
+    console.log(body);
 
     await fetch(`${process.env.REACT_APP_API_URL}/book-reviews`, {
       method: "POST",
@@ -81,6 +86,13 @@ const AddReview = (props) => {
         placeholder="Full text review"
         onChange={(e) => setReviewText(e.currentTarget.value)}
       />
+      <div style={{ width: "500px" }}>
+        <TagSelect
+          type="TOPIC"
+          value={reviewTopicTags}
+          onChange={setReviewTopicTags}
+        />
+      </div>
       <Button onClick={submit}>Submit</Button>
     </Container>
   );
