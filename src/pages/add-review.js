@@ -71,12 +71,16 @@ const AddReview = (props) => {
         },
       }
     );
-    if (await response.data) {
+    if (await (response.data && response.data.length)) {
       const review = await response.data[0];
       await console.log(review);
       await setReviewRating(review.ratingOutOfTen);
       await setReviewTopicTags(
-        review.suggestedTags.map((tag) => createSelectTagFromBackendTag(tag))
+        review.suggestedTags.length
+          ? review.suggestedTags.map((tag) =>
+              createSelectTagFromBackendTag(tag)
+            )
+          : []
       );
     }
   };
@@ -91,7 +95,9 @@ const AddReview = (props) => {
     const body = {
       bookId: props.match.params.bookId,
       ratingOutOfTen: reviewRating,
-      suggestedTags: reviewTopicTags.map((tag) => tag.value),
+      suggestedTags: reviewTopicTags.length
+        ? reviewTopicTags.map((tag) => tag.value)
+        : [],
     };
     console.log(body);
 
