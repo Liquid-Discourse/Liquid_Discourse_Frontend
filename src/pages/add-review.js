@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAuth0 } from "../react-auth0-spa";
 import TagSelect from "../components/tag-select";
+import axios from "axios";
 
 const Container = styled.div`
   margin: 5%;
@@ -51,7 +52,38 @@ const AddReview = (props) => {
   const [reviewText, setReviewText] = useState("");
   const [reviewRating, setReviewRating] = useState(0);
   const [reviewTopicTags, setReviewTopicTags] = useState([]);
-  const { getTokenSilently } = useAuth0();
+  const { getTokenSilently, user } = useAuth0();
+
+  const createSelectTagFromBackendTag = (backendTag) => {
+    return {
+      value: backendTag.id,
+      label: backendTag.name,
+    };
+  };
+
+  const getExistingInformation = async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/book-reviews`,
+      {
+        params: {
+          userId: user?.database?.id,
+          bookId: props.match.params.bookId,
+        },
+      }
+    );
+    if (await response.data) {
+      const review = await response.data[0];
+      await console.log(review);
+      await setReviewRating(review.ratingOutOfTen);
+      await setReviewTopicTags(
+        review.suggestedTags.map((tag) => createSelectTagFromBackendTag(tag))
+      );
+    }
+  };
+
+  useEffect(() => {
+    getExistingInformation();
+  }, []);
 
   const submit = async () => {
     const token = await getTokenSilently();
@@ -80,6 +112,7 @@ const AddReview = (props) => {
       <Input
         type="number"
         placeholder="Rating out of ten"
+        value={reviewRating}
         onChange={(e) => setReviewRating(e.currentTarget.value)}
       />
       <Text
