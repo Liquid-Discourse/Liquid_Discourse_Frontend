@@ -91,12 +91,15 @@ const Navbar = () => {
               </svg>
             </div>
             <DropdownContent>
-              <Link
+              {/* <Link
                 to={"/users/" + user?.database?.username}
                 style={{ textDecoration: "none", color: "black" }}
               >
                 <Item>Profile</Item>
-              </Link>
+              </Link> */}
+              <a href={"/users/" + user?.database?.username}>
+                <Item>Profile</Item>
+              </a>
               <a href="/settings">
                 <Item>Settings</Item>
               </a>
