@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory, withRouter } from "react-router-dom";
 import Card from "../components/current-affair-card";
 import BookCard from "../components/book-card";
 import styled from "styled-components";
@@ -21,9 +22,10 @@ const SubTitle = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
+  cursor: pointer;
 `;
 
-const CoverTitle = ({ name }) => (
+const CoverTitle = ({ name, slug, redirectTo }) => (
   <div
     style={{
       display: "flex",
@@ -34,7 +36,7 @@ const CoverTitle = ({ name }) => (
     <Title>
       <div style={{ marginRight: "20px" }}>{name}</div>
     </Title>
-    <SubTitle>
+    <SubTitle onClick={() => redirectTo(slug)}>
       <div style={{ marginRight: "10px" }}>See all</div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -82,9 +84,18 @@ const CoverTitle = ({ name }) => (
 );
 
 const Home = () => {
+  const history = useHistory();
+  const redirectTo = (slug) => {
+    history.push({ pathname: "/see-all/" + slug });
+  };
+
   return (
     <div style={{ marginLeft: "5%", marginRight: "5%", marginBottom: "5%" }}>
-      <CoverTitle name="Current Affairs" />
+      <CoverTitle
+        name="Current Affairs"
+        slug="current-affairs"
+        redirectTo={redirectTo}
+      />
       <div
         style={{
           display: "flex",
@@ -114,7 +125,7 @@ const Home = () => {
           recommenders="10 recommenders"
         />
       </div>
-      <CoverTitle name="Proofed Books" />
+      <CoverTitle name="Proofed Books" slug="books" redirectTo={redirectTo} />
       <div
         style={{
           display: "flex",
@@ -141,7 +152,11 @@ const Home = () => {
           recommenders="10 recommenders"
         />
       </div>
-      <CoverTitle name="Proofed Reviewers" />
+      <CoverTitle
+        name="Proofed Reviewers"
+        slug="reviewers"
+        redirectTo={redirectTo}
+      />
       <div
         style={{
           display: "flex",
@@ -172,4 +187,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default withRouter(Home);

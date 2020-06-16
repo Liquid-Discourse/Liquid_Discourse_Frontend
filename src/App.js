@@ -8,6 +8,7 @@ import Book from "./pages/book";
 import SearchBook from "./pages/search-book";
 import Settings from "./pages/settings";
 import AddReview from "./pages/add-review";
+import SubPage from "./pages/sub-pages/current-affair-subpage";
 
 import logo from "./logo.svg";
 import "./App.css";
@@ -33,6 +34,7 @@ function App() {
         <Route path="/book/:id" exact component={Book} />
         <Route path="/search-book" exact component={SearchBook} />
         <Route path="/add-review/:bookId" exact component={AddReview} />
+        <Route path="/see-all/:subpage" exact component={SubPage} />
       </Router>
     </div>
   );

@@ -5,8 +5,8 @@ import { useHistory, withRouter } from "react-router-dom";
 const Border = styled.div`
   box-shadow: 2px 2px 10px rgb(220, 220, 220);
   border-radius: 10px;
-  min-width: 250px;
-  height: 300px;
+  min-width: 200px;
+  height: 250px;
   margin: 3%;
   position: relative;
   &:hover {
@@ -18,11 +18,11 @@ const Title = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 20%;
-  font-size: 3.3vh;
+  font-size: 20px;
   font-family: Montaga;
-  width: 250px;
-  min-width: 250px;
-  max-width: 250px;
+  width: 200px;
+  min-width: 200px;
+  max-width: 200px;
   word-wrap: break-word;
   text-align: center;
 `;
@@ -42,7 +42,7 @@ const Item = styled.div`
   background-color: rgb(240, 240, 240);
   border-radius: 8px;
   padding: 3px;
-  width: 200px;
+  width: 170px;
   font-family: Poppins;
   word-wrap: break-word;
 `;
@@ -56,7 +56,7 @@ const Review = styled.div`
   border-radius: 8px;
   padding: 3px;
   margin-right: 3px;
-  width: 96px;
+  width: 80px;
   font-family: Poppins;
   word-wrap: break-word;
 `;
