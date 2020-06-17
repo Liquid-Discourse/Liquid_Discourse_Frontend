@@ -123,7 +123,7 @@ const AddReview = (props) => {
     getExistingInformation();
     getBook();
   }, []);
-  
+
   const submit = async () => {
     const token = await getTokenSilently();
 
@@ -137,6 +137,7 @@ const AddReview = (props) => {
       bookId: props.match.params.bookId,
       ratingOutOfTen: reviewRating,
       suggestedTags: combinedTags.map((tag) => tag.value),
+      isCompleted: true,
     };
 
     const response = await fetch(

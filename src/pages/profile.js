@@ -44,6 +44,7 @@ const BookReviews = styled.div`
   min-width: 250px;
   height: 150px;
   margin: 3%;
+  padding: 25px;
   position: relative;
   &:hover {
     background-color: #ff9e80;
@@ -73,6 +74,14 @@ const Profile = (props) => {
     }
   };
 
+  const completeReviews = profile?.data?.bookReviews.length
+    ? profile.data.bookReviews.filter((review) => review.isCompleted === true)
+    : [];
+
+  const incompleteReviews = profile?.data?.bookReviews.length
+    ? profile.data.bookReviews.filter((review) => review.isCompleted === false)
+    : [];
+
   return (
     <div style={{ marginRight: "10%", marginLeft: "10%", marginTop: "5%" }}>
       <div
@@ -100,18 +109,34 @@ const Profile = (props) => {
         />
       </div>
       <TabList>
+        <Tab onClick={handleClick} active={active === 2} id={2}>
+          Bookshelf
+        </Tab>
         <Tab onClick={handleClick} active={active === 0} id={0}>
           Reviews
         </Tab>
         <Tab onClick={handleClick} active={active === 1} id={1}>
           Topics
         </Tab>
-        <Tab onClick={handleClick} active={active === 2} id={2}>
-          Bookshelf
-        </Tab>
       </TabList>
-      <TabContent active={active === 0}>
-        {profile?.data?.bookReviews.map((b, i) => (
+
+      {/* Render bookshelf */}
+      <TabContent active={active === 2}>
+        {completeReviews.length ? <h1>Reviewed books</h1> : null}
+
+        {completeReviews.map((b, i) => (
+          <BookReviews
+            key={i}
+            onClick={() => history.push({ pathname: "/book/" + b.id })}
+          >
+            <div>{b.book.name}</div>
+            <div>{b.ratingOutOfTen}/5</div>
+          </BookReviews>
+        ))}
+
+        {incompleteReviews.length ? <h1>Unreviewed books</h1> : null}
+
+        {incompleteReviews.map((b, i) => (
           <BookReviews
             key={i}
             onClick={() => history.push({ pathname: "/book/" + b.id })}
@@ -121,6 +146,7 @@ const Profile = (props) => {
           </BookReviews>
         ))}
       </TabContent>
+      {/* Render topics */}
       <TabContent active={active === 1}>
         {profile?.data?.preferredTopics.map((b, i) => (
           <BookReviews key={i}>{b}</BookReviews>
