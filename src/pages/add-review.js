@@ -123,10 +123,7 @@ const AddReview = (props) => {
     getExistingInformation();
     getBook();
   }, []);
-  console.log("reviewTopicTags", reviewTopicTags);
-  console.log("affairTopicTags", affairTopicTags);
-  console.log("countryTopicTags", countryTopicTags);
-  console.log("genreTopicTags", genreTopicTags);
+  
   const submit = async () => {
     const token = await getTokenSilently();
 
