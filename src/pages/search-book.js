@@ -42,6 +42,7 @@ const SearchResult = styled.div`
   word-wrap: break-word;
   font-family: Poppins;
   min-width: 45vw;
+  cursor: pointer;
   :hover {
     background-color: rgb(240, 240, 240);
   }
@@ -95,7 +96,9 @@ const SearchBook = () => {
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
         />
-        <Button onClick={searchBook}>Submit</Button>
+        <Button type="submit" onClick={searchBook}>
+          Submit
+        </Button>
       </div>
       {bookFound != null ? (
         <div>

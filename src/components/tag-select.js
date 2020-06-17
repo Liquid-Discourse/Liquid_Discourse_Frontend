@@ -11,7 +11,14 @@ const TagSelect = (props) => {
 
   useEffect(() => {
     const getOptionsFromBackend = async () => {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/tags`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/tags`,
+        {
+          params: {
+            type: props.type,
+          },
+        }
+      );
       setOptions(
         response.data.map((tag) => createSelectTagFromBackendTag(tag))
       );
