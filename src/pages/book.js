@@ -59,6 +59,25 @@ const Book = (props) => {
   const addBook = async () => {
     if (user != null) {
       const token = await getTokenSilently();
+
+      // check if book review exists already
+      // in which case, skip
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/book-reviews`,
+        {
+          params: {
+            bookId: book.id,
+            userId: user.database.id,
+          },
+        }
+      );
+      const bookReview = response.data?.length && response.data[0];
+      console.log(bookReview);
+      if (bookReview) {
+        return;
+      }
+
+      // add to bookshelf
       await axios.post(
         `${process.env.REACT_APP_API_URL}/book-reviews`,
         {
