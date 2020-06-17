@@ -37,8 +37,6 @@ const TagSelect = (props) => {
     setValue(newValue);
   };
 
-  //   label.toLowerCase().replace(/\W/g, '')
-
   const handleCreate = async (inputValue) => {
     setIsLoading(true);
     // create tag in backend
