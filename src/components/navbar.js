@@ -91,16 +91,16 @@ const Navbar = () => {
               </svg>
             </div>
             <DropdownContent>
-              {/* <Link
-                to={"/users/" + user?.database?.username}
+              <a
                 style={{ textDecoration: "none", color: "black" }}
+                href={"/users/" + user?.database?.username}
               >
                 <Item>Profile</Item>
-              </Link> */}
-              <a href={"/users/" + user?.database?.username}>
-                <Item>Profile</Item>
               </a>
-              <a href="/settings">
+              <a
+                style={{ textDecoration: "none", color: "black" }}
+                href="/settings"
+              >
                 <Item>Settings</Item>
               </a>
               <Item onClick={() => logout()}>Logout</Item>
