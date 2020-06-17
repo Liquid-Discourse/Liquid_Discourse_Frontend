@@ -27,6 +27,10 @@ const Text = styled.textarea`
   padding-left: 5px;
   padding: 10px;
 `;
+const Label = styled.div`
+  font-family: Poppins;
+  font-size: 15px;
+`;
 const H3 = styled.h3`
   font-family: Montaga;
   font-weight: normal;
@@ -126,26 +130,38 @@ const AddReview = (props) => {
     getExistingInformation();
     getBook();
   }, []);
-
+  console.log("reviewTopicTags", reviewTopicTags);
+  console.log("affairTopicTags", affairTopicTags);
+  console.log("countryTopicTags", countryTopicTags);
+  console.log("genreTopicTags", genreTopicTags);
   const submit = async () => {
     const token = await getTokenSilently();
 
+    let tags = [];
+    reviewTopicTags.map((t, i) => tags.push(t.value));
+    affairTopicTags.map((t, i) => tags.push(t.value));
+    countryTopicTags.map((t, i) => tags.push(t.value));
+    genreTopicTags.map((t, i) => tags.push(t.value));
+
+    console.log(tags);
     const body = {
       bookId: props.match.params.bookId,
       ratingOutOfTen: parseInt(reviewRating),
-      suggestedTags: reviewTopicTags.length
-        ? reviewTopicTags.map((tag) => tag.value)
-        : [],
+      suggestedTags: tags,
     };
 
-    await fetch(`${process.env.REACT_APP_API_URL}/book-reviews`, {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/book-reviews`,
+      {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    await console.log(response);
 
     history.push({ pathname: "/users/" + user?.database?.username });
   };
@@ -153,7 +169,16 @@ const AddReview = (props) => {
   return (
     <Container>
       <H3>Review "{book?.name}"</H3>
-      <div style={{ display: "flex", justifyContent: "center", padding: "3%" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          padding: "3%",
+          alignItems: "center",
+        }}
+      >
+        <Label>Review Rating </Label>
+
         <input
           type="radio"
           checked={reviewRating === "1"}
@@ -184,13 +209,14 @@ const AddReview = (props) => {
           value={5}
           onClick={(e) => setReviewRating(e.target.value)}
         />
-        <div>Review Rating: {reviewRating}</div>
+        <Label>{reviewRating}</Label>
       </div>
       <Text
         placeholder="Full text review"
         onChange={(e) => setReviewText(e.currentTarget.value)}
       />
       <div style={{ width: "500px" }}>
+        <Label>Current Affair</Label>
         <TagSelect
           type="AFFAIR"
           value={affairTopicTags}
@@ -198,6 +224,7 @@ const AddReview = (props) => {
         />
       </div>
       <div style={{ width: "500px" }}>
+        <Label>Topic</Label>
         <TagSelect
           type="TOPIC"
           value={reviewTopicTags}
@@ -205,6 +232,7 @@ const AddReview = (props) => {
         />
       </div>
       <div style={{ width: "500px" }}>
+        <Label>Country</Label>
         <TagSelect
           type="COUNTRY"
           value={countryTopicTags}
@@ -212,6 +240,7 @@ const AddReview = (props) => {
         />
       </div>
       <div style={{ width: "500px" }}>
+        <Label>Genre</Label>
         <TagSelect
           type="GENRE"
           value={genreTopicTags}

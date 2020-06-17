@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, withRouter } from "react-router-dom";
-import Card from "../../components/current-affair-card";
+import Card from "../../components/current-affair-card-long";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -10,7 +10,7 @@ const AddCard = styled.div`
   border-radius: 5px;
   width: 100%;
   height: 70px;
-  margin: 3%;
+  margin: 1%;
   padding: 1% 2%;
   position: relative;
   display: flex;
@@ -28,24 +28,24 @@ const Title = styled.div`
   flex-direction: row;
   margin-left: 5%;
 `;
-
 const CurrentAffairSubpage = (props) => {
-  const [content, setContent] = useState();
+  const [content, setContent] = useState(null);
   const history = useHistory();
 
   useEffect(() => {
     const getPage = async () => {
-      content = await axios.get(`${process.env.REACT_APP_API_URL}/tags/`, {
+      let content = await axios.get(`${process.env.REACT_APP_API_URL}/tags/`, {
         params: {
           type: "AFFAIR",
           orderDirection: "DESC",
         },
       });
-      setContent(content);
+      setContent(content.data);
     };
     getPage();
   }, []);
 
+  console.log("content", content);
   const redirectTo = (id) => {
     history.push({ pathname: "/book" + id });
   };
@@ -74,23 +74,17 @@ const CurrentAffairSubpage = (props) => {
             <div style={{ fontFamily: "Poppins" }}>Submit a Current Affair</div>
           </div>
         </AddCard>
-        {content == null ? (
-          <div />
-        ) : (
-          <div>
-            {content.map((c, i) => (
-              <Card
-                onClick={redirectTo(c.id)}
-                key={i}
-                id="black-lives-matter"
-                name="Climate Change"
-                upvotes="200 books"
-                books="10 categories"
-                recommenders="10 recommenders"
-              />
-            ))}
-          </div>
-        )}
+        {content?.map((c, i) => (
+          <Card
+            onClick={() => redirectTo(c.id)}
+            key={i}
+            id="black-lives-matter"
+            name={c.name}
+            upvotes="something"
+            books={c.books.length}
+            recommenders="10 recommenders"
+          />
+        ))}
       </div>
     </div>
   );
