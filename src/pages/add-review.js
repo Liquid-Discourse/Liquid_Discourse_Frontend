@@ -48,10 +48,12 @@ const Button = styled.button`
 const AddReview = (props) => {
   const [reviewText, setReviewText] = useState("");
   const [reviewRating, setReviewRating] = useState("5");
+
+  // Tags
   const [reviewTopicTags, setReviewTopicTags] = useState([]);
-  const [affairTopicTags, setAffairTopicTags] = useState([]);
-  const [countryTopicTags, setCountryTopicTags] = useState([]);
-  const [genreTopicTags, setGenreTopicTags] = useState([]);
+  const [reviewAffairTags, setReviewAffairTags] = useState([]);
+  const [reviewCountryTags, setReviewCountryTags] = useState([]);
+
   const [book, setBook] = useState(null);
   const { getTokenSilently, user } = useAuth0();
   const history = useHistory();
@@ -82,44 +84,35 @@ const AddReview = (props) => {
         }
       );
       if (await (response.data && response.data.length)) {
-        console.log("made it");
         const review = await response.data[0];
-        await console.log("REVIEW", review);
-        await setReviewRating(review.ratingOutOfTen.toString());
-        await setReviewTopicTags(
-          review.suggestedTags.length
-            ? review.suggestedTags
-                .filter((tag) => tag.type === "TOPIC")
-                .map((tag) => {
-                  createSelectTagFromBackendTag(tag);
-                })
-            : []
-        );
-        await setAffairTopicTags(
-          review.suggestedTags.length
-            ? review.suggestedTags
-                .filter((tag) => tag.type === "AFFAIR")
-                .map((tag) => createSelectTagFromBackendTag(tag))
-            : []
-        );
-        await setCountryTopicTags(
-          review.suggestedTags.length
-            ? review.suggestedTags.map((tag) => {
-                if (tag.type === "COUNTRY") {
-                  return createSelectTagFromBackendTag(tag);
-                }
-              })
-            : []
-        );
-        await setGenreTopicTags(
-          review.suggestedTags.length
-            ? review.suggestedTags.map((tag) => {
-                if (tag.type === "GENRE") {
-                  return createSelectTagFromBackendTag(tag);
-                }
-              })
-            : []
-        );
+        await console.log("Existing Review", review);
+
+        setReviewRating(review.ratingOutOfTen);
+
+        const affairTags = [];
+        const topicTags = [];
+        const countryTags = [];
+
+        if (review.suggestedTags.length) {
+          review.suggestedTags.forEach((tag) => {
+            const createForSelect = createSelectTagFromBackendTag(tag);
+            switch (tag.type) {
+              case "TOPIC":
+                topicTags.push(createForSelect);
+                break;
+              case "AFFAIR":
+                affairTags.push(createForSelect);
+                break;
+              case "COUNTRY":
+                countryTags.push(createForSelect);
+                break;
+            }
+          });
+        }
+
+        setReviewAffairTags(affairTags);
+        setReviewCountryTags(countryTags);
+        setReviewTopicTags(topicTags);
       }
     };
 
@@ -130,12 +123,16 @@ const AddReview = (props) => {
   const submit = async () => {
     const token = await getTokenSilently();
 
+    const combinedTags = [
+      ...reviewAffairTags,
+      ...reviewCountryTags,
+      ...reviewTopicTags,
+    ];
+
     const body = {
       bookId: props.match.params.bookId,
-      ratingOutOfTen: parseInt(reviewRating),
-      suggestedTags: reviewTopicTags.length
-        ? reviewTopicTags.map((tag) => tag.value)
-        : [],
+      ratingOutOfTen: reviewRating,
+      suggestedTags: combinedTags.map((tag) => tag.value),
     };
 
     await fetch(`${process.env.REACT_APP_API_URL}/book-reviews`, {
@@ -156,33 +153,33 @@ const AddReview = (props) => {
       <div style={{ display: "flex", justifyContent: "center", padding: "3%" }}>
         <input
           type="radio"
-          checked={reviewRating === "1"}
+          checked={reviewRating === 1}
           value={1}
-          onClick={(e) => setReviewRating(e.target.value)}
+          onClick={(e) => setReviewRating(parseInt(e.target.value))}
         />
         <input
           type="radio"
-          checked={reviewRating === "2"}
+          checked={reviewRating === 2}
           value={2}
-          onClick={(e) => setReviewRating(e.target.value)}
+          onClick={(e) => setReviewRating(parseInt(e.target.value))}
         />
         <input
           type="radio"
-          checked={reviewRating === "3"}
+          checked={reviewRating === 3}
           value={3}
-          onClick={(e) => setReviewRating(e.target.value)}
+          onClick={(e) => setReviewRating(parseInt(e.target.value))}
         />
         <input
           type="radio"
-          checked={reviewRating === "4"}
+          checked={reviewRating === 4}
           value={4}
-          onClick={(e) => setReviewRating(e.target.value)}
+          onClick={(e) => setReviewRating(parseInt(e.target.value))}
         />
         <input
           type="radio"
-          checked={reviewRating === "5"}
+          checked={reviewRating === 5}
           value={5}
-          onClick={(e) => setReviewRating(e.target.value)}
+          onClick={(e) => setReviewRating(parseInt(e.target.value))}
         />
         <div>Review Rating: {reviewRating}</div>
       </div>
@@ -190,13 +187,26 @@ const AddReview = (props) => {
         placeholder="Full text review"
         onChange={(e) => setReviewText(e.currentTarget.value)}
       />
+
+      <h2>Add Current Affair tags</h2>
       <div style={{ width: "500px" }}>
         <TagSelect
           type="AFFAIR"
-          value={affairTopicTags}
-          onChange={setAffairTopicTags}
+          value={reviewAffairTags}
+          onChange={setReviewAffairTags}
         />
       </div>
+
+      <h2>Add Country tags</h2>
+      <div style={{ width: "500px" }}>
+        <TagSelect
+          type="COUNTRY"
+          value={reviewCountryTags}
+          onChange={setReviewCountryTags}
+        />
+      </div>
+
+      <h2>Add Topic tags</h2>
       <div style={{ width: "500px" }}>
         <TagSelect
           type="TOPIC"
@@ -204,20 +214,8 @@ const AddReview = (props) => {
           onChange={setReviewTopicTags}
         />
       </div>
-      <div style={{ width: "500px" }}>
-        <TagSelect
-          type="COUNTRY"
-          value={countryTopicTags}
-          onChange={setCountryTopicTags}
-        />
-      </div>
-      <div style={{ width: "500px" }}>
-        <TagSelect
-          type="GENRE"
-          value={genreTopicTags}
-          onChange={setGenreTopicTags}
-        />
-      </div>
+
+      {/* Submit  */}
       <Button onClick={submit}>Submit</Button>
     </Container>
   );
