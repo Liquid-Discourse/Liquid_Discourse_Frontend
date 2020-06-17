@@ -27,6 +27,10 @@ const Text = styled.textarea`
   padding-left: 5px;
   padding: 10px;
 `;
+const Label = styled.div`
+  font-family: Poppins;
+  font-size: 15px;
+`;
 const H3 = styled.h3`
   font-family: Montaga;
   font-weight: normal;
@@ -119,7 +123,10 @@ const AddReview = (props) => {
     getExistingInformation();
     getBook();
   }, []);
-
+  console.log("reviewTopicTags", reviewTopicTags);
+  console.log("affairTopicTags", affairTopicTags);
+  console.log("countryTopicTags", countryTopicTags);
+  console.log("genreTopicTags", genreTopicTags);
   const submit = async () => {
     const token = await getTokenSilently();
 
@@ -135,14 +142,18 @@ const AddReview = (props) => {
       suggestedTags: combinedTags.map((tag) => tag.value),
     };
 
-    await fetch(`${process.env.REACT_APP_API_URL}/book-reviews`, {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/book-reviews`,
+      {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    await console.log(response);
 
     history.push({ pathname: "/users/" + user?.database?.username });
   };
@@ -150,7 +161,16 @@ const AddReview = (props) => {
   return (
     <Container>
       <H3>Review "{book?.name}"</H3>
-      <div style={{ display: "flex", justifyContent: "center", padding: "3%" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          padding: "3%",
+          alignItems: "center",
+        }}
+      >
+        <Label>Review Rating </Label>
+
         <input
           type="radio"
           checked={reviewRating === 1}
@@ -181,7 +201,7 @@ const AddReview = (props) => {
           value={5}
           onClick={(e) => setReviewRating(parseInt(e.target.value))}
         />
-        <div>Review Rating: {reviewRating}</div>
+        <Label>{reviewRating}</Label>
       </div>
       <Text
         placeholder="Full text review"
@@ -190,6 +210,7 @@ const AddReview = (props) => {
 
       <h2>Add Current Affair tags</h2>
       <div style={{ width: "500px" }}>
+        <Label>Current Affair</Label>
         <TagSelect
           type="AFFAIR"
           value={reviewAffairTags}
@@ -199,6 +220,7 @@ const AddReview = (props) => {
 
       <h2>Add Country tags</h2>
       <div style={{ width: "500px" }}>
+        <Label>Country</Label>
         <TagSelect
           type="COUNTRY"
           value={reviewCountryTags}
@@ -208,6 +230,7 @@ const AddReview = (props) => {
 
       <h2>Add Topic tags</h2>
       <div style={{ width: "500px" }}>
+        <Label>Genre</Label>
         <TagSelect
           type="TOPIC"
           value={reviewTopicTags}

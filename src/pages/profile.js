@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -50,6 +51,7 @@ const BookReviews = styled.div`
 `;
 
 const Profile = (props) => {
+  const history = useHistory();
   const [profile, setProfile] = useState({});
   const [active, setActive] = useState(0);
 
@@ -110,9 +112,12 @@ const Profile = (props) => {
       </TabList>
       <TabContent active={active === 0}>
         {profile?.data?.bookReviews.map((b, i) => (
-          <BookReviews key={i}>
+          <BookReviews
+            key={i}
+            onClick={() => history.push({ pathname: "/book/" + b.id })}
+          >
             <div>{b.book.name}</div>
-            <div>{b.ratingOutOfTen}/10</div>
+            <div>{b.ratingOutOfTen}/5</div>
           </BookReviews>
         ))}
       </TabContent>
@@ -125,4 +130,4 @@ const Profile = (props) => {
   );
 };
 
-export default Profile;
+export default withRouter(Profile);
