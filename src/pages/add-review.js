@@ -228,7 +228,7 @@ const AddReview = (props) => {
 
       <h2>Add Topic tags</h2>
       <div style={{ width: "500px" }}>
-        <Label>Genre</Label>
+        <Label>Topic</Label>
         <TagSelect
           type="TOPIC"
           value={reviewTopicTags}
