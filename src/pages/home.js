@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useHistory, withRouter } from "react-router-dom";
-import Card from "../components/current-affair-card";
+import Card from "../components/current-affair-card-long";
 import BookCard from "../components/book-card";
 import styled from "styled-components";
 import scribble from "./scribbles-scribbles-73.png";
 import scribble2 from "./scribbles-scribbles-7.png";
 
 const Title = styled.div`
-  font-size: 2.7vh;
-  font-family: Montaga;
+  font-size: 2.3vh;
+  font-family: Poppins;
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -21,7 +22,6 @@ const Title2 = styled.div`
 `;
 
 const SubTitle = styled.div`
-  margin-right: 5%;
   margin-top: 5%;
   font-size: 1.7vh;
   font-family: Poppins;
@@ -47,7 +47,7 @@ const CoverTitle = ({ name, slug, redirectTo }) => (
     }}
   >
     <Title>
-      <div style={{ marginRight: "20px" }}>{name}</div>
+      <div>{name}</div>
     </Title>
     <SubTitle onClick={() => redirectTo(slug)}>
       <div style={{ marginRight: "10px" }}>See all</div>
@@ -98,9 +98,24 @@ const CoverTitle = ({ name, slug, redirectTo }) => (
 
 const Home = () => {
   const history = useHistory();
+  const [content, setContent] = useState(null);
+
   const redirectTo = (slug) => {
     history.push({ pathname: "/see-all/" + slug });
   };
+
+  useEffect(() => {
+    const getPage = async () => {
+      let content = await axios.get(`${process.env.REACT_APP_API_URL}/tags/`, {
+        params: {
+          type: "AFFAIR",
+          orderDirection: "DESC",
+        },
+      });
+      setContent(content.data);
+    };
+    getPage();
+  }, []);
 
   return (
     <div>
@@ -148,49 +163,40 @@ const Home = () => {
           </div>
         </div>
       </Cover>
-      <div style={{ marginLeft: "5%", marginRight: "5%", marginBottom: "5%" }}>
-        <CoverTitle
-          name="Current Affairs"
-          slug="current-affairs"
-          redirectTo={redirectTo}
-        />
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
-          <Card
-            id="black-lives-matter"
-            name="Black Lives Matter"
-            upvotes="200 books"
-            books="10 categories"
-            recommenders="10 recommenders"
+      <div
+        style={{
+          margin: "5%",
+          display: "flex",
+          justifyContent: "space-evenly",
+          alignItems: "flex-start",
+        }}
+      >
+        <div style={{ width: "60%" }}>
+          <CoverTitle
+            name="Current Affairs"
+            slug="current-affairs"
+            redirectTo={redirectTo}
           />
-          <Card
-            id="black-lives-matter"
-            name="Coronavirus"
-            upvotes="200 books"
-            books="10 categories"
-            recommenders="10 recommenders"
-          />
-          <Card
-            id="black-lives-matter"
-            name="Climate Change"
-            upvotes="200 books"
-            books="10 categories"
-            recommenders="10 recommenders"
-          />
+          {content?.map((c, i) => (
+            <Card
+              onClick={() => redirectTo(c.id)}
+              key={i}
+              id="black-lives-matter"
+              name={c.name}
+              upvotes="something"
+              books={c.books.length}
+              recommenders="10 recommenders"
+            />
+          ))}
         </div>
-        <CoverTitle name="Proofed Books" slug="books" redirectTo={redirectTo} />
         <div
           style={{
+            marginRight: "1%",
             display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
+            flexDirection: "column",
           }}
         >
+          <CoverTitle name="Top Books" slug="books" redirectTo={redirectTo} />
           <BookCard
             name="Are Prisons Obsolete"
             author="Angela Davis"
@@ -207,37 +213,6 @@ const Home = () => {
             name="Becoming"
             author="Michelle Obama"
             topics={["blacklivesmatter"]}
-            recommenders="10 recommenders"
-          />
-        </div>
-        <CoverTitle
-          name="Proofed Reviewers"
-          slug="reviewers"
-          redirectTo={redirectTo}
-        />
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
-          <Card
-            name="Barack Obama"
-            upvotes="#blacklivesmatter"
-            books="100 books"
-            recommenders="10 recommenders"
-          />
-          <Card
-            name="Roxanne Gay"
-            upvotes="#blacklivesmatter"
-            books="100 books"
-            recommenders="10 recommenders"
-          />
-          <Card
-            name="Kendrick Sampson"
-            upvotes="#blacklivesmatter"
-            books="100 books"
             recommenders="10 recommenders"
           />
         </div>
