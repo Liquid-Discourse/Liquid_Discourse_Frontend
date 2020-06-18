@@ -7,6 +7,9 @@ import styled from "styled-components";
 import scribble from "../assets/scribbles-scribbles-73.png";
 import scribble2 from "../assets/scribbles-scribbles-7.png";
 
+import ContentStructure from "../components/content-structure";
+import { HorizontalSpacer } from "../components/spacer";
+
 const Title = styled.div`
   font-size: 15px;
   font-family: Poppins;
@@ -182,14 +185,10 @@ const Home = () => {
           </div>
         </div>
       </Cover>
-      <div
-        style={{
-          margin: "5%",
-          display: "flex",
-          justifyContent: "space-evenly",
-          alignItems: "flex-start",
-        }}
-      >
+      {/* Spacer */}
+      <HorizontalSpacer size={40} />
+      {/* Below the header */}
+      <ContentStructure>
         <div style={{ width: "60%", display: "flex", flexDirection: "column" }}>
           <CoverTitle
             name="Current Affairs"
@@ -227,7 +226,7 @@ const Home = () => {
             />
           ))}
         </div>
-      </div>
+      </ContentStructure>
     </div>
   );
 };
