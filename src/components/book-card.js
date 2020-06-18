@@ -3,9 +3,7 @@ import styled from "styled-components";
 import { useHistory, withRouter } from "react-router-dom";
 
 const Border = styled.div`
-  box-shadow: 2px 2px 10px rgb(220, 220, 220);
-  border: 1px solid #d7ccc8;
-  background-color: #efebe9;
+  box-shadow: 2px 2px 10px #d7ccc8;
   border-radius: 10px;
   min-width: 200px;
   height: 250px;
@@ -38,10 +36,10 @@ const SubTitle = styled.div`
 
 const Item = styled.div`
   position: relative;
-  font-size: 1.7vh;
+  font-size: 12px;
   left: -50%;
   margin-bottom: 5%;
-  background-color: white;
+  background-color: rgb(240, 240, 240);
   border-radius: 8px;
   padding: 3px;
   width: 170px;
@@ -52,18 +50,18 @@ const Item = styled.div`
 const Review = styled.div`
   position: relative;
   left: -50%;
-  font-size: 1.7vh;
+  font-size: 12px;
   margin-bottom: 5%;
-  background-color: white;
+  background-color: rgb(240, 240, 240);
   border-radius: 8px;
   padding: 3px;
-  margin-right: 3px;
+  margin-left: 3px;
   width: 80px;
   font-family: Poppins;
   word-wrap: break-word;
 `;
 
-const BookCard = ({ id, name, author, topics, recommenders }) => {
+const BookCard = ({ id, name, authors, topics, recommenders, rating }) => {
   const history = useHistory();
 
   const redirectCurrentAffair = (id) => {
@@ -73,7 +71,11 @@ const BookCard = ({ id, name, author, topics, recommenders }) => {
   return (
     <Border onClick={() => redirectCurrentAffair(id)}>
       <Title>{name}</Title>
-      <SubTitle>By {author}</SubTitle>
+      <SubTitle>
+        {authors?.map((a, i) => (
+          <div key={i}>{a}</div>
+        ))}
+      </SubTitle>
       <div
         style={{
           position: "absolute",
@@ -83,19 +85,11 @@ const BookCard = ({ id, name, author, topics, recommenders }) => {
         }}
       >
         <Item>
-          <div style={{ marginLeft: "4px" }}>
-            {topics.map((t, i) => (
-              <div style={{ marginRight: "2px" }}>{t}</div>
-            ))}
-          </div>
-        </Item>
-        <Item>
-          {" "}
-          <div style={{ marginLeft: "4px" }}>{recommenders}</div>
+          <div style={{ marginLeft: "4px" }}>{topics}</div>
         </Item>
         <div style={{ display: "flex" }}>
-          <Review>500 reviews</Review>
-          <Review>8/10 stars</Review>
+          <Review>{recommenders} reviews</Review>
+          <Review>{rating}/10 stars</Review>
         </div>
       </div>
     </Border>

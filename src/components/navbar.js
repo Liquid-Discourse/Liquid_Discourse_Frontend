@@ -20,8 +20,7 @@ const Item = styled.div`
   font-size: ${(props) => (props.primary ? "3vh" : "1.7vh")};
   cursor: pointer;
   :hover {
-    background-color: #ffffbf;
-    border-radius: 5px;
+    color: #ef6c00;
   }
 `;
 

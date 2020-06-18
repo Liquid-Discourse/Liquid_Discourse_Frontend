@@ -4,7 +4,7 @@ import { useHistory, withRouter } from "react-router-dom";
 
 const Border = styled.div`
   font-family: Poppins;
-  box-shadow: 2px 2px 8px rgb(230, 230, 230);
+  box-shadow: 2px 2px 8px #d7ccc8;
   border-radius: 5px;
   width: 100%;
   height: 70px;
@@ -13,7 +13,7 @@ const Border = styled.div`
   position: relative;
   font-size: 12px;
   &:hover {
-    background-color: #ffff8d;
+    background-color: #ffe0b2;
   }
 `;
 
@@ -25,22 +25,21 @@ const Title = styled.div`
 `;
 
 const Item = styled.div`
-  position: relative;
-  font-size: 1.7vh;
-  left: -50%;
-  margin-bottom: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   background-color: rgb(240, 240, 240);
-  border-radius: 8px;
-  padding: 3px;
-  width: 170px;
-  font-family: Poppins;
+  border-radius: 3px;
+  padding: 2px 5px;
+  margin-right: 2%;
 `;
 
 const Card = ({ id, name, upvotes, books, recommenders }) => {
   const history = useHistory();
 
   const redirectCurrentAffair = (id) => {
-    history.push({ pathname: "/current-affair/:id=" + id });
+    history.push({ pathname: "/current-affair/" + id });
   };
 
   return (
@@ -57,20 +56,10 @@ const Card = ({ id, name, upvotes, books, recommenders }) => {
           <div>description</div>
           <div>Topics: </div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-            border: "1px solid black",
-            padding: "2px 5px",
-            marginRight: "2%",
-          }}
-        >
+        <Item>
           <div style={{ fontSize: "18px" }}>{books}</div>
           <div>books</div>
-        </div>
+        </Item>
       </div>
     </Border>
   );

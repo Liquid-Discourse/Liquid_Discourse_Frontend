@@ -4,11 +4,11 @@ import { useHistory, withRouter } from "react-router-dom";
 import Card from "../components/current-affair-card-long";
 import BookCard from "../components/book-card";
 import styled from "styled-components";
-import scribble from "./scribbles-scribbles-73.png";
-import scribble2 from "./scribbles-scribbles-7.png";
+import scribble from "../assets/scribbles-scribbles-73.png";
+import scribble2 from "../assets/scribbles-scribbles-7.png";
 
 const Title = styled.div`
-  font-size: 2.3vh;
+  font-size: 15px;
   font-family: Poppins;
   display: flex;
   align-items: center;
@@ -23,7 +23,7 @@ const Title2 = styled.div`
 
 const SubTitle = styled.div`
   margin-top: 5%;
-  font-size: 1.7vh;
+  font-size: 12px;
   font-family: Poppins;
   display: flex;
   align-items: center;
@@ -32,8 +32,8 @@ const SubTitle = styled.div`
 `;
 const Cover = styled.div`
   width: 100%;
-  padding-top: 5%;
-  padding-bottom: 8%;
+  padding-top: 6%;
+  padding-bottom: 9%;
   background-color: #efebe9;
   box-shadow: inset 0 0 20px rgb(240, 240, 240);
 `;
@@ -44,6 +44,7 @@ const CoverTitle = ({ name, slug, redirectTo }) => (
       display: "flex",
       justifyContent: "space-between",
       alignItems: "baseline",
+      marginBottom: "3%",
     }}
   >
     <Title>
@@ -99,9 +100,13 @@ const CoverTitle = ({ name, slug, redirectTo }) => (
 const Home = () => {
   const history = useHistory();
   const [content, setContent] = useState(null);
+  const [books, setBooks] = useState(null);
 
   const redirectTo = (slug) => {
     history.push({ pathname: "/see-all/" + slug });
+  };
+  const goToAffair = (id) => {
+    history.push({ pathname: "/current-affair/" + id });
   };
 
   useEffect(() => {
@@ -112,9 +117,21 @@ const Home = () => {
           orderDirection: "DESC",
         },
       });
+      console.log(content);
       setContent(content.data);
     };
+    const getBooks = async () => {
+      let content = await axios.get(`${process.env.REACT_APP_API_URL}/books/`, {
+        params: {
+          order: "reviewCount",
+          orderDirection: "DESC",
+        },
+      });
+      console.log(content.data);
+      setBooks(content.data);
+    };
     getPage();
+    getBooks();
   }, []);
 
   return (
@@ -124,7 +141,7 @@ const Home = () => {
           style={{
             display: "flex",
             alignItems: "center",
-            marginLeft: "5%",
+            justifyContent: "center",
           }}
         >
           <div
@@ -171,7 +188,7 @@ const Home = () => {
           alignItems: "flex-start",
         }}
       >
-        <div style={{ width: "60%" }}>
+        <div style={{ width: "60%", display: "flex", flexDirection: "column" }}>
           <CoverTitle
             name="Current Affairs"
             slug="current-affairs"
@@ -179,9 +196,8 @@ const Home = () => {
           />
           {content?.map((c, i) => (
             <Card
-              onClick={() => redirectTo(c.id)}
               key={i}
-              id="black-lives-matter"
+              id={c.id}
               name={c.name}
               upvotes="something"
               books={c.books.length}
@@ -197,24 +213,17 @@ const Home = () => {
           }}
         >
           <CoverTitle name="Top Books" slug="books" redirectTo={redirectTo} />
-          <BookCard
-            name="Are Prisons Obsolete"
-            author="Angela Davis"
-            topics={["blacklivesmatter"]}
-            recommenders="10 recommenders"
-          />
-          <BookCard
-            name="Between the World and Me"
-            author="Ta-Nehisi Coates"
-            topics={["blacklivesmatter"]}
-            recommenders="10 recommenders"
-          />
-          <BookCard
-            name="Becoming"
-            author="Michelle Obama"
-            topics={["blacklivesmatter"]}
-            recommenders="10 recommenders"
-          />
+          {books?.map((b, i) => (
+            <BookCard
+              key={i}
+              id={b.div}
+              name={b.name}
+              authors={b.authors}
+              topics={b.tags[0]?.name}
+              recommenders={b.reviewCount}
+              rating={b.averageRatingOutOfTen}
+            />
+          ))}
         </div>
       </div>
     </div>

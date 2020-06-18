@@ -45,7 +45,6 @@ const CurrentAffairSubpage = (props) => {
     getPage();
   }, []);
 
-  console.log("content", content);
   const redirectTo = (id) => {
     history.push({ pathname: "/book" + id });
   };
@@ -74,17 +73,19 @@ const CurrentAffairSubpage = (props) => {
             <div style={{ fontFamily: "Poppins" }}>Submit a Current Affair</div>
           </div>
         </AddCard>
-        {content?.map((c, i) => (
-          <Card
-            onClick={() => redirectTo(c.id)}
-            key={i}
-            id="black-lives-matter"
-            name={c.name}
-            upvotes="something"
-            books={c.books.length}
-            recommenders="10 recommenders"
-          />
-        ))}
+        <div>
+          {content?.map((c, i) => (
+            <Card
+              onClick={() => redirectTo(c.id)}
+              key={i}
+              id="black-lives-matter"
+              name={c.name}
+              upvotes="something"
+              books={c.books.length}
+              recommenders="10 recommenders"
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
