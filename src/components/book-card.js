@@ -4,10 +4,12 @@ import { useHistory, withRouter } from "react-router-dom";
 
 const Border = styled.div`
   box-shadow: 2px 2px 10px rgb(220, 220, 220);
+  border: 1px solid #d7ccc8;
+  background-color: #efebe9;
   border-radius: 10px;
   min-width: 200px;
   height: 250px;
-  margin: 3%;
+  margin: 5%;
   position: relative;
   &:hover {
     background-color: #ff9e80;
@@ -39,7 +41,7 @@ const Item = styled.div`
   font-size: 1.7vh;
   left: -50%;
   margin-bottom: 5%;
-  background-color: rgb(240, 240, 240);
+  background-color: white;
   border-radius: 8px;
   padding: 3px;
   width: 170px;
@@ -52,7 +54,7 @@ const Review = styled.div`
   left: -50%;
   font-size: 1.7vh;
   margin-bottom: 5%;
-  background-color: rgb(240, 240, 240);
+  background-color: white;
   border-radius: 8px;
   padding: 3px;
   margin-right: 3px;
