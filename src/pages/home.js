@@ -158,6 +158,7 @@ const Home = () => {
                 objectFit: "cover",
                 transform: " scaleX(-1) rotate(-20deg)",
               }}
+              alt="squiggle"
               src={scribble}
             />
           </div>
@@ -175,6 +176,7 @@ const Home = () => {
                 height: "100%",
                 objectFit: "cover",
               }}
+              alt="line"
               src={scribble2}
             />
           </div>
@@ -192,7 +194,7 @@ const Home = () => {
           <CoverTitle
             name="Current Affairs"
             slug="current-affairs"
-            redirectTo={redirectTo}
+            redirectTo={goToAffair}
           />
           {content?.map((c, i) => (
             <Card

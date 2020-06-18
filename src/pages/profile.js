@@ -65,7 +65,7 @@ const Profile = (props) => {
       console.log("profile data", profile.data);
     };
     getProfile();
-  }, []);
+  }, [props.match.params.username]);
 
   const handleClick = (e) => {
     const index = parseInt(e.target.id, 0);

@@ -24,7 +24,7 @@ const TagSelect = (props) => {
       );
     };
     getOptionsFromBackend();
-  }, []);
+  }, [props.type]);
 
   const createSelectTagFromBackendTag = (backendTag) => {
     return {

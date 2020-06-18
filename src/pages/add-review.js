@@ -11,14 +11,6 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-const Input = styled.input`
-  min-width: 40vw;
-  font-family: poppins;
-  border: 1px solid #bdbdbd;
-  border-radius: 5px;
-  padding-left: 5px;
-  padding: 10px;
-`;
 const Text = styled.textarea`
   min-width: 40vw;
   font-family: poppins;
@@ -107,7 +99,7 @@ const AddReview = (props) => {
               case "AFFAIR":
                 affairTags.push(createForSelect);
                 break;
-              case "COUNTRY":
+              default:
                 countryTags.push(createForSelect);
                 break;
             }
@@ -119,10 +111,9 @@ const AddReview = (props) => {
         setReviewTopicTags(topicTags);
       }
     };
-
     getExistingInformation();
     getBook();
-  }, []);
+  }, [props.match.params.bookId, user]);
 
   const submit = async () => {
     const token = await getTokenSilently();

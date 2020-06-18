@@ -44,7 +44,7 @@ const Save = styled.div`
 `;
 
 const Book = (props) => {
-  const { loading, user, getTokenSilently, logout } = useAuth0();
+  const { user, getTokenSilently } = useAuth0();
   const [book, setBook] = useState();
   useEffect(() => {
     const getBook = async () => {
@@ -54,7 +54,7 @@ const Book = (props) => {
       setBook(content.data);
     };
     getBook();
-  }, []);
+  }, [props.match.params.id]);
 
   const addBook = async () => {
     if (user != null) {

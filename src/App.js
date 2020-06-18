@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./pages/home";
 import Profile from "./pages/profile";
 import Navbar from "./components/navbar";
@@ -10,7 +10,6 @@ import Settings from "./pages/settings";
 import AddReview from "./pages/add-review";
 import SubPage from "./pages/sub-pages/current-affair-subpage";
 
-import logo from "./logo.svg";
 import "./App.css";
 
 import { useAuth0 } from "./react-auth0-spa";

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useAuth0 } from "../react-auth0-spa";
 import { useHistory, withRouter } from "react-router-dom";
 import styled from "styled-components";
-import { useForm } from "react-hook-form";
 import axios from "axios";
 
 const Title = styled.div`
@@ -88,14 +87,14 @@ const Settings = () => {
   useEffect(() => {
     setUsername(user?.database?.username);
     setPublicProf(user?.database?.profileIsPublic);
-  }, []);
+  }, [user]);
 
   const handleSubmit = async () => {
     const token = await getTokenSilently();
     console.log("username", username);
     console.log("deleteuser", deleteUser);
     console.log("public", publicProf);
-    if (deleteUser == true) {
+    if (deleteUser === true) {
       await axios.delete(`${process.env.REACT_APP_API_URL}/users`, {
         headers: { Authorization: `Bearer ${token}` },
       });

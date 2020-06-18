@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Card from "../components/current-affair-card";
 import BookCard from "../components/book-card";
 import axios from "axios";
-import styled from "styled-components";
 
 const CurrentAffair = (props) => {
   const [affair, setAffair] = useState(null);
@@ -15,7 +13,7 @@ const CurrentAffair = (props) => {
       setAffair(response.data);
     };
     getCurrentAffair();
-  }, []);
+  }, [props.match.params.id]);
 
   return (
     <div style={{ margin: "5%" }}>

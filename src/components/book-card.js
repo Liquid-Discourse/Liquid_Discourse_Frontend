@@ -39,7 +39,7 @@ const Item = styled.div`
   font-size: 12px;
   left: -50%;
   margin-bottom: 5%;
-  background-color: rgb(240, 240, 240);
+  background-color: 
   border-radius: 8px;
   padding: 3px;
   width: 170px;

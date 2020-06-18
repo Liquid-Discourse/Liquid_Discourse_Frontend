@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
@@ -70,7 +70,7 @@ const SearchBook = () => {
       params: { isbn: book.volumeInfo.industryIdentifiers[1].identifier },
     });
     console.log("response", response);
-    if (response.data == "") {
+    if (response.data === "") {
       console.log("made it through");
       let response = await axios.post(
         `${process.env.REACT_APP_API_URL}/books`,
@@ -105,7 +105,7 @@ const SearchBook = () => {
           {bookFound.map((b, i) => (
             <SearchResult onClick={() => checkBook(b)}>
               <div key={i}>{b.volumeInfo.title}</div>
-              {b.volumeInfo.authors != undefined ? (
+              {b.volumeInfo.authors !== undefined ? (
                 <div style={{ display: "flex", fontSize: "12px" }}>
                   By
                   <div style={{ display: "flex" }}>
@@ -128,4 +128,4 @@ const SearchBook = () => {
   );
 };
 
-export default SearchBook;
+export default withRouter(SearchBook);
