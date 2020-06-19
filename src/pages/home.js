@@ -25,7 +25,7 @@ const Title2 = styled.div`
 `;
 
 const SubTitle = styled.div`
-  margin-top: 5%;
+  /* margin-top: 5%; */
   font-size: 12px;
   font-family: Poppins;
   display: flex;
