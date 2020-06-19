@@ -54,36 +54,52 @@ const SearchBook = () => {
   let history = useHistory();
 
   const searchBook = async () => {
-    console.log("search");
     let url = new URL("https://www.googleapis.com/books/v1/volumes?");
     url.searchParams.append("q", searchValue);
-    console.log(url);
     let response = await fetch(url);
     let answer = await response.json();
     console.log(answer);
     setBookFound(answer.items);
   };
 
-  const checkBook = async (book) => {
-    console.log("checkbook", book.id);
+  // check if book exists in the database already
+  const checkBook = async (isbn) => {
+    // check if book exists in the database already
     let response = await axios.get(`${process.env.REACT_APP_API_URL}/books`, {
-      params: { isbn: book.volumeInfo.industryIdentifiers[1].identifier },
+      params: { isbn: isbn },
     });
-    console.log("response", response);
-    if (response.data === "") {
-      console.log("made it through");
-      let response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/books`,
-        {
-          isbn: book.volumeInfo.industryIdentifiers[1].identifier,
-          name: book.volumeInfo.title,
-          authors: book.volumeInfo.authors,
-        }
-      );
-      history.push({ pathname: "/add-review/" + response.data.id });
-    } else {
-      history.push({ pathname: "/add-review/" + response.data[0]?.id });
+    if (response.data && response.data.length > 0) {
+      return response.data[0];
     }
+    return false;
+  };
+
+  const submitBook = async (book) => {
+    // check if book exists
+    const existingBook = await checkBook(
+      book.volumeInfo.industryIdentifiers[1].identifier
+    );
+    console.log("existing book", existingBook);
+
+    // if it does, redirect to its page
+    if (existingBook) {
+      return history.push({ pathname: "/add-review/" + existingBook.id });
+    }
+    // otherwise, post the book to the db
+    const payload = {
+      isbn: book.volumeInfo.industryIdentifiers[1].identifier,
+      name: book.volumeInfo.title,
+      authors: book.volumeInfo.authors,
+    };
+
+    console.log("Posting book with payload:", payload);
+
+    let response = await axios.post(
+      `${process.env.REACT_APP_API_URL}/books`,
+      payload
+    );
+
+    return history.push({ pathname: "/add-review/" + response.data.id });
   };
 
   return (
@@ -103,7 +119,7 @@ const SearchBook = () => {
       {bookFound != null ? (
         <div>
           {bookFound.map((b, i) => (
-            <SearchResult onClick={() => checkBook(b)}>
+            <SearchResult onClick={() => submitBook(b)}>
               <div key={i}>{b.volumeInfo.title}</div>
               {b.volumeInfo.authors !== undefined ? (
                 <div style={{ display: "flex", fontSize: "12px" }}>
