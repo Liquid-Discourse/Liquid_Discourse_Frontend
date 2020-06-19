@@ -46,6 +46,16 @@ function App() {
           exact
           render={(props) => <TagDetail {...props} type="TOPIC" />}
         />
+        <Route
+          path="/current-affairs/:slug"
+          exact
+          render={(props) => <TagDetail {...props} type="AFFAIR" />}
+        />
+        <Route
+          path="/countries/:slug"
+          exact
+          render={(props) => <TagDetail {...props} type="COUNTRY" />}
+        />
       </Router>
     </div>
   );
