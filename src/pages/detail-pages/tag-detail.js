@@ -38,7 +38,7 @@ const TagDetail = (props) => {
 
   return (
     <>
-      <div>Hello</div>
+      <div>{JSON.stringify(tag, null, 2)}</div>
     </>
   );
 };
