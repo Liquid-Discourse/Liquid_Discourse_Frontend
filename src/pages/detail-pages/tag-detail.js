@@ -58,7 +58,7 @@ const TagDetail = (props) => {
             authors={b.authors}
             topics=""
             recommenders={b.reviewCount}
-            rating={b.averageRatingOutOfTen}
+            rating={b.averageRatingOutOfFive}
           />
         ))}
       </div>

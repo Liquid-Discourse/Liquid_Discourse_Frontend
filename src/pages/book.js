@@ -141,7 +141,7 @@ const Book = (props) => {
             <div>
               {t.userWhoReviewed.firstName} {t.userWhoReviewed.restOfName}
             </div>
-            <div>{t.ratingOutOfTen}/5</div>
+            <div>{t.ratingOutOfFive}/5</div>
           </div>
         ))}
       </div>

@@ -130,7 +130,7 @@ const Profile = (props) => {
             onClick={() => history.push({ pathname: "/book/" + b.id })}
           >
             <div>{b.book.name}</div>
-            <div>{b.ratingOutOfTen}/5</div>
+            <div>{b.ratingOutOfFive}/5</div>
           </BookReviews>
         ))}
 
@@ -142,7 +142,7 @@ const Profile = (props) => {
             onClick={() => history.push({ pathname: "/book/" + b.id })}
           >
             <div>{b.book.name}</div>
-            <div>{b.ratingOutOfTen}/5</div>
+            <div>{b.ratingOutOfFive}/5</div>
           </BookReviews>
         ))}
       </TabContent>

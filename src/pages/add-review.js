@@ -83,7 +83,7 @@ const AddReview = (props) => {
         const review = await response.data[0];
         await console.log("Existing Review", review);
 
-        setReviewRating(review.ratingOutOfTen);
+        setReviewRating(review.ratingOutOfFive);
 
         const affairTags = [];
         const topicTags = [];
@@ -126,7 +126,7 @@ const AddReview = (props) => {
 
     const body = {
       bookId: props.match.params.bookId,
-      ratingOutOfTen: reviewRating,
+      ratingOutOfFive: reviewRating,
       suggestedTags: combinedTags.map((tag) => tag.value),
       isCompleted: true,
     };

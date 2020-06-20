@@ -89,7 +89,7 @@ const Home = () => {
                 authors={b.authors}
                 topics={b.tags[0]?.name}
                 recommenders={b.reviewCount}
-                rating={b.averageRatingOutOfTen}
+                rating={b.averageRatingOutOfFive}
               />
             ))}
           </>
