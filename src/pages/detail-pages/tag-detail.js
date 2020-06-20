@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import BookCard from "../../components/book-card";
 import axios from "axios";
 
 // We follow a consistent structure for all tag types!
@@ -34,11 +35,25 @@ const TagDetail = (props) => {
 
   useEffect(() => {
     getTagFromBackend();
-  }, []);
+  }, [tagType, tagSlug]);
 
   return (
     <>
       <div>{JSON.stringify(tag, null, 2)}</div>
+      <div style={{ margin: "5%" }}>
+        <div>{tag?.name}</div>
+        {tag?.books?.map((b, i) => (
+          <BookCard
+            key={i}
+            id={b.div}
+            name={b.name}
+            authors={b.authors}
+            topics=""
+            recommenders={b.reviewCount}
+            rating={b.averageRatingOutOfTen}
+          />
+        ))}
+      </div>
     </>
   );
 };
