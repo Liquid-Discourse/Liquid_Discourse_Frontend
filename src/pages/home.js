@@ -9,6 +9,7 @@ import TwoCol from "components/layouts/two-col";
 import { HorizontalSpacer } from "../components/spacer";
 
 import HomeCover from "components/single-use/home-cover";
+import { ReactComponent as ViewAllIcon } from "assets/icons/view-all.svg";
 
 const Title = styled.div`
   font-size: 15px;
@@ -49,47 +50,7 @@ const CoverTitle = ({ name, slug, redirectTo }) => (
     </Title>
     <SubTitle onClick={() => redirectTo(slug)}>
       <div style={{ marginRight: "10px" }}>See all</div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="10"
-        height="12"
-        viewBox="0 0 17.747 19.664"
-      >
-        <g
-          id="Group_1"
-          data-name="Group 1"
-          transform="translate(-1820.753 -154.5)"
-        >
-          <line
-            id="Line_1"
-            data-name="Line 1"
-            y1="18"
-            x2="16"
-            transform="translate(1821.5 155.5)"
-            fill="none"
-            stroke="#000"
-            strokeWidth="2"
-          />
-          <line
-            id="Line_2"
-            data-name="Line 2"
-            y1="18"
-            transform="translate(1837.5 155.5)"
-            fill="none"
-            stroke="#000"
-            strokeWidth="2"
-          />
-          <line
-            id="Line_3"
-            data-name="Line 3"
-            x2="17"
-            transform="translate(1821.5 155.5)"
-            fill="none"
-            stroke="#000"
-            strokeWidth="2"
-          />
-        </g>
-      </svg>
+      <ViewAllIcon />
     </SubTitle>
   </div>
 );

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import BookCard from "../../components/book-card";
+import BookCard from "components/book-card";
+import TwoCol from "components/layouts/two-col";
 import axios from "axios";
 
 // We follow a consistent structure for all tag types!
@@ -39,7 +40,14 @@ const TagDetail = (props) => {
 
   return (
     <>
+      {/* Error and loading */}
+      <div>
+        {error ? "An error occurred. Please try reloading the page." : ""}
+      </div>
+      <div>{loading ? "Loading..." : ""}</div>
+      {/* Debug */}
       <div>{JSON.stringify(tag, null, 2)}</div>
+      {/* Content */}
       <div style={{ margin: "5%" }}>
         <div>{tag?.name}</div>
         {tag?.books?.map((b, i) => (
