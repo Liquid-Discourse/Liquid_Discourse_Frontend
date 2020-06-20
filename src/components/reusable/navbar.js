@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useAuth0 } from "../react-auth0-spa";
+import { useAuth0 } from "react-auth0-spa";
 import { Link } from "react-router-dom";
 
 const Nav = styled.div`

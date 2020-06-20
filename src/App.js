@@ -1,20 +1,20 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Home from "./pages/home";
-import Profile from "./pages/profile";
-import Navbar from "./components/navbar";
-import Book from "./pages/book";
-import SearchBook from "./pages/search-book";
-import Settings from "./pages/settings";
-import AddReview from "./pages/add-review";
-import SubPage from "./pages/sub-pages/current-affair-subpage";
+import Home from "pages/home";
+import Profile from "pages/profile";
+import Navbar from "components/reusable/navbar";
+import Book from "pages/book";
+import SearchBook from "pages/search-book";
+import Settings from "pages/settings";
+import AddReview from "pages/add-review";
+import SubPage from "pages/sub-pages/current-affair-subpage";
 
-import TagDetail from "./pages/detail-pages/tag-detail";
+import TagDetail from "pages/detail-pages/tag-detail";
 
-import "./App.css";
+import "App.css";
 
-import { useAuth0 } from "./react-auth0-spa";
-import history from "./utils/history";
+import { useAuth0 } from "react-auth0-spa";
+import history from "utils/history";
 
 function App() {
   const { loading } = useAuth0();

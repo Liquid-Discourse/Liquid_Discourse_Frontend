@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { useAuth0 } from "../react-auth0-spa";
+import { useAuth0 } from "react-auth0-spa";
 
 const Name = styled.div`
   font-size: 3.3vh;

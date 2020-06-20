@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import Card from "../../components/current-affair-card";
+import Card from "components/current-affair-card";
 import styled from "styled-components";
 import axios from "axios";
 

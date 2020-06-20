@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useAuth0 } from "../react-auth0-spa";
+import { useAuth0 } from "react-auth0-spa";
 import { useHistory, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, withRouter } from "react-router-dom";
 import styled from "styled-components";
-import { useAuth0 } from "../react-auth0-spa";
-import TagSelect from "../components/tag-select";
+import { useAuth0 } from "react-auth0-spa";
+import TagSelect from "components/reusable/tag-select";
 import axios from "axios";
 
 const Container = styled.div`

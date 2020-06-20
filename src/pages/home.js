@@ -6,7 +6,7 @@ import Card from "components/current-affair-card-long";
 import BookCard from "components/book-card";
 
 import TwoCol from "components/layouts/two-col";
-import { HorizontalSpacer } from "components/spacer";
+import { HorizontalSpacer } from "components/reusable/spacer";
 
 import HomeCover from "components/single-use/home-cover";
 import CoverTitle from "components/reusable/cover-title";
