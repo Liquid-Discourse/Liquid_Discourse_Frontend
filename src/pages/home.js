@@ -1,59 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory, withRouter } from "react-router-dom";
-import Card from "../components/current-affair-card-long";
-import BookCard from "../components/book-card";
-import styled from "styled-components";
+
+import Card from "components/current-affair-card-long";
+import BookCard from "components/book-card";
 
 import TwoCol from "components/layouts/two-col";
-import { HorizontalSpacer } from "../components/spacer";
+import { HorizontalSpacer } from "components/spacer";
 
 import HomeCover from "components/single-use/home-cover";
-import { ReactComponent as ViewAllIcon } from "assets/icons/view-all.svg";
-
-const Title = styled.div`
-  font-size: 15px;
-  font-family: Poppins;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-`;
-
-const SubTitle = styled.div`
-  /* margin-top: 5%; */
-  font-size: 12px;
-  font-family: Poppins;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  cursor: pointer;
-`;
-const Cover = styled.div`
-  width: 100%;
-  padding-top: 6%;
-  padding-bottom: 9%;
-  background-color: #efebe9;
-  box-shadow: inset 0 0 20px rgb(240, 240, 240);
-`;
-
-const CoverTitle = ({ name, slug, redirectTo }) => (
-  <div
-    style={{
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "baseline",
-      marginBottom: "3%",
-    }}
-  >
-    <Title>
-      <div>{name}</div>
-    </Title>
-    <SubTitle onClick={() => redirectTo(slug)}>
-      <div style={{ marginRight: "10px" }}>See all</div>
-      <ViewAllIcon />
-    </SubTitle>
-  </div>
-);
+import CoverTitle from "components/reusable/cover-title";
 
 const Home = () => {
   const history = useHistory();
@@ -63,23 +19,26 @@ const Home = () => {
   const redirectTo = (slug) => {
     history.push({ pathname: "/see-all/" + slug });
   };
+
   const goToAffair = (id) => {
     history.push({ pathname: "/current-affair/" + id });
   };
 
   useEffect(() => {
     const getPage = async () => {
-      let content = await axios.get(`${process.env.REACT_APP_API_URL}/tags/`, {
+      let content = await axios.get(`${process.env.REACT_APP_API_URL}/tags`, {
         params: {
           type: "AFFAIR",
+          order: "bookCount",
           orderDirection: "DESC",
         },
       });
       console.log(content);
       setContent(content.data);
     };
+
     const getBooks = async () => {
-      let content = await axios.get(`${process.env.REACT_APP_API_URL}/books/`, {
+      let content = await axios.get(`${process.env.REACT_APP_API_URL}/books`, {
         params: {
           order: "reviewCount",
           orderDirection: "DESC",
@@ -88,6 +47,7 @@ const Home = () => {
       console.log(content.data);
       setBooks(content.data);
     };
+
     getPage();
     getBooks();
   }, []);
