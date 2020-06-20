@@ -4,11 +4,11 @@ import { useHistory, withRouter } from "react-router-dom";
 import Card from "../components/current-affair-card-long";
 import BookCard from "../components/book-card";
 import styled from "styled-components";
-import scribble from "../assets/scribbles-scribbles-73.png";
-import scribble2 from "../assets/scribbles-scribbles-7.png";
 
-import ContentStructure from "../components/content-structure";
+import TwoCol from "components/layouts/two-col";
 import { HorizontalSpacer } from "../components/spacer";
+
+import HomeCover from "components/single-use/home-cover";
 
 const Title = styled.div`
   font-size: 15px;
@@ -16,12 +16,6 @@ const Title = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
-  margin-left: 5%;
-`;
-const Title2 = styled.div`
-  font-size: 3.5vh;
-  font-family: Montaga;
-  text-align: center;
 `;
 
 const SubTitle = styled.div`
@@ -139,94 +133,47 @@ const Home = () => {
 
   return (
     <div>
-      <Cover>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              width: "130px",
-              height: "auto",
-              marginRight: "20px",
-            }}
-          >
-            <img
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                transform: " scaleX(-1) rotate(-20deg)",
-              }}
-              alt="squiggle"
-              src={scribble}
-            />
-          </div>
-          <Title2>Find and review books on the issues that matter.</Title2>
-          <div
-            style={{
-              width: "160px",
-              height: "auto",
-              marginRight: "10px",
-            }}
-          >
-            <img
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-              }}
-              alt="line"
-              src={scribble2}
-            />
-          </div>
-        </div>
-      </Cover>
+      <HomeCover />
       {/* Spacer */}
       <HorizontalSpacer size={40} />
       {/* Below the header */}
-      <ContentStructure>
-        <div style={{ width: "60%", display: "flex", flexDirection: "column" }}>
-          <CoverTitle
-            name="Current Affairs"
-            slug="current-affairs"
-            redirectTo={goToAffair}
-          />
-          {content?.map((c, i) => (
-            <Card
-              key={i}
-              id={c.id}
-              name={c.name}
-              upvotes="something"
-              books={c.books.length}
-              recommenders="10 recommenders"
+      <TwoCol
+        left={
+          <>
+            <CoverTitle
+              name="Current Affairs"
+              slug="current-affairs"
+              redirectTo={goToAffair}
             />
-          ))}
-        </div>
-        <div
-          style={{
-            marginRight: "1%",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <CoverTitle name="Top Books" slug="books" redirectTo={redirectTo} />
-          {books?.map((b, i) => (
-            <BookCard
-              key={i}
-              id={b.div}
-              name={b.name}
-              authors={b.authors}
-              topics={b.tags[0]?.name}
-              recommenders={b.reviewCount}
-              rating={b.averageRatingOutOfTen}
-            />
-          ))}
-        </div>
-      </ContentStructure>
+            {content?.map((c, i) => (
+              <Card
+                key={i}
+                id={c.id}
+                name={c.name}
+                upvotes="something"
+                books={c.books.length}
+                recommenders="10 recommenders"
+              />
+            ))}
+          </>
+        }
+        right={
+          <>
+            <CoverTitle name="Top Books" slug="books" redirectTo={redirectTo} />
+            {books?.map((b, i) => (
+              <BookCard
+                key={i}
+                id={b.div}
+                name={b.name}
+                authors={b.authors}
+                topics={b.tags[0]?.name}
+                recommenders={b.reviewCount}
+                rating={b.averageRatingOutOfTen}
+              />
+            ))}
+          </>
+        }
+      ></TwoCol>
     </div>
   );
 };
