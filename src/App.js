@@ -7,7 +7,8 @@ import Book from "pages/book";
 import SearchBook from "pages/search-book";
 import Settings from "pages/settings";
 import AddReview from "pages/add-review";
-import SubPage from "pages/discovery-pages/current-affair-subpage";
+
+import AffairDiscovery from "pages/discovery-pages/current-affair-discovery";
 
 import AffairDetail from "pages/detail-pages/current-affair-detail";
 import TopicDetail from "pages/detail-pages/topic-detail";
@@ -35,8 +36,7 @@ function App() {
         <Route path="/search-book" exact component={SearchBook} />
         <Route path="/add-review/:bookId" exact component={AddReview} />
         {/* Discovery pages */}
-        {/* I recommend we have separate ones for each? e.g. /books, /current-affairs */}
-        <Route path="/see-all/:subpage" exact component={SubPage} />
+        <Route path="/current-affairs" exact component={AffairDiscovery} />
         {/* Detail pages */}
         <Route path="/users/:username" exact component={Profile} />
         <Route path="/books/:id" exact component={Book} />

@@ -18,12 +18,8 @@ const Home = () => {
   const [currentAffairs, setCurrentAffairs] = useState([]);
   const [books, setBooks] = useState(null);
 
-  const redirectTo = (slug) => {
-    history.push({ pathname: "/see-all/" + slug });
-  };
-
-  const goToAffair = (id) => {
-    history.push({ pathname: "/current-affairs/" + id });
+  const redirectToPage = (path) => {
+    history.push({ pathname: path });
   };
 
   useEffect(() => {
@@ -75,7 +71,7 @@ const Home = () => {
             <CoverTitle
               name="Current Affairs"
               slug="current-affairs"
-              redirectTo={goToAffair}
+              redirectTo={() => redirectToPage(`/current-affairs`)}
             />
             {currentAffairs?.map((affair, i) => (
               <Card
@@ -92,7 +88,11 @@ const Home = () => {
         }
         right={
           <>
-            <CoverTitle name="Top Books" slug="books" redirectTo={redirectTo} />
+            <CoverTitle
+              name="Top Books"
+              slug="books"
+              redirectTo={() => redirectToPage(`/books`)}
+            />
             {books?.map((b, i) => (
               <BookCard
                 key={i}

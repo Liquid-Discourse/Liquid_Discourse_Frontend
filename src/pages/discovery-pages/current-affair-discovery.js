@@ -29,23 +29,26 @@ const Title = styled.div`
   margin-left: 5%;
 `;
 const CurrentAffairSubpage = (props) => {
-  const [content, setContent] = useState(null);
+  const [affairs, setAffairs] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
-    const getPage = async () => {
-      let content = await axios.get(`${process.env.REACT_APP_API_URL}/tags/`, {
-        params: {
-          slug: props.match.params.id,
-        },
-      });
-      setContent(content.data);
+    const getAffairs = async () => {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/tags/`,
+        {
+          params: {
+            type: "AFFAIR",
+          },
+        }
+      );
+      setAffairs(response.data);
     };
-    getPage();
+    getAffairs();
   }, []);
 
-  const redirectTo = (id) => {
-    history.push({ pathname: "/books/" + id });
+  const redirectToPath = (path) => {
+    history.push({ pathname: path });
   };
 
   return (
@@ -73,14 +76,14 @@ const CurrentAffairSubpage = (props) => {
           </div>
         </AddCard>
         <div>
-          {content?.map((c, i) => (
+          {affairs?.map((affair, i) => (
             <Card
-              onClick={() => redirectTo(c.id)}
+              onClick={() => redirectToPath(`/current-affairs/${affair.slug}`)}
               key={i}
               id="black-lives-matter"
-              name={c.name}
+              name={affair.name}
               upvotes="something"
-              books={c.books.length}
+              books={affair.books.length}
               recommenders="10 recommenders"
             />
           ))}
