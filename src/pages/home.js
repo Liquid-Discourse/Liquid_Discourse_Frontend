@@ -11,6 +11,8 @@ import { HorizontalSpacer } from "components/reusable/spacer";
 import HomeCover from "components/single-use/home-cover";
 import CoverTitle from "components/reusable/cover-title";
 
+import { Helmet } from "react-helmet";
+
 const Home = () => {
   const history = useHistory();
   const [content, setContent] = useState(null);
@@ -54,7 +56,10 @@ const Home = () => {
   console.log("books", books);
 
   return (
-    <div>
+    <>
+      <Helmet>
+        <title>Proofed - Home</title>
+      </Helmet>
       <HomeCover />
       {/* Spacer */}
       <HorizontalSpacer size={40} />
@@ -97,7 +102,7 @@ const Home = () => {
           </>
         }
       ></TwoCol>
-    </div>
+    </>
   );
 };
 

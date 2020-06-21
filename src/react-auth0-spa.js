@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import createAuth0Client from "@auth0/auth0-spa-js";
 import axios from "axios";
+import logger from "utils/logger";
 
 const DEFAULT_REDIRECT_CALLBACK = () =>
   window.history.replaceState({}, document.title, window.location.pathname);
@@ -30,8 +31,7 @@ export const Auth0Provider = ({
   };
 
   const getUserInfoFromDB = async (token) => {
-    //
-    console.log("Getting user info for...", token);
+    logger("AUTH0", "Getting user info for", token);
     // create user if not exist
     await createUserIfNotExist(token);
     // get user information from db
