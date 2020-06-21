@@ -6,7 +6,7 @@ import axios from "axios";
 import BookCard from "components/book-card";
 import TwoCol from "components/layouts/two-col";
 
-import useTag from "hooks/tag-hook";
+import { getRelatedTags } from "utils/api-helpers";
 
 const TopicPill = styled.button`
   font-family: Poppins;
@@ -38,13 +38,47 @@ const Subtitle = styled.div`
 `;
 
 // We follow a consistent structure for all tag types!
-const TagDetail = (props) => {
-  let tagType = props.type;
+const TopicDetail = (props) => {
   let tagSlug = props.match.params.slug;
 
   const history = useHistory();
+  const [topics, setTopics] = useState(null);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [tag, setTag] = useState({});
+  const [relatedTags, setRelatedTags] = useState({});
 
-  const { tag, relatedTags, error, loading } = useTag({ tagType, tagSlug });
+  const getTagFromBackend = async () => {
+    setLoading(true);
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/tags`, {
+      params: {
+        type: "TOPIC",
+        slug: tagSlug,
+      },
+    });
+    if (!response?.data) {
+      return;
+    }
+
+    const tag = response.data[0];
+    const relatedTags = await getRelatedTags(tag.id);
+    setRelatedTags(relatedTags);
+
+    console.log(relatedTags);
+
+    // const relatedTopics = relatedTopics.CATEGORIZED.TOPIC;
+    // if (relatedTopics.length > 3) {
+    //   relatedTopics = relatedTopics.slice(3);
+    // }
+    // setTopics(relatedTopics);
+
+    setTag(tag);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getTagFromBackend();
+  }, [tagType, tagSlug]);
 
   const redirectToPage = (path) => {
     history.push({ pathname: path });
@@ -61,9 +95,7 @@ const TagDetail = (props) => {
       <TwoCol
         left={
           <>
-            <Title>
-              {tagType}: {tag?.name}
-            </Title>
+            <Title>Topic: {tag?.name}</Title>
             <div style={{ display: "flex" }}>
               {tag?.books?.map((b, i) => (
                 <BookCard
