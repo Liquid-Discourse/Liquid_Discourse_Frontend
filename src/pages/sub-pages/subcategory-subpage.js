@@ -47,7 +47,7 @@ const SubcategorySubpage = (props) => {
   }, []);
 
   const redirectTo = (id) => {
-    history.push({ pathname: "/book" + id });
+    history.push({ pathname: "/books/" + id });
   };
 
   return (

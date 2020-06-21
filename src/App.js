@@ -39,8 +39,7 @@ function App() {
         <Route path="/see-all/:subpage" exact component={SubPage} />
         {/* Detail pages */}
         <Route path="/users/:username" exact component={Profile} />
-        <Route path="/book/:id" exact component={Book} />
-
+        <Route path="/books/:id" exact component={Book} />
         <Route path="/current-affairs/:slug" exact component={AffairDetail} />
         <Route path="/topics/:slug" exact component={TopicDetail} />
         <Route path="/countries/:slug" exact component={CountryDetail} />

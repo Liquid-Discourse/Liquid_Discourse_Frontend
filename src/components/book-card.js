@@ -65,7 +65,7 @@ const BookCard = ({ id, name, authors, topics, recommenders, rating }) => {
   const history = useHistory();
 
   const redirectCurrentAffair = (id) => {
-    history.push({ pathname: "/book/" + id });
+    history.push({ pathname: "/books/" + id });
   };
 
   return (
