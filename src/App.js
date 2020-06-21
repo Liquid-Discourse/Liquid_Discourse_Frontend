@@ -11,6 +11,7 @@ import SubPage from "pages/sub-pages/current-affair-subpage";
 
 import TagDetail from "pages/detail-pages/tag-detail";
 import TopicDetail from "pages/detail-pages/topic-detail";
+import CurrentAffairDetail from "pages/detail-pages/current-affair-detail";
 
 import "App.css";
 
@@ -39,15 +40,12 @@ function App() {
         {/* Detail pages */}
         <Route path="/users/:username" exact component={Profile} />
         <Route path="/book/:id" exact component={Book} />
-        <Route
-          path="/topics/:slug"
-          exact
-          render={(props) => <TopicDetail {...props} />}
-        />
+
+        <Route path="/topics/:slug" exact component={TopicDetail} />
         <Route
           path="/current-affairs/:slug"
           exact
-          render={(props) => <TagDetail {...props} type="AFFAIR" />}
+          component={CurrentAffairDetail}
         />
         <Route
           path="/countries/:slug"
