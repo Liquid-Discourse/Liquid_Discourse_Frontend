@@ -78,9 +78,9 @@ const CurrentAffairDiscovery = (props) => {
         <div>
           {affairs?.map((affair, i) => (
             <Card
-              onClick={() => redirectToPath(`/current-affairs/${affair.slug}`)}
               key={i}
-              id="black-lives-matter"
+              id={affair.id}
+              slug={affair.slug}
               name={affair.name}
               upvotes="something"
               books={affair.books.length}
