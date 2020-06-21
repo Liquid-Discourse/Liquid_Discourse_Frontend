@@ -1,15 +1,19 @@
 import React from "react";
 import { Router, Route } from "react-router-dom";
 import Home from "pages/home";
-import Profile from "pages/detail-pages/profile";
+
 import Navbar from "components/reusable/navbar";
-import Book from "pages/book";
+
 import SearchBook from "pages/search-book";
 import Settings from "pages/settings";
 import AddReview from "pages/add-review";
 
+import BookDiscovery from "pages/discovery-pages/book-discovery";
 import AffairDiscovery from "pages/discovery-pages/current-affair-discovery";
+import TopicDiscovery from "pages/discovery-pages/topic-discovery";
 
+import UserDetail from "pages/detail-pages/user-detail";
+import BookDetail from "pages/detail-pages/book-detail";
 import AffairDetail from "pages/detail-pages/current-affair-detail";
 import TopicDetail from "pages/detail-pages/topic-detail";
 import CountryDetail from "pages/detail-pages/country-detail";
@@ -36,10 +40,12 @@ function App() {
         <Route path="/search-book" exact component={SearchBook} />
         <Route path="/add-review/:bookId" exact component={AddReview} />
         {/* Discovery pages */}
+        <Route path="/books" exact component={BookDiscovery} />
         <Route path="/current-affairs" exact component={AffairDiscovery} />
+        <Route path="/topics" exact component={TopicDiscovery} />
         {/* Detail pages */}
-        <Route path="/users/:username" exact component={Profile} />
-        <Route path="/books/:id" exact component={Book} />
+        <Route path="/users/:username" exact component={UserDetail} />
+        <Route path="/books/:id" exact component={BookDetail} />
         <Route path="/current-affairs/:slug" exact component={AffairDetail} />
         <Route path="/topics/:slug" exact component={TopicDetail} />
         <Route path="/countries/:slug" exact component={CountryDetail} />

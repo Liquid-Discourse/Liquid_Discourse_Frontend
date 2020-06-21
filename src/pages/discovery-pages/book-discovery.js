@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import Card from "components/current-affair-card";
+import Card from "components/current-affair-card-long";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -10,7 +10,7 @@ const AddCard = styled.div`
   border-radius: 5px;
   width: 100%;
   height: 70px;
-  margin: 3%;
+  margin: 1%;
   padding: 1% 2%;
   position: relative;
   display: flex;
@@ -29,30 +29,28 @@ const Title = styled.div`
   margin-left: 5%;
 `;
 
-const SubcategorySubpage = (props) => {
-  const [content, setContent] = useState();
+const BookDiscovery = (props) => {
+  const [books, setBooks] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
-    const getPage = async () => {
-      content = await axios.get(`${process.env.REACT_APP_API_URL}/tags/`, {
-        params: {
-          type: "TOPIC",
-          orderDirection: "DESC",
-        },
-      });
-      setContent(content);
+    const getBooks = async () => {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/books`,
+        {}
+      );
+      setBooks(response.data);
     };
-    getPage();
+    getBooks();
   }, []);
 
-  const redirectTo = (id) => {
-    history.push({ pathname: "/books/" + id });
+  const redirectToPath = (path) => {
+    history.push({ pathname: path });
   };
 
   return (
     <div style={{ marginLeft: "5%", marginRight: "5%", marginBottom: "5%" }}>
-      <Title>Current Affairs</Title>
+      <Title>Books</Title>
       <div
         style={{
           display: "flex",
@@ -71,29 +69,25 @@ const SubcategorySubpage = (props) => {
               <path d="M0 0h24v24H0z" fill="none" />
               <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
             </svg>
-            <div style={{ fontFamily: "Poppins" }}>Submit a Current Affair</div>
+            <div style={{ fontFamily: "Poppins" }}>Submit a book</div>
           </div>
         </AddCard>
-        {content == null ? (
-          <div />
-        ) : (
-          <div>
-            {content.map((c, i) => (
-              <Card
-                onClick={redirectTo(c.id)}
-                key={i}
-                id="black-lives-matter"
-                name="Climate Change"
-                upvotes="200 books"
-                books="10 categories"
-                recommenders="10 recommenders"
-              />
-            ))}
-          </div>
-        )}
+        <div>
+          {books?.map((book, i) => (
+            <Card
+              onClick={() => redirectToPath(`/books/${book.id}`)}
+              key={i}
+              id="black-lives-matter"
+              name={book.name}
+              upvotes="something"
+              books={book.length}
+              recommenders="10 recommenders"
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export default SubcategorySubpage;
+export default BookDiscovery;

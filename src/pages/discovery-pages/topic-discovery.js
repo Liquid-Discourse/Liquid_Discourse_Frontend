@@ -28,23 +28,24 @@ const Title = styled.div`
   flex-direction: row;
   margin-left: 5%;
 `;
-const CurrentAffairDiscovery = (props) => {
-  const [affairs, setAffairs] = useState([]);
+
+const TopicDiscovery = (props) => {
+  const [topics, setTopics] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
-    const getAffairs = async () => {
+    const getTopics = async () => {
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/tags/`,
         {
           params: {
-            type: "AFFAIR",
+            type: "TOPIC",
           },
         }
       );
-      setAffairs(response.data);
+      setTopics(response.data);
     };
-    getAffairs();
+    getTopics();
   }, []);
 
   const redirectToPath = (path) => {
@@ -53,7 +54,7 @@ const CurrentAffairDiscovery = (props) => {
 
   return (
     <div style={{ marginLeft: "5%", marginRight: "5%", marginBottom: "5%" }}>
-      <Title>Current Affairs</Title>
+      <Title>Topics</Title>
       <div
         style={{
           display: "flex",
@@ -72,18 +73,18 @@ const CurrentAffairDiscovery = (props) => {
               <path d="M0 0h24v24H0z" fill="none" />
               <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
             </svg>
-            <div style={{ fontFamily: "Poppins" }}>Submit a Current Affair</div>
+            <div style={{ fontFamily: "Poppins" }}>Submit a Topic</div>
           </div>
         </AddCard>
         <div>
-          {affairs?.map((affair, i) => (
+          {topics?.map((topic, i) => (
             <Card
-              onClick={() => redirectToPath(`/current-affairs/${affair.slug}`)}
+              onClick={() => redirectToPath(`/topics/${topic.slug}`)}
               key={i}
               id="black-lives-matter"
-              name={affair.name}
+              name={topic.name}
               upvotes="something"
-              books={affair.books.length}
+              books={topic.books.length}
               recommenders="10 recommenders"
             />
           ))}
@@ -93,4 +94,4 @@ const CurrentAffairDiscovery = (props) => {
   );
 };
 
-export default CurrentAffairDiscovery;
+export default TopicDiscovery;
