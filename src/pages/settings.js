@@ -91,9 +91,7 @@ const Settings = () => {
 
   const handleSubmit = async () => {
     const token = await getTokenSilently();
-    console.log("username", username);
-    console.log("deleteuser", deleteUser);
-    console.log("public", publicProf);
+
     if (deleteUser === true) {
       await axios.delete(`${process.env.REACT_APP_API_URL}/users`, {
         headers: { Authorization: `Bearer ${token}` },

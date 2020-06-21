@@ -39,7 +39,6 @@ const CurrentAffairSubpage = (props) => {
           slug: props.match.params.id,
         },
       });
-      console.log(content);
       setContent(content.data);
     };
     getPage();

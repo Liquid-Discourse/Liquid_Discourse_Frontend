@@ -57,7 +57,6 @@ const Home = () => {
     getCurrentAffairs();
     getBooks();
   }, []);
-  console.log("books", books);
 
   return (
     <>

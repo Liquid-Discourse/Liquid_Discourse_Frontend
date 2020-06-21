@@ -70,7 +70,6 @@ const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
   useEffect(() => {
     const getTags = async () => {
       let topics = await getRelatedTags(id);
-      console.log("topics", topics);
       topics = topics.CATEGORIZED.TOPIC;
       if (topics.length > 3) {
         topics = topics.slice(3);

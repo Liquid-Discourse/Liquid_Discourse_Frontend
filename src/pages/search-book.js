@@ -58,7 +58,6 @@ const SearchBook = () => {
     url.searchParams.append("q", searchValue);
     let response = await fetch(url);
     let answer = await response.json();
-    console.log(answer);
     setBookFound(answer.items);
   };
 
@@ -79,7 +78,6 @@ const SearchBook = () => {
     const existingBook = await checkBook(
       book.volumeInfo.industryIdentifiers[1].identifier
     );
-    console.log("existing book", existingBook);
 
     // if it does, redirect to its page
     if (existingBook) {
@@ -91,8 +89,6 @@ const SearchBook = () => {
       name: book.volumeInfo.title,
       authors: book.volumeInfo.authors,
     };
-
-    console.log("Posting book with payload:", payload);
 
     let response = await axios.post(
       `${process.env.REACT_APP_API_URL}/books`,

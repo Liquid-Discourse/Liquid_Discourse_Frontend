@@ -57,7 +57,6 @@ const Book = (props) => {
   const [book, setBook] = useState();
   useEffect(() => {
     const getBook = async () => {
-      console.log(props.match.params.id);
       let content = await axios.get(
         `${process.env.REACT_APP_API_URL}/books/${props.match.params.id}`
       );
@@ -66,7 +65,6 @@ const Book = (props) => {
     getBook();
   }, [props.match.params.id]);
 
-  console.log(book);
   const addBook = async () => {
     if (user != null) {
       const token = await getTokenSilently();
@@ -83,7 +81,6 @@ const Book = (props) => {
         }
       );
       const bookReview = response.data?.length && response.data[0];
-      console.log(bookReview);
       if (bookReview) {
         return;
       }

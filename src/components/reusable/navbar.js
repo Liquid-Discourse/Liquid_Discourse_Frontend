@@ -48,8 +48,6 @@ const Dropdown = styled.div`
 const Navbar = () => {
   const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
 
-  console.log(user);
-
   return (
     <Nav>
       <Link to="/" style={{ textDecoration: "none", color: "black" }}>

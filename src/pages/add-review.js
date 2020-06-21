@@ -81,7 +81,6 @@ const AddReview = (props) => {
       );
       if (await (response.data && response.data.length)) {
         const review = await response.data[0];
-        await console.log("Existing Review", review);
 
         setReviewRating(review.ratingOutOfFive);
 
@@ -142,7 +141,6 @@ const AddReview = (props) => {
         },
       }
     );
-    await console.log(response);
 
     history.push({ pathname: "/users/" + user?.database?.username });
   };

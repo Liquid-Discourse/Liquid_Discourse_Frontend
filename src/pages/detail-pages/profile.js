@@ -62,7 +62,6 @@ const Profile = (props) => {
         `${process.env.REACT_APP_API_URL}/users/profile/${props.match.params.username}`
       );
       setProfile(profile);
-      console.log("profile data", profile.data);
     };
     getProfile();
   }, [props.match.params.username]);
