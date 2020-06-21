@@ -1,14 +1,45 @@
 import React, { useState, useEffect } from "react";
+import { useHistory, withRouter } from "react-router-dom";
 import BookCard from "components/book-card";
 import TwoCol from "components/layouts/two-col";
 import axios from "axios";
+import { getRelatedTags } from "utils/api-helpers";
+import styled from "styled-components";
+
+const TopicPill = styled.button`
+  font-family: Poppins;
+  width: 100%;
+  background-color: white;
+  margin-top: 10px;
+  padding: 5px 10px;
+  text-align: left;
+  margin-right: 5px;
+  margin-left: 5px;
+  border: 1px solid #d7ccc8;
+  border-radius: 5px;
+  &:hover {
+    background-color: rgb(240, 240, 240);
+  }
+`;
+const Title = styled.div`
+  font-size: 20px;
+  font-family: Montaga;
+  word-wrap: break-word;
+  padding-bottom: 5px;
+`;
+const Subtitle = styled.div`
+  /* margin-top: 5%; */
+  font-size: 15px;
+  font-family: Poppins;
+`;
 
 // We follow a consistent structure for all tag types!
 const TagDetail = (props) => {
-  const tagType = props.type;
-  const tagSlug = props.match.params.id;
-  console.log(tagSlug);
+  let tagType = props.type;
+  let tagSlug = props.match.params.id;
 
+  const history = useHistory();
+  const [topics, setTopics] = useState(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [tag, setTag] = useState({});
@@ -24,13 +55,22 @@ const TagDetail = (props) => {
     });
     console.log("response", response);
     // check if tag exists
-    if (response?.data?.length !== 1) {
-      setError(true);
-      setLoading(false);
-      return;
-    }
+    // if (response?.data?.length !== 1) {
+    //   setError(true);
+    //   setLoading(false);
+    //   return;
+    // }
     // get first tag in result
     const tag = response.data[0];
+
+    let relatedTopics = await getRelatedTags(response.data[0].id);
+    console.log("topics", relatedTopics);
+    relatedTopics = relatedTopics.CATEGORIZED.TOPIC;
+    if (relatedTopics.length > 3) {
+      relatedTopics = relatedTopics.slice(3);
+    }
+    setTopics(relatedTopics);
+
     setTag(tag);
     console.log(tag);
     setLoading(false);
@@ -40,32 +80,67 @@ const TagDetail = (props) => {
     getTagFromBackend();
   }, [tagType, tagSlug]);
 
+  const redirectToTopic = (slug) => {
+    tagType = "TOPIC";
+    tagSlug = slug;
+    history.push({ pathname: "/topics/" + slug });
+  };
+
   return (
-    <>
+    <div style={{ marginTop: "5%" }}>
       {/* Error and loading */}
       <div>
         {error ? "An error occurred. Please try reloading the page." : ""}
       </div>
       <div>{loading ? "Loading..." : ""}</div>
-      {/* Debug */}
-      <div>{JSON.stringify(tag, null, 2)}</div>
       {/* Content */}
-      <div style={{ margin: "5%" }}>
-        <div>{tag?.name}</div>
-        {tag?.books?.map((b, i) => (
-          <BookCard
-            key={i}
-            id={b.div}
-            name={b.name}
-            authors={b.authors}
-            topics=""
-            recommenders={b.reviewCount}
-            rating={b.averageRatingOutOfFive}
-          />
-        ))}
-      </div>
-    </>
+      <TwoCol
+        left={
+          <>
+            <Title>
+              {tagType}: {tag?.name}
+            </Title>
+            <div style={{ display: "flex" }}>
+              {tag?.books?.map((b, i) => (
+                <BookCard
+                  key={i}
+                  id={b.div}
+                  name={b.name}
+                  authors={b.authors}
+                  topics={b.tags[0]?.name}
+                  recommenders={b.reviewCount}
+                  rating={b.averageRatingOutOfFive}
+                />
+              ))}
+            </div>
+          </>
+        }
+        right={
+          <>
+            <div>
+              <Subtitle
+                style={{
+                  marginBottom: "4%",
+                  marginLeft: "10px",
+                  marginTop: "5px",
+                }}
+              >
+                Related Topics
+              </Subtitle>
+              {topics?.map((b, i) => (
+                <TopicPill onClick={() => redirectToTopic(b.slug)} key={i}>
+                  <div style={{ fontSize: "15px", marginBottom: "5px" }}>
+                    {b.name}
+                  </div>
+                  <div>{b.bookCount} books under this topic</div>
+                </TopicPill>
+              ))}
+            </div>
+          </>
+        }
+      ></TwoCol>
+    </div>
   );
 };
 
-export default TagDetail;
+export default withRouter(TagDetail);

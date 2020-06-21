@@ -67,6 +67,10 @@ const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
     history.push({ pathname: "/current-affairs/" + slug });
   };
 
+  const redirectToTopic = (id) => {
+    history.push({ pathname: "/topics/" + slug });
+  };
+
   useEffect(() => {
     const getTags = async () => {
       let topics = await getRelatedTags(id);
@@ -82,13 +86,14 @@ const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
   }, []);
 
   return (
-    <Border onClick={() => redirectCurrentAffair(id)}>
+    <Border>
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-start",
         }}
+        onClick={() => redirectCurrentAffair(id)}
       >
         <div>
           <Title>{name}</Title>
@@ -110,7 +115,7 @@ const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
         <div>Top Topics: </div>
         <TopicWrapper>
           {topics?.map((t, i) => (
-            <TopicPill key={i}>
+            <TopicPill onClick={() => redirectToTopic(t.slug)} key={i}>
               <div>{t.name}</div>
               <div>{t.bookCount}</div>
             </TopicPill>
