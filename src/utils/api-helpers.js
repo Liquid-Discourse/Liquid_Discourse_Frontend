@@ -3,7 +3,7 @@ import axios from "axios";
 export const getRelatedTags = async (tagId) => {
   // get the tag
   const response = await axios.get(
-    `${process.env.REACT_APP_API_URL}/tag/${tagId}`
+    `${process.env.REACT_APP_API_URL}/tags/${tagId}`
   );
   const tag = await response.data;
   if (!tag) {
