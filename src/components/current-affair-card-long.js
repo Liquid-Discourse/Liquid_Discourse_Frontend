@@ -64,11 +64,11 @@ const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
   const history = useHistory();
 
   const redirectCurrentAffair = (id) => {
-    history.push({ pathname: "/current-affairs/" + slug });
+    history.push({ pathname: "/current-affairs/" + id });
   };
 
   const redirectToTopic = (id) => {
-    history.push({ pathname: "/topics/" + slug });
+    history.push({ pathname: "/topics/" + id });
   };
 
   useEffect(() => {
