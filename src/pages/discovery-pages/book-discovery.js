@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import Card from "components/current-affair-card-long";
+import BookCard from "components/book-card";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -74,14 +74,14 @@ const BookDiscovery = (props) => {
         </AddCard>
         <div>
           {books?.map((book, i) => (
-            <Card
-              onClick={() => redirectToPath(`/books/${book.id}`)}
+            <BookCard
               key={i}
-              id="black-lives-matter"
+              id={book.id}
               name={book.name}
-              upvotes="something"
-              books={book.length}
-              recommenders="10 recommenders"
+              authors={book.authors}
+              topics={book.tags[0]?.name}
+              recommenders={book.reviewCount}
+              rating={book.averageRatingOutOfFive}
             />
           ))}
         </div>
