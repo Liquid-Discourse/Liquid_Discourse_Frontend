@@ -63,12 +63,8 @@ const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
   const [topics, setTopics] = useState(null);
   const history = useHistory();
 
-  const redirectCurrentAffair = (id) => {
-    history.push({ pathname: "/current-affairs/" + id });
-  };
-
-  const redirectToTopic = (id) => {
-    history.push({ pathname: "/topics/" + id });
+  const redirectToPage = (path) => {
+    history.push({ pathname: path });
   };
 
   useEffect(() => {
@@ -93,7 +89,7 @@ const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
           justifyContent: "space-between",
           alignItems: "flex-start",
         }}
-        onClick={() => redirectCurrentAffair(id)}
+        onClick={() => redirectToPage(`/current-affairs/${slug}`)}
       >
         <div>
           <Title>{name}</Title>
@@ -115,7 +111,10 @@ const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
         <div>Top Topics: </div>
         <TopicWrapper>
           {topics?.map((t, i) => (
-            <TopicPill onClick={() => redirectToTopic(t.slug)} key={i}>
+            <TopicPill
+              onClick={() => redirectToPage(`/topics/${t.slug}`)}
+              key={i}
+            >
               <div>{t.name}</div>
               <div>{t.bookCount}</div>
             </TopicPill>

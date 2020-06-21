@@ -78,9 +78,9 @@ const Home = () => {
             />
             {currentAffairs?.map((affair, i) => (
               <Card
-                slug={affair.slug}
                 key={i}
                 id={affair.id}
+                slug={affair.slug}
                 name={affair.name}
                 upvotes="something"
                 books={affair.books.length}
