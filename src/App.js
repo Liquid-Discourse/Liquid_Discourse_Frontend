@@ -10,6 +10,7 @@ import AddReview from "pages/add-review";
 import SubPage from "pages/sub-pages/current-affair-subpage";
 
 import TagDetail from "pages/detail-pages/tag-detail";
+import TopicDetail from "pages/detail-pages/topic-detail";
 
 import "App.css";
 
@@ -41,7 +42,7 @@ function App() {
         <Route
           path="/topics/:slug"
           exact
-          render={(props) => <TagDetail {...props} type="TOPIC" />}
+          render={(props) => <TopicDetail {...props} />}
         />
         <Route
           path="/current-affairs/:slug"
