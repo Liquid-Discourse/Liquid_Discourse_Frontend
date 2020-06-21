@@ -16,7 +16,9 @@ export const getRelatedTags = async (tagId) => {
   });
   // remove duplicates
   allTags = Array.from(new Set(allTags));
-  // sort them into categories
+  // sort by book count
+  allTags.sort((tagA, tagB) => tagB?.bookCount - tagA?.bookCount);
+  // bucket them into categories
   const categorizedTags = {
     COUNTRY: [],
     TOPIC: [],
