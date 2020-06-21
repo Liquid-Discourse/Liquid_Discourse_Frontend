@@ -68,9 +68,13 @@ const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
   };
 
   useEffect(() => {
-    let topics = getRelatedTags(id);
-    console.log("topics", topics);
-    setTopics(topics);
+    const getTags = async () => {
+      let topics = await getRelatedTags(id);
+      console.log("topics", topics);
+      setTopics(topics.CATEGORIZED);
+    };
+
+    getTags();
   }, []);
 
   return (
@@ -101,18 +105,12 @@ const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
       <div>
         <div>Top Topics: </div>
         <TopicWrapper>
-          <TopicPill>
-            <div>Topic Example</div>
-            <div>X Books</div>
-          </TopicPill>
-          <TopicPill>
-            <div>Topic Example</div>
-            <div>X Books</div>
-          </TopicPill>
-          <TopicPill>
-            <div>Topic Example</div>
-            <div>X Books</div>
-          </TopicPill>
+          {topics?.TOPIC.map((t, i) => (
+            <TopicPill key={i}>
+              <div>{t.name}</div>
+              <div>{t.bookCount}</div>
+            </TopicPill>
+          ))}
         </TopicWrapper>
       </div>
     </Border>
