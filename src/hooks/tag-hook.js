@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getRelatedTags } from "utils/api-helpers";
 import axios from "axios";
 
-const useTag = ({ type, slug }) => {
+const useTag = (type, slug) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [tag, setTag] = useState({});

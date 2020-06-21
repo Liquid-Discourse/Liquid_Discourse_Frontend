@@ -44,7 +44,7 @@ const TagDetail = (props) => {
 
   const history = useHistory();
 
-  const { tag, relatedTags, error, loading } = useTag({ tagType, tagSlug });
+  const { tag, relatedTags, error, loading } = useTag(tagType, tagSlug);
 
   const redirectToPage = (path) => {
     history.push({ pathname: path });
