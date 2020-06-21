@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useHistory, withRouter } from "react-router-dom";
+import { getRelatedTags } from "../utils/api-helpers";
 
 const Border = styled.div`
   font-family: Poppins;
@@ -59,11 +60,18 @@ const Item = styled.div`
 `;
 
 const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
+  const [topics, setTopics] = useState(null);
   const history = useHistory();
 
   const redirectCurrentAffair = (id) => {
     history.push({ pathname: "/current-affairs/" + slug });
   };
+
+  useEffect(() => {
+    let topics = getRelatedTags(id);
+    console.log("topics", topics);
+    setTopics(topics);
+  }, []);
 
   return (
     <Border onClick={() => redirectCurrentAffair(id)}>
