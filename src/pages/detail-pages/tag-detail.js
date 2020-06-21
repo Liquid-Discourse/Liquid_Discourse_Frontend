@@ -47,6 +47,7 @@ const TagDetail = (props) => {
   const getTagFromBackend = async () => {
     setLoading(true);
     // get the tag data from the backend
+    console.log("slug", tagSlug);
     const response = await axios.get(`${process.env.REACT_APP_API_URL}/tags`, {
       params: {
         type: tagType,
@@ -54,13 +55,6 @@ const TagDetail = (props) => {
       },
     });
     console.log("response", response);
-    // check if tag exists
-    // if (response?.data?.length !== 1) {
-    //   setError(true);
-    //   setLoading(false);
-    //   return;
-    // }
-    // get first tag in result
     const tag = response.data[0];
 
     let relatedTopics = await getRelatedTags(response.data[0].id);
@@ -80,10 +74,9 @@ const TagDetail = (props) => {
     getTagFromBackend();
   }, [tagType, tagSlug]);
 
-  const redirectToTopic = (slug) => {
-    tagType = "TOPIC";
-    tagSlug = slug;
-    history.push({ pathname: "/topics/" + slug });
+  const redirectToTopic = (id) => {
+    console.log(id);
+    history.push({ pathname: "/topics/" + id });
   };
 
   return (

@@ -39,9 +39,11 @@ function App() {
         <Route path="/users/:username" exact component={Profile} />
         <Route path="/book/:id" exact component={Book} />
         <Route
-          path="/topics/:slug"
+          path="/topics/:id"
           exact
-          render={(props) => <TagDetail {...props} type="TOPIC" />}
+          render={(props) => (
+            <TagDetail {...props} key={new Date()} type="TOPIC" />
+          )}
         />
         <Route
           path="/current-affairs/:id"
@@ -49,7 +51,7 @@ function App() {
           render={(props) => <TagDetail {...props} type="AFFAIR" />}
         />
         <Route
-          path="/countries/:slug"
+          path="/countries/:id"
           exact
           render={(props) => <TagDetail {...props} type="COUNTRY" />}
         />
