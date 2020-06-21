@@ -71,7 +71,11 @@ const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
     const getTags = async () => {
       let topics = await getRelatedTags(id);
       console.log("topics", topics);
-      setTopics(topics.CATEGORIZED);
+      topics = topics.CATEGORIZED.TOPIC;
+      if (topics.length > 3) {
+        topics = topics.slice(3);
+      }
+      setTopics(topics);
     };
 
     getTags();
@@ -105,7 +109,7 @@ const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
       <div>
         <div>Top Topics: </div>
         <TopicWrapper>
-          {topics?.TOPIC.map((t, i) => (
+          {topics?.map((t, i) => (
             <TopicPill key={i}>
               <div>{t.name}</div>
               <div>{t.bookCount}</div>
