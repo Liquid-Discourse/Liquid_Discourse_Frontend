@@ -11,8 +11,13 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+const Review = styled.div`
+  border-radius: 5px;
+  padding: 30px 30px;
+  box-shadow: inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd;
+`;
 const Text = styled.textarea`
-  min-width: 40vw;
+  min-width: 47vw;
   font-family: poppins;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
@@ -22,6 +27,7 @@ const Text = styled.textarea`
 const Label = styled.div`
   font-family: Poppins;
   font-size: 15px;
+  margin-bottom: 5px;
 `;
 const H3 = styled.h3`
   font-family: Montaga;
@@ -148,85 +154,83 @@ const AddReview = (props) => {
   return (
     <Container>
       <H3>Review "{book?.name}"</H3>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          padding: "3%",
-          alignItems: "center",
-        }}
-      >
-        <Label>Review Rating </Label>
+      <Review>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            padding: "3%",
+            alignItems: "baseline",
+          }}
+        >
+          <Label style={{ marginRight: "5px" }}>Review Rating </Label>
+          <input
+            type="radio"
+            checked={reviewRating === 1}
+            value={1}
+            onClick={(e) => setReviewRating(parseInt(e.target.value))}
+          />
+          <input
+            type="radio"
+            checked={reviewRating === 2}
+            value={2}
+            onClick={(e) => setReviewRating(parseInt(e.target.value))}
+          />
+          <input
+            type="radio"
+            checked={reviewRating === 3}
+            value={3}
+            onClick={(e) => setReviewRating(parseInt(e.target.value))}
+          />
+          <input
+            type="radio"
+            checked={reviewRating === 4}
+            value={4}
+            onClick={(e) => setReviewRating(parseInt(e.target.value))}
+          />
+          <input
+            type="radio"
+            checked={reviewRating === 5}
+            value={5}
+            onClick={(e) => setReviewRating(parseInt(e.target.value))}
+          />
+          <Label style={{ marginLeft: "5px" }}>{reviewRating}/5</Label>
+        </div>
+        <Text
+          placeholder="Full text review"
+          onChange={(e) => setReviewText(e.currentTarget.value)}
+        />
 
-        <input
-          type="radio"
-          checked={reviewRating === 1}
-          value={1}
-          onClick={(e) => setReviewRating(parseInt(e.target.value))}
-        />
-        <input
-          type="radio"
-          checked={reviewRating === 2}
-          value={2}
-          onClick={(e) => setReviewRating(parseInt(e.target.value))}
-        />
-        <input
-          type="radio"
-          checked={reviewRating === 3}
-          value={3}
-          onClick={(e) => setReviewRating(parseInt(e.target.value))}
-        />
-        <input
-          type="radio"
-          checked={reviewRating === 4}
-          value={4}
-          onClick={(e) => setReviewRating(parseInt(e.target.value))}
-        />
-        <input
-          type="radio"
-          checked={reviewRating === 5}
-          value={5}
-          onClick={(e) => setReviewRating(parseInt(e.target.value))}
-        />
-        <Label>{reviewRating}</Label>
-      </div>
-      <Text
-        placeholder="Full text review"
-        onChange={(e) => setReviewText(e.currentTarget.value)}
-      />
+        <div style={{ width: "500px", marginTop: "25px" }}>
+          <Label>Add Current Affair tags</Label>
+          <TagSelect
+            type="AFFAIR"
+            value={reviewAffairTags}
+            onChange={setReviewAffairTags}
+          />
+        </div>
 
-      <h2>Add Current Affair tags</h2>
-      <div style={{ width: "500px" }}>
-        <Label>Current Affair</Label>
-        <TagSelect
-          type="AFFAIR"
-          value={reviewAffairTags}
-          onChange={setReviewAffairTags}
-        />
-      </div>
+        <div style={{ width: "500px", marginTop: "25px" }}>
+          <Label>Add Country tags</Label>
+          <TagSelect
+            type="COUNTRY"
+            value={reviewCountryTags}
+            onChange={setReviewCountryTags}
+          />
+        </div>
 
-      <h2>Add Country tags</h2>
-      <div style={{ width: "500px" }}>
-        <Label>Country</Label>
-        <TagSelect
-          type="COUNTRY"
-          value={reviewCountryTags}
-          onChange={setReviewCountryTags}
-        />
-      </div>
+        <div style={{ width: "500px", marginTop: "25px" }}>
+          <Label>Add Topic tags</Label>
+          <TagSelect
+            type="TOPIC"
+            value={reviewTopicTags}
+            onChange={setReviewTopicTags}
+          />
+        </div>
 
-      <h2>Add Topic tags</h2>
-      <div style={{ width: "500px" }}>
-        <Label>Topic</Label>
-        <TagSelect
-          type="TOPIC"
-          value={reviewTopicTags}
-          onChange={setReviewTopicTags}
-        />
-      </div>
-
-      {/* Submit  */}
-      <Button onClick={submit}>Submit</Button>
+        {/* Submit  */}
+        <Button onClick={submit}>Submit</Button>
+      </Review>
     </Container>
   );
 };

@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { useHistory, withRouter } from "react-router-dom";
 
 const Border = styled.div`
-  box-shadow: 2px 2px 10px #d7ccc8;
+  background: #f5f2ef;
+  box-shadow: 5px 5px 14px #d0cecb, -5px -5px 14px #ffffff;
   border-radius: 10px;
   min-width: 200px;
   height: 250px;
@@ -35,12 +36,13 @@ const SubTitle = styled.div`
 
 const Item = styled.div`
   position: relative;
-  background-color: rgb(240, 240, 240);
+  background: #f5f2ef;
+  box-shadow: inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd;
   font-size: 12px;
   left: -50%;
   margin-bottom: 5%;
   border-radius: 4px;
-  padding: 3px;
+  padding: 5px;
   width: 170px;
   font-family: Poppins;
   word-wrap: break-word;
@@ -52,7 +54,8 @@ const Review = styled.div`
   left: -50%;
   font-size: 12px;
   margin-bottom: 5%;
-  background-color: rgb(240, 240, 240);
+  background: #f5f2ef;
+  box-shadow: inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd;
   border-radius: 5px;
   padding: 3px;
   margin-left: 3px;

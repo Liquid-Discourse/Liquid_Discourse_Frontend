@@ -10,10 +10,12 @@ const Title = styled.div`
   margin-bottom: 5%;
 `;
 const Box = styled.div`
-  border: 1px solid rgb(240, 240, 240);
+  box-shadow: inset 6px 6px 16px #e6e3e1, inset -6px -6px 16px #fffffd;
+  border-radius: 5px;
   padding: 14px 16px;
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
 `;
 const Label = styled.div`
   font-family: Poppins;
@@ -25,7 +27,7 @@ const Button = styled.button`
   font-size: 13px;
   padding: 5px 7px;
   border: ${(props) => (props.delete ? "1px solid red" : "1px solid #64dd17")};
-  background-color: ${(props) => (props.deleteUser ? "red" : "white")};
+  background-color: ${(props) => (props.deleteUser ? "red" : "#f5f2ef;")};
   border-radius: 5px;
 `;
 const Switch = styled.label`

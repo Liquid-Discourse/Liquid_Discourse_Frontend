@@ -8,8 +8,8 @@ const Cover = styled.div`
   width: 100%;
   padding-top: 6%;
   padding-bottom: 9%;
-  background-color: #efebe9;
-  box-shadow: inset 0 0 20px rgb(240, 240, 240);
+  background: #f5f2ef;
+  box-shadow: inset 21px 21px 34px #e6e3e1, inset -21px -21px 34px #fffffd;
 `;
 
 const Title = styled.div`

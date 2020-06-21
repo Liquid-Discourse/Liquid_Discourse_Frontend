@@ -58,6 +58,8 @@ const Home = () => {
     getBooks();
   }, []);
 
+  console.log(currentAffairs);
+
   return (
     <>
       <Helmet>

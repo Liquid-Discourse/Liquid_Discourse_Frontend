@@ -17,8 +17,7 @@ const TabList = styled.div`
   font-family: Poppins;
   font-size: 15px;
   overflow: hidden;
-  border-bottom: 2px solid rbg(240, 240, 240);
-  box-shadow: 0px 2px 8px -4px rgb(200, 200, 200);
+  border-bottom: 2px solid rbg(230, 230, 230);
 `;
 const Tab = styled.div`
   float: left;
@@ -27,7 +26,13 @@ const Tab = styled.div`
   padding: 10px 12px;
   transition: 0.1s;
   border-radius: 10px 10px 0px 0px;
-  background-color: ${(props) => (props.active ? "#efebe9;" : "white")};
+  margin-right: 5px;
+  background-color: ${(props) =>
+    props.active ? "white" : "rgb(230, 230, 230)"};
+  box-shadow: ${(props) =>
+    props.active
+      ? "5px 5px 14px #d0cecb, -5px -5px 14px #ffffff"
+      : "inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd"};
   :hover {
     background-color: #ffffbf;
   }
@@ -35,11 +40,12 @@ const Tab = styled.div`
 const TabContent = styled.div`
   display: ${(props) => (props.active ? "block" : "none")};
   padding: 6px 12px;
+  box-shadow: inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd;
 `;
 
 const BookReviews = styled.div`
   font-family: Poppins;
-  //box-shadow: 2px 2px 8px rgb(230, 230, 230);
+  box-shadow: inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd;
   background-color: #efebe9;
   border-radius: 10px;
   width: 100%;

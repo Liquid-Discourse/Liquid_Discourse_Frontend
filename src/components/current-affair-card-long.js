@@ -5,7 +5,9 @@ import { getRelatedTags } from "../utils/api-helpers";
 
 const Border = styled.div`
   font-family: Poppins;
-  box-shadow: 2px 2px 8px #d7ccc8;
+  // box-shadow: 2px 2px 8px #d7ccc8;
+  background: #f5f2ef;
+  box-shadow: 5px 5px 14px #d0cecb, -5px -5px 14px #ffffff;
   border-radius: 5px;
   width: 100%;
   height: auto;
@@ -26,7 +28,8 @@ const TopicWrapper = styled.div`
 const TopicPill = styled.button`
   font-family: Poppins;
   width: 100%;
-  background-color: white;
+  background: #f5f2ef;
+  box-shadow: inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd;
   margin-top: 10px;
   padding: 5px 5px;
   text-align: left;
@@ -36,6 +39,7 @@ const TopicPill = styled.button`
   border-radius: 5px;
   &:hover {
     background-color: rgb(240, 240, 240);
+    box-shadow: 5px 5px 10px #e6e3e1, -5px -5px 10px #fffffd;
   }
 `;
 const Title = styled.div`
@@ -52,7 +56,7 @@ const Item = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: rgb(240, 240, 240);
+  background-color: rgb(230, 230, 230);
   border-radius: 3px;
   padding: 2px 5px;
   margin-left: 5px;
