@@ -14,6 +14,8 @@ export const getRelatedTags = async (tagId) => {
   tag.books.forEach((book) => {
     allTags = [...allTags, ...book.tags];
   });
+  // remove duplicates
+  allTags = Array.from(new Set(allTags));
   // sort them into categories
   const categorizedTags = {
     COUNTRY: [],
