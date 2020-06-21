@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   /* left-right padding is same as navbar */
   padding: 20px 5%;
   @media (max-width: 800px) {
@@ -13,20 +13,21 @@ const Wrapper = styled.div`
 
 const Left = styled.div`
   width: ${(props) => props.size + "%"};
-  margin-right: 10px;
+  margin-right: 30px;
   @media (max-width: 800px) {
     width: 100%;
-    margin-right: 0;
+    margin-right: 5%;
   }
 `;
 
 const Right = styled.div`
   width: ${(props) => props.size + "%"};
+  max-width: 250px;
   margin-left: 10px;
   @media (max-width: 800px) {
     margin-top: 50px;
     width: 100%;
-    margin-left: 0;
+    margin-right: 10%;
   }
 `;
 

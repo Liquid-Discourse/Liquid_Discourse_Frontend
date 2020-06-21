@@ -15,19 +15,18 @@ const Border = styled.div`
 `;
 
 const Title = styled.div`
-  display: flex;
+  position: absolute;
+  text-align: center;
+  width: 100%;
   justify-content: center;
   padding-top: 20%;
   font-size: 20px;
   font-family: Montaga;
-  width: 200px;
-  min-width: 200px;
-  max-width: 200px;
   word-wrap: break-word;
-  text-align: center;
 `;
 const SubTitle = styled.div`
-  display: flex;
+  text-align: center;
+  width: 100%;
   justify-content: center;
   padding-top: 3%;
   font-size: 1.7vh;
@@ -36,15 +35,16 @@ const SubTitle = styled.div`
 
 const Item = styled.div`
   position: relative;
+  background-color: rgb(240, 240, 240);
   font-size: 12px;
   left: -50%;
   margin-bottom: 5%;
-  background-color: 
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 3px;
   width: 170px;
   font-family: Poppins;
   word-wrap: break-word;
+  margin-left: 3px;
 `;
 
 const Review = styled.div`
@@ -53,7 +53,7 @@ const Review = styled.div`
   font-size: 12px;
   margin-bottom: 5%;
   background-color: rgb(240, 240, 240);
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 3px;
   margin-left: 3px;
   width: 80px;
@@ -65,17 +65,19 @@ const BookCard = ({ id, name, authors, topics, recommenders, rating }) => {
   const history = useHistory();
 
   const redirectCurrentAffair = (id) => {
-    history.push({ pathname: "/book/:id=" + id });
+    history.push({ pathname: "/book/" + id });
   };
 
   return (
     <Border onClick={() => redirectCurrentAffair(id)}>
-      <Title>{name}</Title>
-      <SubTitle>
-        {authors?.map((a, i) => (
-          <div key={i}>{a}</div>
-        ))}
-      </SubTitle>
+      <Title>
+        {name}
+        <SubTitle>
+          {authors?.map((a, i) => (
+            <div key={i}>{a}</div>
+          ))}
+        </SubTitle>
+      </Title>
       <div
         style={{
           position: "absolute",
@@ -85,7 +87,7 @@ const BookCard = ({ id, name, authors, topics, recommenders, rating }) => {
         }}
       >
         <Item>
-          <div style={{ marginLeft: "4px" }}>{topics}</div>
+          <div>{topics}</div>
         </Item>
         <div style={{ display: "flex" }}>
           <Review>{recommenders} reviews</Review>

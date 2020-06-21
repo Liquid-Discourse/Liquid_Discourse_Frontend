@@ -51,6 +51,7 @@ const Home = () => {
     getPage();
     getBooks();
   }, []);
+  console.log("books", books);
 
   return (
     <div>
@@ -68,6 +69,7 @@ const Home = () => {
             />
             {content?.map((c, i) => (
               <Card
+                slug={c.slug}
                 key={i}
                 id={c.id}
                 name={c.name}
@@ -84,7 +86,7 @@ const Home = () => {
             {books?.map((b, i) => (
               <BookCard
                 key={i}
-                id={b.div}
+                id={b.id}
                 name={b.name}
                 authors={b.authors}
                 topics={b.tags[0]?.name}

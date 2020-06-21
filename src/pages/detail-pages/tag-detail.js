@@ -21,6 +21,7 @@ const TagDetail = (props) => {
         slug: tagSlug,
       },
     });
+    console.log("response", response);
     // check if tag exists
     if (response?.data?.length !== 1) {
       setError(true);

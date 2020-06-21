@@ -21,7 +21,6 @@ const Title = styled.div`
   border-bottom: 1px solid grey;
   width: 100%;
   padding: 10px 12px;
-  box-shadow: 0px 2px 8px -4px rgb(200, 200, 200);
 `;
 const Tag = styled.div`
   background-color: rgb(240, 240, 240);
@@ -42,12 +41,23 @@ const Save = styled.div`
     opacity: 70%;
   }
 `;
+const Review = styled.div`
+  font-family: Poppins;
+  //box-shadow: 2px 2px 8px rgb(230, 230, 230);
+  background-color: #efebe9;
+  border-radius: 10px;
+  width: 100%;
+  margin-top: 2%;
+  padding: 10px 12px;
+  position: relative;
+`;
 
 const Book = (props) => {
   const { user, getTokenSilently } = useAuth0();
   const [book, setBook] = useState();
   useEffect(() => {
     const getBook = async () => {
+      console.log(props.match.params.id);
       let content = await axios.get(
         `${process.env.REACT_APP_API_URL}/books/${props.match.params.id}`
       );
@@ -56,6 +66,7 @@ const Book = (props) => {
     getBook();
   }, [props.match.params.id]);
 
+  console.log(book);
   const addBook = async () => {
     if (user != null) {
       const token = await getTokenSilently();
@@ -91,7 +102,6 @@ const Book = (props) => {
     }
   };
 
-  console.log(book);
   return (
     <div style={{ marginRight: "10%", marginLeft: "10%", marginTop: "5%" }}>
       <div
@@ -137,12 +147,15 @@ const Book = (props) => {
       <div>
         <Title>Reviews </Title>
         {book?.reviews.map((t, i) => (
-          <div key={i}>
+          <Review key={i}>
             <div>
               {t.userWhoReviewed.firstName} {t.userWhoReviewed.restOfName}
             </div>
-            <div>{t.ratingOutOfFive}/5</div>
-          </div>
+            <br />
+            <div>Rating: {t.ratingOutOfFive}/5</div>
+            <div>Description:</div>
+            <div>{t.description}</div>
+          </Review>
         ))}
       </div>
     </div>

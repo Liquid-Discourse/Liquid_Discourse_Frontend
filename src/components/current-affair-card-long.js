@@ -7,23 +7,45 @@ const Border = styled.div`
   box-shadow: 2px 2px 8px #d7ccc8;
   border-radius: 5px;
   width: 100%;
-  height: 70px;
-  margin: 1%;
-  padding: 2% 2%;
+  height: auto;
+  margin-bottom: 10%;
+  margin-right: 5%;
+  padding: 2% 4%;
   position: relative;
   font-size: 12px;
   &:hover {
     background-color: #ffe0b2;
   }
 `;
-
+const TopicWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+`;
+const TopicPill = styled.button`
+  font-family: Poppins;
+  width: 100%;
+  background-color: white;
+  margin-top: 10px;
+  padding: 5px 5px;
+  text-align: left;
+  margin-right: 5px;
+  margin-left: 5px;
+  border: 1px solid rgb(240, 240, 240);
+  border-radius: 5px;
+  &:hover {
+    background-color: rgb(240, 240, 240);
+  }
+`;
 const Title = styled.div`
   font-size: 20px;
   font-family: Montaga;
   word-wrap: break-word;
   padding-bottom: 5px;
 `;
-
+const Wrapper = styled.div`
+  display: flex;
+`;
 const Item = styled.div`
   display: flex;
   justify-content: center;
@@ -32,14 +54,15 @@ const Item = styled.div`
   background-color: rgb(240, 240, 240);
   border-radius: 3px;
   padding: 2px 5px;
-  margin-right: 2%;
+  margin-left: 5px;
+  margin-right: 5px;
 `;
 
-const Card = ({ id, name, upvotes, books, recommenders }) => {
+const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
   const history = useHistory();
 
   const redirectCurrentAffair = (id) => {
-    history.push({ pathname: "/current-affair/" + id });
+    history.push({ pathname: "/current-affair/" + slug });
   };
 
   return (
@@ -48,18 +71,41 @@ const Card = ({ id, name, upvotes, books, recommenders }) => {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "center",
+          alignItems: "flex-start",
         }}
       >
         <div>
           <Title>{name}</Title>
           <div>description</div>
-          <div>Topics: </div>
         </div>
-        <Item>
-          <div style={{ fontSize: "18px" }}>{books}</div>
-          <div>books</div>
-        </Item>
+        <Wrapper>
+          <Item>
+            <div style={{ fontSize: "18px" }}>{books}</div>
+            <div>books</div>
+          </Item>
+          <Item>
+            <div style={{ fontSize: "18px" }}>{books}</div>
+            <div>books</div>
+          </Item>
+        </Wrapper>
+      </div>
+      <br />
+      <div>
+        <div>Top Topics: </div>
+        <TopicWrapper>
+          <TopicPill>
+            <div>Topic Example</div>
+            <div>X Books</div>
+          </TopicPill>
+          <TopicPill>
+            <div>Topic Example</div>
+            <div>X Books</div>
+          </TopicPill>
+          <TopicPill>
+            <div>Topic Example</div>
+            <div>X Books</div>
+          </TopicPill>
+        </TopicWrapper>
       </div>
     </Border>
   );

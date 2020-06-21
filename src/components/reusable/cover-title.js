@@ -8,6 +8,7 @@ const Title = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
+  padding-right: 10px;
 `;
 
 const SubTitle = styled.div`
@@ -33,7 +34,6 @@ const CoverTitle = ({ name, slug, redirectTo }) => {
     <div
       style={{
         display: "flex",
-        justifyContent: "space-between",
         alignItems: "baseline",
         marginBottom: "3%",
       }}
@@ -42,7 +42,6 @@ const CoverTitle = ({ name, slug, redirectTo }) => {
         <div>{name}</div>
       </Title>
       <SubTitle onClick={() => redirectTo(slug)}>
-        <div style={{ marginRight: "10px" }}>See all</div>
         <ViewAllIcon />
       </SubTitle>
     </div>

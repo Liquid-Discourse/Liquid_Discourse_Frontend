@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, withRouter } from "react-router-dom";
+import BookCard from "../../components/book-card";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -26,8 +27,7 @@ const Tab = styled.div`
   padding: 10px 12px;
   transition: 0.1s;
   border-radius: 10px 10px 0px 0px;
-  background-color: ${(props) =>
-    props.active ? "rgb(240, 240, 240)" : "white"};
+  background-color: ${(props) => (props.active ? "#efebe9;" : "white")};
   :hover {
     background-color: #ffffbf;
   }
@@ -39,22 +39,22 @@ const TabContent = styled.div`
 
 const BookReviews = styled.div`
   font-family: Poppins;
-  box-shadow: 2px 2px 8px rgb(230, 230, 230);
+  //box-shadow: 2px 2px 8px rgb(230, 230, 230);
+  background-color: #efebe9;
   border-radius: 10px;
-  min-width: 250px;
-  height: 150px;
-  margin: 3%;
+  width: 100%;
+  margin-right: 5%;
+  min-height: 200px;
+  height: 200px;
+  margin-top: 5%;
   padding: 25px;
   position: relative;
-  &:hover {
-    background-color: #ff9e80;
-  }
 `;
 
 const Profile = (props) => {
   const history = useHistory();
   const [profile, setProfile] = useState({});
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(2);
 
   useEffect(() => {
     const getProfile = async () => {
@@ -122,28 +122,36 @@ const Profile = (props) => {
 
       {/* Render bookshelf */}
       <TabContent active={active === 2}>
-        {completeReviews.length ? <h1>Reviewed books</h1> : null}
-
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          {incompleteReviews.map((b, i) => (
+            <BookCard
+              id={b.book.id}
+              name={b.book.name}
+              authors={b.book.authors}
+              topics=""
+              recommenders={b.book.reviewCount}
+              rating={b.book.averageRatingOutOfFive}
+            />
+          ))}
+        </div>
+      </TabContent>
+      <TabContent active={active === 0}>
         {completeReviews.map((b, i) => (
-          <BookReviews
-            key={i}
-            onClick={() => history.push({ pathname: "/book/" + b.id })}
-          >
-            <div>{b.book.name}</div>
-            <div>{b.ratingOutOfFive}/5</div>
-          </BookReviews>
-        ))}
-
-        {incompleteReviews.length ? <h1>Unreviewed books</h1> : null}
-
-        {incompleteReviews.map((b, i) => (
-          <BookReviews
-            key={i}
-            onClick={() => history.push({ pathname: "/book/" + b.id })}
-          >
-            <div>{b.book.name}</div>
-            <div>{b.ratingOutOfFive}/5</div>
-          </BookReviews>
+          <div style={{ display: "flex" }} key={i}>
+            <BookCard
+              id={b.book.id}
+              name={b.book.name}
+              authors={b.book.authors}
+              topics=""
+              recommenders={b.book.reviewCount}
+              rating={b.book.averageRatingOutOfFive}
+            />
+            <BookReviews>
+              <div>Your Review: {b.ratingOutOfFive}/5</div>
+              <div>Description</div>
+              <div>{b.description}</div>
+            </BookReviews>
+          </div>
         ))}
       </TabContent>
       {/* Render topics */}

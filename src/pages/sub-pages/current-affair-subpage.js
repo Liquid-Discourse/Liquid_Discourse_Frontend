@@ -36,10 +36,10 @@ const CurrentAffairSubpage = (props) => {
     const getPage = async () => {
       let content = await axios.get(`${process.env.REACT_APP_API_URL}/tags/`, {
         params: {
-          type: "AFFAIR",
-          orderDirection: "DESC",
+          slug: props.match.params.id,
         },
       });
+      console.log(content);
       setContent(content.data);
     };
     getPage();

@@ -44,7 +44,7 @@ function App() {
           render={(props) => <TagDetail {...props} type="TOPIC" />}
         />
         <Route
-          path="/current-affairs/:slug"
+          path="/current-affairs/:id"
           exact
           render={(props) => <TagDetail {...props} type="AFFAIR" />}
         />
