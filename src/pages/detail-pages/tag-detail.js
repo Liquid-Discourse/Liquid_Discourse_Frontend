@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, withRouter } from "react-router-dom";
+import styled from "styled-components";
+import axios from "axios";
+
 import BookCard from "components/book-card";
 import TwoCol from "components/layouts/two-col";
-import axios from "axios";
+
 import { getRelatedTags } from "utils/api-helpers";
-import styled from "styled-components";
 
 const TopicPill = styled.button`
   font-family: Poppins;
@@ -21,12 +23,14 @@ const TopicPill = styled.button`
     background-color: rgb(240, 240, 240);
   }
 `;
+
 const Title = styled.div`
   font-size: 20px;
   font-family: Montaga;
   word-wrap: break-word;
   padding-bottom: 5px;
 `;
+
 const Subtitle = styled.div`
   /* margin-top: 5%; */
   font-size: 15px;
@@ -36,37 +40,40 @@ const Subtitle = styled.div`
 // We follow a consistent structure for all tag types!
 const TagDetail = (props) => {
   let tagType = props.type;
-  let tagSlug = props.match.params.id;
+  let tagSlug = props.match.params.slug;
 
   const history = useHistory();
   const [topics, setTopics] = useState(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [tag, setTag] = useState({});
+  const [relatedTags, setRelatedTags] = useState({});
 
   const getTagFromBackend = async () => {
     setLoading(true);
-    // get the tag data from the backend
-    console.log("slug", tagSlug);
     const response = await axios.get(`${process.env.REACT_APP_API_URL}/tags`, {
       params: {
         type: tagType,
         slug: tagSlug,
       },
     });
-    console.log("response", response);
-    const tag = response.data[0];
-
-    let relatedTopics = await getRelatedTags(response.data[0].id);
-    console.log("topics", relatedTopics);
-    relatedTopics = relatedTopics.CATEGORIZED.TOPIC;
-    if (relatedTopics.length > 3) {
-      relatedTopics = relatedTopics.slice(3);
+    if (!response?.data) {
+      return;
     }
-    setTopics(relatedTopics);
+
+    const tag = response.data[0];
+    const relatedTags = await getRelatedTags(tag.id);
+    setRelatedTags(relatedTags);
+
+    console.log(relatedTags);
+
+    // const relatedTopics = relatedTopics.CATEGORIZED.TOPIC;
+    // if (relatedTopics.length > 3) {
+    //   relatedTopics = relatedTopics.slice(3);
+    // }
+    // setTopics(relatedTopics);
 
     setTag(tag);
-    console.log(tag);
     setLoading(false);
   };
 
@@ -74,9 +81,8 @@ const TagDetail = (props) => {
     getTagFromBackend();
   }, [tagType, tagSlug]);
 
-  const redirectToTopic = (id) => {
-    console.log(id);
-    history.push({ pathname: "/topics/" + id });
+  const redirectToPage = (path) => {
+    history.push({ pathname: path });
   };
 
   return (
@@ -120,12 +126,15 @@ const TagDetail = (props) => {
               >
                 Related Topics
               </Subtitle>
-              {topics?.map((b, i) => (
-                <TopicPill onClick={() => redirectToTopic(b.slug)} key={i}>
+              {relatedTags?.CATEGORIZED?.TOPIC?.map((tag, i) => (
+                <TopicPill
+                  onClick={() => redirectToPage(`/topics/${tag.slug}`)}
+                  key={i}
+                >
                   <div style={{ fontSize: "15px", marginBottom: "5px" }}>
-                    {b.name}
+                    {tag.name}
                   </div>
-                  <div>{b.bookCount} books under this topic</div>
+                  <div>{tag.bookCount} books under this topic</div>
                 </TopicPill>
               ))}
             </div>
