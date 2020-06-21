@@ -7,7 +7,7 @@ import Book from "pages/book";
 import SearchBook from "pages/search-book";
 import Settings from "pages/settings";
 import AddReview from "pages/add-review";
-import SubPage from "pages/sub-pages/current-affair-subpage";
+import SubPage from "pages/discovery-pages/current-affair-subpage";
 
 import AffairDetail from "pages/detail-pages/current-affair-detail";
 import TopicDetail from "pages/detail-pages/topic-detail";
