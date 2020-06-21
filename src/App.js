@@ -9,9 +9,9 @@ import Settings from "pages/settings";
 import AddReview from "pages/add-review";
 import SubPage from "pages/sub-pages/current-affair-subpage";
 
-import TagDetail from "pages/detail-pages/tag-detail";
+import AffairDetail from "pages/detail-pages/current-affair-detail";
 import TopicDetail from "pages/detail-pages/topic-detail";
-import CurrentAffairDetail from "pages/detail-pages/current-affair-detail";
+import CountryDetail from "pages/detail-pages/country-detail";
 
 import "App.css";
 
@@ -41,17 +41,9 @@ function App() {
         <Route path="/users/:username" exact component={Profile} />
         <Route path="/book/:id" exact component={Book} />
 
+        <Route path="/current-affairs/:slug" exact component={AffairDetail} />
         <Route path="/topics/:slug" exact component={TopicDetail} />
-        <Route
-          path="/current-affairs/:slug"
-          exact
-          component={CurrentAffairDetail}
-        />
-        <Route
-          path="/countries/:slug"
-          exact
-          render={(props) => <TagDetail {...props} type="COUNTRY" />}
-        />
+        <Route path="/countries/:slug" exact component={CountryDetail} />
       </Router>
     </div>
   );
