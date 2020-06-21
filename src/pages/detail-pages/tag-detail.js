@@ -6,7 +6,8 @@ import axios from "axios";
 // We follow a consistent structure for all tag types!
 const TagDetail = (props) => {
   const tagType = props.type;
-  const tagSlug = props.match.params.slug;
+  const tagSlug = props.match.params.id;
+  console.log(tagSlug);
 
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);

@@ -21,7 +21,7 @@ const Home = () => {
   };
 
   const goToAffair = (id) => {
-    history.push({ pathname: "/current-affair/" + id });
+    history.push({ pathname: "/current-affairs/" + id });
   };
 
   useEffect(() => {

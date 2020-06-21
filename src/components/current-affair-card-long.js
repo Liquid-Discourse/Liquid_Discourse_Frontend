@@ -62,7 +62,7 @@ const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
   const history = useHistory();
 
   const redirectCurrentAffair = (id) => {
-    history.push({ pathname: "/current-affair/" + slug });
+    history.push({ pathname: "/current-affairs/" + slug });
   };
 
   return (
