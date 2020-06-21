@@ -15,7 +15,7 @@ import { Helmet } from "react-helmet";
 
 const Home = () => {
   const history = useHistory();
-  const [content, setContent] = useState(null);
+  const [currentAffairs, setCurrentAffairs] = useState([]);
   const [books, setBooks] = useState(null);
 
   const redirectTo = (slug) => {
@@ -27,30 +27,34 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const getPage = async () => {
-      let content = await axios.get(`${process.env.REACT_APP_API_URL}/tags`, {
-        params: {
-          type: "AFFAIR",
-          order: "bookCount",
-          orderDirection: "DESC",
-        },
-      });
-      console.log(content);
-      setContent(content.data);
+    const getCurrentAffairs = async () => {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/tags`,
+        {
+          params: {
+            type: "AFFAIR",
+            order: "bookCount",
+            orderDirection: "DESC",
+          },
+        }
+      );
+      setCurrentAffairs(response.data);
     };
 
     const getBooks = async () => {
-      let content = await axios.get(`${process.env.REACT_APP_API_URL}/books`, {
-        params: {
-          order: "reviewCount",
-          orderDirection: "DESC",
-        },
-      });
-      console.log(content.data);
-      setBooks(content.data);
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/books`,
+        {
+          params: {
+            order: "reviewCount",
+            orderDirection: "DESC",
+          },
+        }
+      );
+      setBooks(response.data);
     };
 
-    getPage();
+    getCurrentAffairs();
     getBooks();
   }, []);
   console.log("books", books);
@@ -72,14 +76,14 @@ const Home = () => {
               slug="current-affairs"
               redirectTo={goToAffair}
             />
-            {content?.map((c, i) => (
+            {currentAffairs?.map((affair, i) => (
               <Card
-                slug={c.slug}
+                slug={affair.slug}
                 key={i}
-                id={c.id}
-                name={c.name}
+                id={affair.id}
+                name={affair.name}
                 upvotes="something"
-                books={c.books.length}
+                books={affair.books.length}
                 recommenders="10 recommenders"
               />
             ))}
