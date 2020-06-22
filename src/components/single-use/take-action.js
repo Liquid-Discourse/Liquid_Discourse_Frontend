@@ -5,7 +5,7 @@ import scribble from "assets/scribbles-scribbles-73.png";
 import { HorizontalSpacer } from "components/reusable/spacer";
 
 const Cover = styled.div`
-  width: 100%;
+  /* width: 100%; */
   margin-top: 5%;
   padding-top: 6%;
   padding-bottom: 6%;
