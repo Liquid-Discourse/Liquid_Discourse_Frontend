@@ -15,13 +15,9 @@ import CoverTitle from "components/reusable/cover-title";
 import Organizations from "components/single-use/organizations";
 import Feedback from "components/single-use/feedback";
 
-import { Helmet } from "react-helmet";
+import Grid from "components/reusable/grid";
 
-const BookGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 50px;
-`;
+import { Helmet } from "react-helmet";
 
 const Home = () => {
   const history = useHistory();
@@ -110,7 +106,7 @@ const Home = () => {
           slug="books"
           redirectTo={() => redirectToPage(`/books`)}
         />
-        <BookGrid>
+        <Grid>
           {books?.map((b, i) => (
             <BookCard
               key={i}
@@ -122,7 +118,7 @@ const Home = () => {
               rating={b.averageRatingOutOfFive}
             />
           ))}
-        </BookGrid>
+        </Grid>
       </div>
       <TakeAction />
       <HorizontalSpacer size={40} />
