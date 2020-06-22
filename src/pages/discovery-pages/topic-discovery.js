@@ -1,8 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import Card from "components/current-affair-card-long";
 import styled from "styled-components";
 import axios from "axios";
+
+const TopicPill = styled.button`
+  font-family: Poppins;
+  width: 100%;
+  background-color: white;
+  margin-top: 10px;
+  padding: 5px 10px;
+  text-align: left;
+  margin-right: 5px;
+  margin-left: 5px;
+  border: 1px solid #d7ccc8;
+  border-radius: 5px;
+  &:hover {
+    background-color: rgb(240, 240, 240);
+  }
+`;
 
 const AddCard = styled.div`
   font-family: Poppins;
@@ -48,7 +63,7 @@ const TopicDiscovery = (props) => {
     getTopics();
   }, []);
 
-  const redirectToPath = (path) => {
+  const redirectToPage = (path) => {
     history.push({ pathname: path });
   };
 
@@ -78,15 +93,15 @@ const TopicDiscovery = (props) => {
         </AddCard>
         <div>
           {topics?.map((topic, i) => (
-            <Card
-              onClick={() => redirectToPath(`/topics/${topic.slug}`)}
+            <TopicPill
+              onClick={() => redirectToPage(`/topics/${topic.slug}`)}
               key={i}
-              id="black-lives-matter"
-              name={topic.name}
-              upvotes="something"
-              books={topic.books.length}
-              recommenders="10 recommenders"
-            />
+            >
+              <div style={{ fontSize: "15px", marginBottom: "5px" }}>
+                {topic.name}
+              </div>
+              <div>{topic.bookCount} books under this topic</div>
+            </TopicPill>
           ))}
         </div>
       </div>

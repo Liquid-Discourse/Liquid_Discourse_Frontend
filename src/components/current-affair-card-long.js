@@ -5,16 +5,16 @@ import { getRelatedTags } from "../utils/api-helpers";
 
 const Border = styled.div`
   font-family: Poppins;
-  // box-shadow: 2px 2px 8px #d7ccc8;
+  /* box-shadow: 2px 2px 8px #d7ccc8; */
   background: #f5f2ef;
   box-shadow: 5px 5px 14px #d0cecb, -5px -5px 14px #ffffff;
   border-radius: 5px;
-  width: 100%;
+  /* width: 100%; */
   height: auto;
-  margin-bottom: 10%;
-  margin-right: 5%;
+  /* margin-bottom: 10%; */
+  /* margin-right: 5%; */
   padding: 2% 4%;
-  position: relative;
+  /* position: relative; */
   font-size: 12px;
   cursor: pointer;
   &:hover {

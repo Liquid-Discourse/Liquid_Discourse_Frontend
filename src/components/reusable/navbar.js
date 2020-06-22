@@ -56,10 +56,21 @@ const Navbar = () => {
       </Link>
       <div style={{ display: "flex" }}>
         <Link
+          to="/current-affairs"
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <Item>Current Affairs</Item>
+        </Link>
+        <Link to="/topics" style={{ textDecoration: "none", color: "black" }}>
+          <Item>Topics</Item>
+        </Link>
+        <Link to="/books" style={{ textDecoration: "none", color: "black" }}>
+          <Item>Books</Item>
+        </Link>
+        <Link
           to="/search-book"
           style={{ textDecoration: "none", color: "black" }}
         >
-          {" "}
           <Item>+ Book Review</Item>
         </Link>
         <Item>+ Current Affair</Item>
