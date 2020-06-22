@@ -23,6 +23,10 @@ import "App.css";
 import { useAuth0 } from "react-auth0-spa";
 import history from "utils/history";
 
+import ReactGA from "react-ga";
+ReactGA.initialize("UA-170220332-1");
+ReactGA.pageview(window.location.pathname + window.location.search);
+
 function App() {
   const { loading } = useAuth0();
 
