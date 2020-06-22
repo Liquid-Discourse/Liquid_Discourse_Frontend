@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory, withRouter } from "react-router-dom";
+import styled from "styled-components";
 
 import Card from "components/current-affair-card-long";
 import BookCard from "components/book-card-no-margins";
@@ -11,6 +12,8 @@ import { HorizontalSpacer } from "components/reusable/spacer";
 import HomeCover from "components/single-use/home-cover";
 import TakeAction from "components/single-use/take-action";
 import CoverTitle from "components/reusable/cover-title";
+import Organizations from "components/single-use/organizations";
+import Feedback from "components/single-use/feedback";
 
 import { Helmet } from "react-helmet";
 
@@ -103,6 +106,7 @@ const Home = () => {
             </>
           ))}
         </div>
+        <HorizontalSpacer size={60} />
         <CoverTitle
           name="Top Books"
           slug="books"
@@ -129,6 +133,10 @@ const Home = () => {
         </div>
       </div>
       <TakeAction />
+      <HorizontalSpacer size={40} />
+      <Organizations />
+      <HorizontalSpacer size={60} />
+      <Feedback />
     </>
   );
 };

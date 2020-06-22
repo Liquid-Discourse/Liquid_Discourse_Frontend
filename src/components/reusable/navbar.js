@@ -73,9 +73,7 @@ const Navbar = () => {
         >
           <Item
             style={{
-              backgroundColor: "rgb(220, 220, 220)",
-              padding: "5px 10px",
-              borderRadius: "5px",
+              color: "blue",
             }}
           >
             + Book Review
