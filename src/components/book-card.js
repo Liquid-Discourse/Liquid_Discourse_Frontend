@@ -6,8 +6,8 @@ const Border = styled.div`
   background: #f5f2ef;
   box-shadow: 5px 5px 14px #d0cecb, -5px -5px 14px #ffffff;
   border-radius: 10px;
-  min-width: 200px;
-  width: 200px;
+  /* min-width: 200px; */
+  /* width: 200px; */
   height: 250px;
   position: relative;
   cursor: pointer;
