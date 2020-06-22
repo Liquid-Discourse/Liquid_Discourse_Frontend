@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import { HorizontalSpacer } from "components/reusable/spacer";
-
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

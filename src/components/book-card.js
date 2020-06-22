@@ -7,8 +7,8 @@ const Border = styled.div`
   box-shadow: 5px 5px 14px #d0cecb, -5px -5px 14px #ffffff;
   border-radius: 10px;
   min-width: 200px;
+  width: 200px;
   height: 250px;
-  margin: 5%;
   position: relative;
   cursor: pointer;
   &:hover {

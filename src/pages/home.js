@@ -4,7 +4,7 @@ import { useHistory, withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 import Card from "components/current-affair-card-long";
-import BookCard from "components/book-card-no-margins";
+import BookCard from "components/book-card";
 
 import TwoCol from "components/layouts/two-col";
 import { HorizontalSpacer } from "components/reusable/spacer";
@@ -114,9 +114,11 @@ const Home = () => {
         />
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-evenly",
-            flexWrap: "wrap",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            gridGap: "50px",
+            marginRight: "10%",
+            marginLeft: "10%",
           }}
         >
           {books?.map((b, i) => (
