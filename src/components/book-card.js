@@ -1,68 +1,62 @@
 import React from "react";
 import styled from "styled-components";
 import { useHistory, withRouter } from "react-router-dom";
+import { HorizontalSpacer } from "components/reusable/spacer";
 
 const Border = styled.div`
   background: #f5f2ef;
   box-shadow: 5px 5px 14px #d0cecb, -5px -5px 14px #ffffff;
   border-radius: 10px;
-  /* min-width: 200px; */
-  /* width: 200px; */
   height: 250px;
   position: relative;
-  cursor: pointer;
+  padding: 20px 10px;
   &:hover {
     background-color: #ff9e80;
+    cursor: pointer;
   }
 `;
 
 const Title = styled.div`
-  position: absolute;
-  text-align: center;
-  width: 100%;
-  justify-content: center;
-  padding-top: 20%;
   font-size: 20px;
   font-family: Montaga;
   word-wrap: break-word;
-`;
-const SubTitle = styled.div`
   text-align: center;
   width: 100%;
-  justify-content: center;
-  padding-top: 3%;
+`;
+
+const SubTitle = styled.div`
+  padding-top: 10px;
   font-size: 1.7vh;
   font-family: Poppins;
+  text-align: center;
+  width: 100%;
 `;
 
-const Item = styled.div`
-  position: relative;
-  background: #f5f2ef;
-  box-shadow: inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd;
+const Inset = styled.div`
   font-size: 12px;
-  left: -50%;
-  margin-bottom: 5%;
-  border-radius: 4px;
-  padding: 5px;
-  width: 170px;
-  font-family: Poppins;
-  word-wrap: break-word;
-  margin-left: 3px;
-`;
-
-const Review = styled.div`
-  position: relative;
-  left: -50%;
-  font-size: 12px;
-  margin-bottom: 5%;
   background: #f5f2ef;
   box-shadow: inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd;
   border-radius: 5px;
   padding: 3px;
-  margin-left: 3px;
-  width: 80px;
+  box-sizing: border-box;
   font-family: Poppins;
   word-wrap: break-word;
+  width: 100%;
+`;
+
+const VStack = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+`;
+
+const HStack = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 `;
 
 const BookCard = ({ id, name, authors, topics, recommenders, rating }) => {
@@ -74,30 +68,34 @@ const BookCard = ({ id, name, authors, topics, recommenders, rating }) => {
 
   return (
     <Border onClick={() => redirectCurrentAffair(id)}>
-      <Title>
-        {name}
-        <SubTitle>
-          {authors?.map((a, i) => (
-            <div key={i}>{a}</div>
-          ))}
-        </SubTitle>
-      </Title>
-      <div
-        style={{
-          position: "absolute",
-          bottom: "0",
-          left: "50%",
-          marginBottom: "5%",
-        }}
-      >
-        <Item>
-          <div>{topics}</div>
-        </Item>
-        <div style={{ display: "flex" }}>
-          <Review>{recommenders} reviews</Review>
-          <Review>{rating}/10 stars</Review>
+      <VStack>
+        {/* Top */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <Title>{name}</Title>
+            <SubTitle>
+              {authors?.map((a, i) => (
+                <div key={i}>{a}</div>
+              ))}
+            </SubTitle>
+          </div>
         </div>
-      </div>
+        {/* Bottom */}
+        <div style={{ width: "100%" }}>
+          {topics ? <Inset>{topics}</Inset> : null}
+          <HorizontalSpacer size={10} />
+          <HStack>
+            <Inset>{recommenders} reviews</Inset>
+            <Inset>{rating}/5 stars</Inset>
+          </HStack>
+        </div>
+      </VStack>
     </Border>
   );
 };
