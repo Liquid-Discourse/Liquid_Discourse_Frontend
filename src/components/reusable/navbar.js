@@ -38,8 +38,9 @@ const Dropdown = styled.div`
 const Header = styled.div`
   display: grid;
   grid-template-areas: "logo nav";
-  margin-left: 5%;
-  margin-right: 5%;
+  box-shadow: 0px 5px 10px rgb(220, 220, 220);
+  padding-left: 5%;
+  padding-right: 5%;
   align-items: center;
   @media (max-width: 700px) {
     grid-template-areas: "logo collapse" "nav nav";

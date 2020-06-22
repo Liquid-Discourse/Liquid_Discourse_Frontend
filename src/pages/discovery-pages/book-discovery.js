@@ -13,7 +13,11 @@ const SubmitCard = styled.div`
   border-radius: 5px;
   padding: 20px 20px;
   display: flex;
+  justify-content: center;
   align-items: center;
+  font-family: Poppins;
+  cursor: pointer;
+  padding: 15px 15px;
   &:hover {
     background-color: #ff9e80;
     cursor: pointer;
@@ -32,6 +36,13 @@ const Grid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-gap: 50px;
 `;
+// const Grid = styled.div`
+//   margin-left: 5%;
+//   margin-right: 5%;
+//   display: grid;
+//   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+//   grid-gap: 50px;
+// `;
 
 const BookDiscovery = (props) => {
   const [books, setBooks] = useState([]);

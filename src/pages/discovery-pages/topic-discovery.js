@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import { HorizontalSpacer } from "components/reusable/spacer";
 
 const TopicPill = styled.button`
   font-family: Poppins;
@@ -70,27 +71,14 @@ const TopicDiscovery = (props) => {
   return (
     <div style={{ marginLeft: "5%", marginRight: "5%", marginBottom: "5%" }}>
       <Title>Topics</Title>
+      <HorizontalSpacer size={60} />
       <div
         style={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "center",
+          marginLeft: "5%",
         }}
       >
-        <AddCard>
-          <div style={{ display: "flex" }}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="40"
-              viewBox="0 0 40 40"
-              width="40"
-            >
-              <path d="M0 0h24v24H0z" fill="none" />
-              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-            </svg>
-            <div style={{ fontFamily: "Poppins" }}>Submit a Topic</div>
-          </div>
-        </AddCard>
         <div>
           {topics?.map((topic, i) => (
             <TopicPill
