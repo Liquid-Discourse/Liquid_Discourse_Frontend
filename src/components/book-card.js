@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useHistory, withRouter } from "react-router-dom";
-import { HorizontalSpacer } from "components/reusable/spacer";
+import { HorizontalSpacer, VerticalSpacer } from "components/reusable/spacer";
 
 const Border = styled.div`
   background: #f5f2ef;
@@ -37,7 +37,7 @@ const Inset = styled.div`
   background: #f5f2ef;
   box-shadow: inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd;
   border-radius: 5px;
-  padding: 3px;
+  padding: 5px;
   box-sizing: border-box;
   font-family: Poppins;
   word-wrap: break-word;
@@ -92,6 +92,7 @@ const BookCard = ({ id, name, authors, topics, recommenders, rating }) => {
           <HorizontalSpacer size={10} />
           <HStack>
             <Inset>{recommenders} reviews</Inset>
+            <VerticalSpacer size={15} />
             <Inset>{rating}/5 stars</Inset>
           </HStack>
         </div>
