@@ -3,31 +3,35 @@ import { useHistory } from "react-router-dom";
 import Card from "components/current-affair-card-long";
 import styled from "styled-components";
 import axios from "axios";
+import { Helmet } from "react-helmet";
+import { ReactComponent as PlusIcon } from "assets/icons/plus.svg";
+import { HorizontalSpacer } from "components/reusable/spacer";
 
-const AddCard = styled.div`
+const SubmitCard = styled.div`
   font-family: Poppins;
   box-shadow: 2px 2px 8px rgb(230, 230, 230);
   border-radius: 5px;
-  width: 100%;
-  height: 70px;
-  margin: 1%;
-  padding: 1% 2%;
-  position: relative;
+  padding: 20px 20px;
   display: flex;
   align-items: center;
   &:hover {
     background-color: #ff9e80;
   }
 `;
+
 const Title = styled.div`
-  margin-top: 5%;
   font-size: 2.7vh;
   font-family: Montaga;
   display: flex;
   align-items: center;
-  flex-direction: row;
-  margin-left: 5%;
 `;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 50px;
+`;
+
 const CurrentAffairDiscovery = (props) => {
   const [affairs, setAffairs] = useState([]);
   const history = useHistory();
@@ -47,35 +51,27 @@ const CurrentAffairDiscovery = (props) => {
     getAffairs();
   }, []);
 
-  const redirectToPath = (path) => {
-    history.push({ pathname: path });
-  };
-
   return (
-    <div style={{ marginLeft: "5%", marginRight: "5%", marginBottom: "5%" }}>
-      <Title>Current Affairs</Title>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-        }}
-      >
-        <AddCard>
-          <div style={{ display: "flex" }}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="40"
-              viewBox="0 0 40 40"
-              width="40"
-            >
-              <path d="M0 0h24v24H0z" fill="none" />
-              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-            </svg>
-            <div style={{ fontFamily: "Poppins" }}>Submit a Current Affair</div>
-          </div>
-        </AddCard>
-        <div>
+    <>
+      <Helmet>
+        <title>Proofed - Current Affairs</title>
+      </Helmet>
+      <div style={{ marginLeft: "5%", marginRight: "5%", marginBottom: "5%" }}>
+        <HorizontalSpacer size={30} />
+        {/* Header and control */}
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <Title>Current Affairs</Title>
+          <SubmitCard>
+            <PlusIcon />
+            <div style={{ fontFamily: "Poppins", marginLeft: "20px" }}>
+              Submit a Current Affair
+            </div>
+          </SubmitCard>
+        </div>
+        {/* Spacer */}
+        <HorizontalSpacer size={30} />
+        {/* Grid */}
+        <Grid>
           {affairs?.map((affair, i) => (
             <Card
               key={i}
@@ -87,9 +83,9 @@ const CurrentAffairDiscovery = (props) => {
               recommenders="10 recommenders"
             />
           ))}
-        </div>
+        </Grid>
       </div>
-    </div>
+    </>
   );
 };
 
