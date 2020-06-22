@@ -31,6 +31,7 @@ const SubTitle = styled.div`
   padding-top: 3%;
   font-size: 1.7vh;
   font-family: Poppins;
+  line-height: 20px;
 `;
 
 const Organizations = () => {

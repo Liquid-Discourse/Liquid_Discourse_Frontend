@@ -37,7 +37,7 @@ const Inset = styled.div`
   background: #f5f2ef;
   box-shadow: inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd;
   border-radius: 5px;
-  padding: 5px;
+  padding: 7px;
   box-sizing: border-box;
   font-family: Poppins;
   word-wrap: break-word;
@@ -78,6 +78,7 @@ const BookCard = ({ id, name, authors, topics, recommenders, rating }) => {
           }}
         >
           <div>
+            <HorizontalSpacer size={20} />
             <Title>{name}</Title>
             <SubTitle>
               {authors?.map((a, i) => (

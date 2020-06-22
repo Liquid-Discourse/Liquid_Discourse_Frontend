@@ -61,7 +61,7 @@ const Item = styled.div`
   flex-direction: column;
   background-color: rgb(230, 230, 230);
   border-radius: 3px;
-  padding: 2px 5px;
+  padding: 5px 5px;
   margin-left: 5px;
   margin-right: 5px;
 `;

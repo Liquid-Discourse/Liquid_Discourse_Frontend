@@ -35,7 +35,7 @@ const Tab = styled.div`
       ? "5px 5px 14px #d0cecb, -5px -5px 14px #ffffff"
       : "inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd"};
   :hover {
-    background-color: #ffffbf;
+    background-color: #bdbdbd;
   }
 `;
 const TabContent = styled.div`
@@ -43,7 +43,6 @@ const TabContent = styled.div`
   padding: 6px 12px;
   box-shadow: inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd;
 `;
-
 const BookReviews = styled.div`
   font-family: Poppins;
   box-shadow: inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd;
@@ -56,6 +55,12 @@ const BookReviews = styled.div`
   margin-top: 5%;
   padding: 25px;
   position: relative;
+`;
+const NothingYet = styled.div`
+  text-align: center;
+  margin: 3%;
+  font-family: Poppins;
+  font-size: 13px;
 `;
 
 const Profile = (props) => {
@@ -141,24 +146,30 @@ const Profile = (props) => {
         <Tab onClick={handleClick} active={active === 0} id={0}>
           Reviews
         </Tab>
-        <Tab onClick={handleClick} active={active === 1} id={1}>
+        {/* <Tab onClick={handleClick} active={active === 1} id={1}>
           Topics
-        </Tab>
+        </Tab> */}
       </TabList>
 
       {/* Render bookshelf */}
       <TabContent active={active === 2}>
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {incompleteReviews.map((b, i) => (
-            <BookCard
-              id={b.book.id}
-              name={b.book.name}
-              authors={b.book.authors}
-              topics=""
-              recommenders={b.book.reviewCount}
-              rating={b.book.averageRatingOutOfFive}
-            />
-          ))}
+          {incompleteReviews.length === 0 ? (
+            <NothingYet>Nothing on your bookshelf yet!</NothingYet>
+          ) : (
+            <div>
+              {incompleteReviews.map((b, i) => (
+                <BookCard
+                  id={b.book.id}
+                  name={b.book.name}
+                  authors={b.book.authors}
+                  topics=""
+                  recommenders={b.book.reviewCount}
+                  rating={b.book.averageRatingOutOfFive}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </TabContent>
       <TabContent active={active === 0}>
@@ -184,11 +195,11 @@ const Profile = (props) => {
         ))}
       </TabContent>
       {/* Render topics */}
-      <TabContent active={active === 1}>
+      {/* <TabContent active={active === 1}>
         {profile?.data?.preferredTopics.map((b, i) => (
           <BookReviews key={i}>{b}</BookReviews>
         ))}
-      </TabContent>
+      </TabContent> */}
     </div>
   );
 };
