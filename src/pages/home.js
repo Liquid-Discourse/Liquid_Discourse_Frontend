@@ -89,15 +89,18 @@ const Home = () => {
           }}
         >
           {currentAffairs?.map((affair, i) => (
-            <Card
-              key={i}
-              id={affair.id}
-              slug={affair.slug}
-              name={affair.name}
-              upvotes="something"
-              books={affair.books.length}
-              recommenders="10 recommenders"
-            />
+            <>
+              <Card
+                key={i}
+                id={affair.id}
+                slug={affair.slug}
+                name={affair.name}
+                upvotes="something"
+                books={affair.books.length}
+                recommenders="10 recommenders"
+              />
+              <HorizontalSpacer size={30} />
+            </>
           ))}
         </div>
         <CoverTitle
