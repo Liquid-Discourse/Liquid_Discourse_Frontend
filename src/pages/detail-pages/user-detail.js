@@ -4,22 +4,27 @@ import BookCard from "../../components/book-card";
 import styled from "styled-components";
 import axios from "axios";
 import { useAuth0 } from "react-auth0-spa";
+import Grid from "components/reusable/grid";
+import { HorizontalSpacer } from "components/reusable/spacer";
 
 const Name = styled.div`
   font-size: 3.3vh;
   font-family: Montaga;
   margin-bottom: 10px;
 `;
+
 const Subtitle = styled.div`
   font-size: 13px;
   font-family: Poppins;
 `;
+
 const TabList = styled.div`
   font-family: Poppins;
   font-size: 15px;
   overflow: hidden;
   border-bottom: 2px solid rbg(230, 230, 230);
 `;
+
 const Tab = styled.div`
   float: left;
   border: none;
@@ -38,24 +43,19 @@ const Tab = styled.div`
     background-color: #ffffbf;
   }
 `;
+
 const TabContent = styled.div`
   display: ${(props) => (props.active ? "block" : "none")};
   padding: 6px 12px;
   box-shadow: inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd;
 `;
 
-const BookReviews = styled.div`
+const BookReview = styled.div`
   font-family: Poppins;
   box-shadow: inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd;
   background-color: #efebe9;
   border-radius: 10px;
-  width: 100%;
-  margin-right: 5%;
-  min-height: 200px;
-  height: 200px;
-  margin-top: 5%;
   padding: 25px;
-  position: relative;
 `;
 
 const Profile = (props) => {
@@ -148,7 +148,7 @@ const Profile = (props) => {
 
       {/* Render bookshelf */}
       <TabContent active={active === 2}>
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
+        <Grid min={"180px"} style={{ margin: "5%" }}>
           {incompleteReviews.map((b, i) => (
             <BookCard
               id={b.book.id}
@@ -159,34 +159,48 @@ const Profile = (props) => {
               rating={b.book.averageRatingOutOfFive}
             />
           ))}
-        </div>
+        </Grid>
       </TabContent>
       <TabContent active={active === 0}>
+        {/* Book reviews */}
         {completeReviews.map((b, i) => (
-          <div style={{ display: "flex" }} key={i}>
-            <BookCard
-              id={b.book.id}
-              name={b.book.name}
-              authors={b.book.authors}
-              topics=""
-              recommenders={b.book.reviewCount}
-              rating={b.book.averageRatingOutOfFive}
-            />
-            <BookReviews>
-              <div>Your Review: {b.ratingOutOfFive}/5</div>
-              <div>Description</div>
-              <div>{b.description}</div>
-              {showReviewDelete ? (
-                <div onClick={() => deleteReview(b.id)}>Delete</div>
-              ) : null}
-            </BookReviews>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "5%",
+            }}
+            key={i}
+          >
+            <div style={{ width: "25%" }}>
+              <BookCard
+                id={b.book.id}
+                name={b.book.name}
+                authors={b.book.authors}
+                topics=""
+                height={"250px"}
+                recommenders={b.book.reviewCount}
+                rating={b.book.averageRatingOutOfFive}
+              />
+            </div>
+            <div style={{ width: "75%", marginLeft: "50px" }}>
+              <BookReview style={{ height: "250px" }}>
+                <div>Your Review: {b.ratingOutOfFive}/5</div>
+                <div>Description</div>
+                <div>{b.description}</div>
+                {showReviewDelete ? (
+                  <div onClick={() => deleteReview(b.id)}>Delete</div>
+                ) : null}
+              </BookReview>
+            </div>
           </div>
         ))}
       </TabContent>
       {/* Render topics */}
       <TabContent active={active === 1}>
         {profile?.data?.preferredTopics.map((b, i) => (
-          <BookReviews key={i}>{b}</BookReviews>
+          <BookReview key={i}>{b}</BookReview>
         ))}
       </TabContent>
     </div>

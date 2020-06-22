@@ -7,8 +7,8 @@ const Border = styled.div`
   background: #f5f2ef;
   box-shadow: 5px 5px 14px #d0cecb, -5px -5px 14px #ffffff;
   border-radius: 10px;
-  height: 250px;
-  position: relative;
+  width: ${(props) => (props.width ? props.width : null)};
+  height: ${(props) => (props.height ? props.height : "250px")};
   padding: 20px 10px;
   &:hover {
     background-color: #ff9e80;
@@ -59,7 +59,15 @@ const HStack = styled.div`
   width: 100%;
 `;
 
-const BookCard = ({ id, name, authors, topics, recommenders, rating }) => {
+const BookCard = ({
+  id,
+  name,
+  authors,
+  topics,
+  recommenders,
+  rating,
+  height,
+}) => {
   const history = useHistory();
 
   const redirectCurrentAffair = (id) => {
@@ -67,7 +75,7 @@ const BookCard = ({ id, name, authors, topics, recommenders, rating }) => {
   };
 
   return (
-    <Border onClick={() => redirectCurrentAffair(id)}>
+    <Border onClick={() => redirectCurrentAffair(id)} height={height}>
       <VStack>
         {/* Top */}
         <div
