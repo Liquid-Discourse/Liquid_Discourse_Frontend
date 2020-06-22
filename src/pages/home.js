@@ -17,9 +17,9 @@ import Feedback from "components/single-use/feedback";
 
 import { Helmet } from "react-helmet";
 
-const Grid = styled.div`
+const BookGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: 50px;
 `;
 
@@ -118,7 +118,7 @@ const Home = () => {
           slug="books"
           redirectTo={() => redirectToPage(`/books`)}
         />
-        <Grid>
+        <BookGrid>
           {books?.map((b, i) => (
             <BookCard
               key={i}
@@ -130,7 +130,7 @@ const Home = () => {
               rating={b.averageRatingOutOfFive}
             />
           ))}
-        </Grid>
+        </BookGrid>
       </div>
       <TakeAction />
       <HorizontalSpacer size={40} />
