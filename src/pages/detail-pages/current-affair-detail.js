@@ -7,6 +7,14 @@ import TwoCol from "components/layouts/two-col";
 
 import useTag from "hooks/tag-hook";
 
+import { HorizontalSpacer } from "components/reusable/spacer";
+
+const BookGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 50px;
+`;
+
 const TopicPill = styled.button`
   font-family: Poppins;
   width: 100%;
@@ -59,7 +67,8 @@ const CurrentAffairDetail = (props) => {
         left={
           <>
             <Title>Current Affair: {tag?.name}</Title>
-            <div style={{ display: "flex" }}>
+            <HorizontalSpacer size={20} />
+            <BookGrid>
               {tag?.books?.map((b, i) => (
                 <BookCard
                   key={i}
@@ -71,7 +80,7 @@ const CurrentAffairDetail = (props) => {
                   rating={b.averageRatingOutOfFive}
                 />
               ))}
-            </div>
+            </BookGrid>
           </>
         }
         right={
