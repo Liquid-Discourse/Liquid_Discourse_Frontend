@@ -81,8 +81,8 @@ const Home = () => {
       {/* Below the header */}
       <div
         style={{
-          paddingRight: "5%",
-          paddingLeft: "5%",
+          paddingRight: "10%",
+          paddingLeft: "10%",
         }}
       >
         <CoverTitle
@@ -90,28 +90,20 @@ const Home = () => {
           slug="current-affairs"
           redirectTo={() => redirectToPage(`/current-affairs`)}
         />
-        <div
-          style={{
-            marginLeft: "5%",
-            marginRight: "5%",
-            width: "82%",
-          }}
-        >
-          {currentAffairs?.map((affair, i) => (
-            <>
-              <Card
-                key={i}
-                id={affair.id}
-                slug={affair.slug}
-                name={affair.name}
-                upvotes="something"
-                books={affair.books.length}
-                recommenders="10 recommenders"
-              />
-              <HorizontalSpacer size={30} />
-            </>
-          ))}
-        </div>
+        {currentAffairs?.map((affair, i) => (
+          <>
+            <Card
+              key={i}
+              id={affair.id}
+              slug={affair.slug}
+              name={affair.name}
+              upvotes="something"
+              books={affair.books.length}
+              recommenders="10 recommenders"
+            />
+            <HorizontalSpacer size={30} />
+          </>
+        ))}
         <HorizontalSpacer size={60} />
         <CoverTitle
           name="Top Books"
