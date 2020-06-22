@@ -61,12 +61,6 @@ const CurrentAffairDiscovery = (props) => {
         {/* Header and control */}
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <Title>Current Affairs</Title>
-          <SubmitCard>
-            <PlusIcon />
-            <div style={{ fontFamily: "Poppins", marginLeft: "20px" }}>
-              Submit a Current Affair
-            </div>
-          </SubmitCard>
         </div>
         {/* Spacer */}
         <HorizontalSpacer size={30} />
@@ -90,3 +84,12 @@ const CurrentAffairDiscovery = (props) => {
 };
 
 export default CurrentAffairDiscovery;
+
+{
+  /* <SubmitCard>
+<PlusIcon />
+<div style={{ fontFamily: "Poppins", marginLeft: "20px" }}>
+  Submit a Current Affair
+</div>
+</SubmitCard> */
+}
