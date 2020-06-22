@@ -16,6 +16,7 @@ const Border = styled.div`
   padding: 2% 4%;
   position: relative;
   font-size: 12px;
+  cursor: pointer;
   &:hover {
     background-color: #ffe0b2;
   }
@@ -24,6 +25,7 @@ const TopicWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 const TopicPill = styled.button`
   font-family: Poppins;
@@ -31,7 +33,7 @@ const TopicPill = styled.button`
   background: #f5f2ef;
   box-shadow: inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd;
   margin-top: 10px;
-  padding: 5px 5px;
+  padding: 5px 15px;
   text-align: left;
   margin-right: 5px;
   margin-left: 5px;
@@ -41,6 +43,7 @@ const TopicPill = styled.button`
     background-color: rgb(240, 240, 240);
     box-shadow: 5px 5px 10px #e6e3e1, -5px -5px 10px #fffffd;
   }
+  cursor: pointer;
 `;
 const Title = styled.div`
   font-size: 20px;
@@ -119,7 +122,7 @@ const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
               key={i}
             >
               <div>{t.name}</div>
-              <div>{t.bookCount}</div>
+              <div>{t.bookCount} books</div>
             </TopicPill>
           ))}
         </TopicWrapper>

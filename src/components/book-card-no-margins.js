@@ -8,7 +8,9 @@ const Border = styled.div`
   border-radius: 10px;
   min-width: 200px;
   height: 250px;
-  margin: 5%;
+  margin-bottom: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
   position: relative;
   cursor: pointer;
   &:hover {
