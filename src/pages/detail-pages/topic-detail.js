@@ -36,6 +36,12 @@ const Subtitle = styled.div`
   font-family: Poppins;
 `;
 
+const BookGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 50px;
+`;
+
 // We follow a consistent structure for all tag types!
 const TopicDetail = (props) => {
   let slug = props.match.params.slug;
@@ -59,7 +65,7 @@ const TopicDetail = (props) => {
         left={
           <>
             <Title>Topic: {tag?.name}</Title>
-            <div style={{ display: "flex" }}>
+            <BookGrid>
               {tag?.books?.map((b, i) => (
                 <BookCard
                   key={i}
@@ -71,7 +77,7 @@ const TopicDetail = (props) => {
                   rating={b.averageRatingOutOfFive}
                 />
               ))}
-            </div>
+            </BookGrid>
           </>
         }
         right={
