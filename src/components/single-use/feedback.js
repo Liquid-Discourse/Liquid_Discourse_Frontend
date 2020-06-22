@@ -46,7 +46,7 @@ const Feedback = () => {
       <div>
         <Subtitle>Want to make this website better?</Subtitle>
         <HorizontalSpacer size={20} />
-        <Button href="https://admin.typeform.com/form/apgWrLfV/share#/">
+        <Button href="https://proofed-feedbackform.typeform.com/to/apgWrLfV">
           Send us some feedback
         </Button>
       </div>
