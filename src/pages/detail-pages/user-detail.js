@@ -186,7 +186,7 @@ const Profile = (props) => {
             <BookReviews>
               <div>Your Review: {b.ratingOutOfFive}/5</div>
               <div>Description</div>
-              <div>{b.description}</div>
+              <div>{b?.description}</div>
               {showReviewDelete ? (
                 <div onClick={() => deleteReview(b.id)}>Delete</div>
               ) : null}

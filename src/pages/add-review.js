@@ -3,6 +3,7 @@ import { useHistory, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import { useAuth0 } from "react-auth0-spa";
 import TagSelect from "components/reusable/tag-select";
+import StarRatings from "react-star-ratings";
 import axios from "axios";
 
 const Container = styled.div`
@@ -17,7 +18,7 @@ const Review = styled.div`
   box-shadow: inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd;
 `;
 const Text = styled.textarea`
-  min-width: 47vw;
+  min-width: 49vw;
   font-family: poppins;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
@@ -44,12 +45,13 @@ const Button = styled.button`
   padding-top: 5px;
   padding-bottom: 5px;
   border-radius: 5px;
-  margin: 3%;
+  margin-top: 5%;
 `;
 
 const AddReview = (props) => {
   const [reviewText, setReviewText] = useState("");
-  const [reviewRating, setReviewRating] = useState("5");
+  const [reviewRating, setReviewRating] = useState(0);
+  const [notifyUser, setNotifyUser] = useState(false);
 
   // Tags
   const [reviewTopicTags, setReviewTopicTags] = useState([]);
@@ -121,83 +123,76 @@ const AddReview = (props) => {
   }, [props.match.params.bookId, user]);
 
   const submit = async () => {
-    const token = await getTokenSilently();
+    if (reviewRating === 0) {
+      setNotifyUser(true);
+    } else {
+      const token = await getTokenSilently();
 
-    const combinedTags = [
-      ...reviewAffairTags,
-      ...reviewCountryTags,
-      ...reviewTopicTags,
-    ];
+      const combinedTags = [
+        ...reviewAffairTags,
+        ...reviewCountryTags,
+        ...reviewTopicTags,
+      ];
 
-    const body = {
-      bookId: props.match.params.bookId,
-      ratingOutOfFive: reviewRating,
-      suggestedTags: combinedTags.map((tag) => tag.value),
-      isCompleted: true,
-    };
+      const body = {
+        bookId: props.match.params.bookId,
+        ratingOutOfFive: reviewRating,
+        suggestedTags: combinedTags.map((tag) => tag.value),
+        isCompleted: true,
+      };
 
-    const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/book-reviews`,
-      {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/book-reviews`,
+        {
+          method: "POST",
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    history.push({ pathname: "/users/" + user?.database?.username });
+      history.push({ pathname: "/users/" + user?.database?.username });
+    }
+  };
+
+  const changeRating = (newRating, name) => {
+    setReviewRating(newRating);
+    console.log(reviewRating);
   };
 
   return (
     <Container>
       <H3>Review "{book?.name}"</H3>
       <Review>
+        <Label style={{ marginRight: "5px" }}>Review Rating </Label>
         <div
           style={{
             display: "flex",
-            justifyContent: "center",
-            padding: "3%",
             alignItems: "baseline",
           }}
         >
-          <Label style={{ marginRight: "5px" }}>Review Rating </Label>
-          <input
-            type="radio"
-            checked={reviewRating === 1}
-            value={1}
-            onClick={(e) => setReviewRating(parseInt(e.target.value))}
+          <StarRatings
+            rating={reviewRating}
+            starRatedColor="#ffca28"
+            changeRating={changeRating}
+            numberOfStars={5}
+            name="rating"
+            starDimension="25px"
+            starSpacing="5px"
           />
-          <input
-            type="radio"
-            checked={reviewRating === 2}
-            value={2}
-            onClick={(e) => setReviewRating(parseInt(e.target.value))}
-          />
-          <input
-            type="radio"
-            checked={reviewRating === 3}
-            value={3}
-            onClick={(e) => setReviewRating(parseInt(e.target.value))}
-          />
-          <input
-            type="radio"
-            checked={reviewRating === 4}
-            value={4}
-            onClick={(e) => setReviewRating(parseInt(e.target.value))}
-          />
-          <input
-            type="radio"
-            checked={reviewRating === 5}
-            value={5}
-            onClick={(e) => setReviewRating(parseInt(e.target.value))}
-          />
-          <Label style={{ marginLeft: "5px" }}>{reviewRating}/5</Label>
+          {reviewRating === "0" ? (
+            <div />
+          ) : (
+            <Label style={{ marginLeft: "5px" }}>{reviewRating}/5</Label>
+          )}
         </div>
+        <Label style={{ width: "500px", marginTop: "25px" }}>
+          Full text review
+        </Label>
         <Text
-          placeholder="Full text review"
+          placeholder="Text Here"
           onChange={(e) => setReviewText(e.currentTarget.value)}
         />
 
@@ -229,7 +224,10 @@ const AddReview = (props) => {
         </div>
 
         {/* Submit  */}
-        <Button onClick={submit}>Submit</Button>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Button onClick={submit}>Submit</Button>
+          {notifyUser ? <div>Please submit a rating first</div> : <div />}
+        </div>
       </Review>
     </Container>
   );
