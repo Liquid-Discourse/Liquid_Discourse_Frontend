@@ -3,6 +3,7 @@ import { useHistory, withRouter } from "react-router-dom";
 import BookCard from "../../components/book-card";
 import styled from "styled-components";
 import axios from "axios";
+import { useAuth0 } from "react-auth0-spa";
 
 const Name = styled.div`
   font-size: 3.3vh;
@@ -61,16 +62,36 @@ const Profile = (props) => {
   const history = useHistory();
   const [profile, setProfile] = useState({});
   const [active, setActive] = useState(2);
+  const { user, getTokenSilently } = useAuth0();
+
+  const [showReviewDelete, setShowReviewDelete] = useState(false);
+
+  const getProfile = async () => {
+    const profile = await axios.get(
+      `${process.env.REACT_APP_API_URL}/users/profile/${props.match.params.username}`
+    );
+    setProfile(profile);
+    if (user && user?.database?.auth0Id === profile?.data?.auth0Id) {
+      setShowReviewDelete(true);
+    }
+  };
 
   useEffect(() => {
-    const getProfile = async () => {
-      const profile = await axios.get(
-        `${process.env.REACT_APP_API_URL}/users/profile/${props.match.params.username}`
-      );
-      setProfile(profile);
-    };
     getProfile();
   }, [props.match.params.username]);
+
+  const deleteReview = async (reviewId) => {
+    const token = await getTokenSilently();
+    await axios.delete(`${process.env.REACT_APP_API_URL}/book-reviews`, {
+      data: {
+        reviewId: reviewId,
+      },
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    await getProfile();
+  };
 
   const handleClick = (e) => {
     const index = parseInt(e.target.id, 0);
@@ -155,6 +176,9 @@ const Profile = (props) => {
               <div>Your Review: {b.ratingOutOfFive}/5</div>
               <div>Description</div>
               <div>{b.description}</div>
+              {showReviewDelete ? (
+                <div onClick={() => deleteReview(b.id)}>Delete</div>
+              ) : null}
             </BookReviews>
           </div>
         ))}
