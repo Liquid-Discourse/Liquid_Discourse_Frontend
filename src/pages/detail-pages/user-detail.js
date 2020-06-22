@@ -40,7 +40,7 @@ const Tab = styled.div`
       ? "5px 5px 14px #d0cecb, -5px -5px 14px #ffffff"
       : "inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd"};
   :hover {
-    background-color: #ffffbf;
+    background-color: #bdbdbd;
   }
 `;
 
@@ -56,6 +56,12 @@ const BookReview = styled.div`
   background-color: #efebe9;
   border-radius: 10px;
   padding: 25px;
+`;
+const NothingYet = styled.div`
+  text-align: center;
+  margin: 3%;
+  font-family: Poppins;
+  font-size: 13px;
 `;
 
 const Profile = (props) => {
@@ -141,13 +147,16 @@ const Profile = (props) => {
         <Tab onClick={handleClick} active={active === 0} id={0}>
           Reviews
         </Tab>
-        <Tab onClick={handleClick} active={active === 1} id={1}>
+        {/* <Tab onClick={handleClick} active={active === 1} id={1}>
           Topics
-        </Tab>
+        </Tab> */}
       </TabList>
 
-      {/* Render bookshelf */}
       <TabContent active={active === 2}>
+        {/* Render bookshelf */}
+        {incompleteReviews.length === 0 ? (
+          <NothingYet>Nothing on your bookshelf yet!</NothingYet>
+        ) : null}
         <Grid min={"180px"} style={{ margin: "5%" }}>
           {incompleteReviews.map((b, i) => (
             <BookCard
@@ -198,11 +207,11 @@ const Profile = (props) => {
         ))}
       </TabContent>
       {/* Render topics */}
-      <TabContent active={active === 1}>
+      {/* <TabContent active={active === 1}>
         {profile?.data?.preferredTopics.map((b, i) => (
           <BookReview key={i}>{b}</BookReview>
         ))}
-      </TabContent>
+      </TabContent> */}
     </div>
   );
 };

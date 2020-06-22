@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import useBook from "hooks/book-hook";
+import StarRatings from "react-star-ratings";
 
 const Name = styled.div`
   font-size: 3.3vh;
@@ -19,13 +20,12 @@ const Title = styled.div`
   font-size: 15px;
   font-family: Poppins;
   display: flex;
-  border-bottom: 1px solid grey;
   width: 100%;
-  padding: 10px 12px;
+  padding-bottom: 10px;
 `;
 
 const Tag = styled.div`
-  background-color: rgb(240, 240, 240);
+  background-color: rgb(230, 230, 230);
   padding: 2px 3px;
   border-radius: 2px;
   margin: 5px;
@@ -50,17 +50,23 @@ const Review = styled.div`
   //box-shadow: 2px 2px 8px rgb(230, 230, 230);
   background-color: #efebe9;
   border-radius: 10px;
-  width: 100%;
-  margin-top: 2%;
   padding: 10px 12px;
+  margin-left: 2%;
+  margin-right: 2%;
   position: relative;
+`;
+
+const ReviewContainer = styled.div`
+  box-shadow: inset 6px 6px 12px #e6e3e1, inset -6px -6px 12px #fffffd;
+  padding-top: 20px;
+  padding-bottom: 20px;
 `;
 
 const Book = (props) => {
   const { book, addToBookshelf } = useBook(props.match.params.id);
 
   return (
-    <div style={{ marginRight: "10%", marginLeft: "10%", marginTop: "5%" }}>
+    <div style={{ marginRight: "15%", marginLeft: "15%", marginTop: "5%" }}>
       <div
         style={{
           display: "flex",
@@ -103,17 +109,28 @@ const Book = (props) => {
       </div>
       <div>
         <Title>Reviews </Title>
-        {book?.reviews?.map((t, i) => (
-          <Review key={i}>
-            <div>
-              {t.userWhoReviewed.firstName} {t.userWhoReviewed.restOfName}
-            </div>
-            <br />
-            <div>Rating: {t.ratingOutOfFive}/5</div>
-            <div>Description:</div>
-            <div>{t.description}</div>
-          </Review>
-        ))}
+        <ReviewContainer>
+          {book?.reviews?.map((t, i) => (
+            <Review key={i}>
+              <div>
+                {t.userWhoReviewed.firstName} {t.userWhoReviewed.restOfName}
+              </div>
+              <br />
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <div style={{ marginRight: "10px" }}>Rating: </div>
+                <StarRatings
+                  rating={t.ratingOutOfFive}
+                  starRatedColor="#ffca28"
+                  numberOfStars={5}
+                  starDimension="18px"
+                  starSpacing="5px"
+                />
+                <div style={{ marginLeft: "5px" }}>{t.ratingOutOfFive}/5</div>
+              </div>
+              <div>{t?.description}</div>
+            </Review>
+          ))}
+        </ReviewContainer>
       </div>
     </div>
   );

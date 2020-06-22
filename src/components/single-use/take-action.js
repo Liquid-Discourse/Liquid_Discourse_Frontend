@@ -23,6 +23,7 @@ const Subtitle = styled.div`
   font-size: 1.7vh;
   font-family: Poppins;
   width: 70%;
+  line-height: 20px;
 `;
 
 const Button = styled.a`
