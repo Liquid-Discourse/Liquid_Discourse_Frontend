@@ -17,6 +17,12 @@ import Feedback from "components/single-use/feedback";
 
 import { Helmet } from "react-helmet";
 
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 50px;
+`;
+
 const Home = () => {
   const history = useHistory();
   const [currentAffairs, setCurrentAffairs] = useState([]);
@@ -112,15 +118,7 @@ const Home = () => {
           slug="books"
           redirectTo={() => redirectToPage(`/books`)}
         />
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-            gridGap: "50px",
-            marginRight: "10%",
-            marginLeft: "10%",
-          }}
-        >
+        <Grid>
           {books?.map((b, i) => (
             <BookCard
               key={i}
@@ -132,7 +130,7 @@ const Home = () => {
               rating={b.averageRatingOutOfFive}
             />
           ))}
-        </div>
+        </Grid>
       </div>
       <TakeAction />
       <HorizontalSpacer size={40} />
