@@ -71,9 +71,16 @@ const Navbar = () => {
           to="/search-book"
           style={{ textDecoration: "none", color: "black" }}
         >
-          <Item>+ Book Review</Item>
+          <Item
+            style={{
+              backgroundColor: "rgb(220, 220, 220)",
+              padding: "5px 10px",
+              borderRadius: "5px",
+            }}
+          >
+            + Book Review
+          </Item>
         </Link>
-        <Item>+ Current Affair</Item>
         {!isAuthenticated && (
           <Item onClick={() => loginWithRedirect({})}>Sign In</Item>
         )}
