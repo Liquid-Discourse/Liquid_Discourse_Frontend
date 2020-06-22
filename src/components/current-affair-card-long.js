@@ -68,6 +68,7 @@ const Item = styled.div`
 
 const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
   const [topics, setTopics] = useState(null);
+  const [topicCount, setTopicCount] = useState(0);
   const history = useHistory();
 
   const redirectToPage = (path) => {
@@ -76,8 +77,9 @@ const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
 
   useEffect(() => {
     const getTags = async () => {
-      let topics = await getRelatedTags(id);
-      topics = topics.CATEGORIZED.TOPIC;
+      const relatedTags = await getRelatedTags(id);
+      let topics = relatedTags.CATEGORIZED.TOPIC;
+      setTopicCount(relatedTags.CATEGORIZED.TOPIC.length);
       if (topics.length > 3) {
         topics = topics.slice(3);
       }
@@ -103,8 +105,8 @@ const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
         </div>
         <Wrapper>
           <Item>
-            <div style={{ fontSize: "18px" }}>{books}</div>
-            <div>books</div>
+            <div style={{ fontSize: "18px" }}>{topicCount}</div>
+            <div>topics</div>
           </Item>
           <Item>
             <div style={{ fontSize: "18px" }}>{books}</div>
