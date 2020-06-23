@@ -107,6 +107,7 @@ const SearchBook = () => {
       googleId: book.id,
       name: book.volumeInfo.title,
       authors: book.volumeInfo.authors,
+      description: book?.volumeInfo?.description
     };
 
     let response = await axios.post(
