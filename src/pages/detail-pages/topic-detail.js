@@ -69,7 +69,7 @@ const TopicDetail = (props) => {
               {tag?.books?.map((b, i) => (
                 <BookCard
                   key={i}
-                  id={b.div}
+                  id={b.id}
                   name={b.name}
                   authors={b.authors}
                   topics={b.tags[0]?.name}
