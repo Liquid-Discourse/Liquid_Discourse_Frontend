@@ -65,8 +65,8 @@ const SearchBook = () => {
     const seenBooks = new Set();
     const uniqueBooks = books.filter((book) => {
       const testFragment = JSON.stringify({
-        // name: book.volumeInfo.title, // a less strict setting (needs exact match)
-        containsQuery: book.volumeInfo.title.includes(searchValue), // a more strict setting (requires only query match)
+        name: book.volumeInfo.title, // a less strict setting (needs exact match)
+        // containsQuery: book.volumeInfo.title.includes(searchValue), // a more strict setting (requires only query match)
         authors: book.volumeInfo.authors.map((author) =>
           author.replace(/\s+/g, "").toLowerCase()
         ),
