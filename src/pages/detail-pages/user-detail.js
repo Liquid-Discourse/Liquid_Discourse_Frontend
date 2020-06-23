@@ -118,7 +118,7 @@ const Profile = (props) => {
 
   const incompleteReviews = profile?.data?.bookReviews.length
     ? profile.data.bookReviews.filter(
-        (review) => review.isCompleted && !review.isAdminReview
+        (review) => !review.isCompleted && !review.isAdminReview
       )
     : [];
 
@@ -168,7 +168,7 @@ const Profile = (props) => {
         <Grid min={"180px"} style={{ margin: "5%" }}>
           {incompleteReviews.map((b, i) => (
             <BookCard
-            key={i}
+              key={i}
               id={b?.book?.id}
               name={b?.book?.name}
               authors={b?.book?.authors}
