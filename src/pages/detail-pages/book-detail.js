@@ -7,7 +7,6 @@ const Name = styled.div`
   font-size: 3.3vh;
   font-family: Montaga;
   margin-bottom: 10px;
-  width: 70%;
 `;
 
 const Subtitle = styled.div`
@@ -125,8 +124,8 @@ const Book = (props) => {
             <Subtitle>
               Topics:{" "}
               {topics.map((t, i) => (
-                  <Tag key={i}>{t.name} </Tag>
-                ))}
+                <Tag key={i}>{t.name} </Tag>
+              ))}
             </Subtitle>
           ) : null}
         </div>
