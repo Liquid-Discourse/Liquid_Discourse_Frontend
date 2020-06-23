@@ -108,7 +108,6 @@ const Book = (props) => {
             </div>
           )}
           <br />
-          <Subtitle>ISBN: {book?.isbn}</Subtitle>
           <Subtitle>
             Topics:{" "}
             {book?.tags?.map((t, i) => (

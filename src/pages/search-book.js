@@ -58,6 +58,7 @@ const SearchBook = () => {
     url.searchParams.append("q", searchValue);
     let response = await fetch(url);
     let answer = await response.json();
+
     console.log("answer", answer.items);
 
     const books = answer.items;
@@ -82,10 +83,10 @@ const SearchBook = () => {
   };
 
   // check if book exists in the database already
-  const checkBook = async (isbn) => {
+  const checkBook = async (googleId) => {
     // check if book exists in the database already
     let response = await axios.get(`${process.env.REACT_APP_API_URL}/books`, {
-      params: { isbn: isbn },
+      params: { googleId: googleId },
     });
     if (response.data && response.data.length > 0) {
       return response.data[0];
@@ -95,9 +96,7 @@ const SearchBook = () => {
 
   const submitBook = async (book) => {
     // check if book exists
-    const existingBook = await checkBook(
-      book.volumeInfo.industryIdentifiers[1].identifier
-    );
+    const existingBook = await checkBook(book.id);
 
     // if it does, redirect to its page
     if (existingBook) {
@@ -105,7 +104,7 @@ const SearchBook = () => {
     }
     // otherwise, post the book to the db
     const payload = {
-      isbn: book.volumeInfo.industryIdentifiers[1].identifier,
+      googleId: book.id,
       name: book.volumeInfo.title,
       authors: book.volumeInfo.authors,
     };
