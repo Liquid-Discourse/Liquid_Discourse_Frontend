@@ -57,14 +57,13 @@ const Home = () => {
       if (books.length > 6) {
         books = books.slice(6);
       }
+      console.log(books);
       setBooks(books);
     };
 
     getCurrentAffairs();
     getBooks();
   }, []);
-
-  console.log(currentAffairs);
 
   return (
     <>

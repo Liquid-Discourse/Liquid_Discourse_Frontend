@@ -168,12 +168,12 @@ const Profile = (props) => {
         <Grid min={"180px"} style={{ margin: "5%" }}>
           {incompleteReviews.map((b, i) => (
             <BookCard
-              id={b.book.id}
-              name={b.book.name}
-              authors={b.book.authors}
-              tags={b.book.tags}
-              recommenders={b.book.reviewCount}
-              rating={b.book.averageRatingOutOfFive}
+              id={b?.book?.id}
+              name={b?.book?.name}
+              authors={b?.book?.authors}
+              tags={b?.book?.tags}
+              recommenders={b?.book?.reviewCount}
+              rating={b?.book?.averageRatingOutOfFive}
             />
           ))}
         </Grid>

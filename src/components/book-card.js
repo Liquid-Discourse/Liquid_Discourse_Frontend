@@ -70,8 +70,12 @@ const BookCard = ({
 }) => {
   const history = useHistory();
 
-  const affairArray = tags.filter((t) => t.type === "AFFAIR");
-  const topicArray = tags.filter((t) => t.type === "TOPIC");
+  const affairArray = tags?.filter((t) => t.type === "AFFAIR");
+  const topicArray = tags?.filter((t) => t.type === "TOPIC");
+
+  // console.log(topicArray);
+
+  // console.log(tags);
 
   const redirectCurrentAffair = (id) => {
     history.push({ pathname: "/books/" + id });
@@ -101,8 +105,8 @@ const BookCard = ({
         {/* Bottom */}
         <div style={{ width: "100%" }}>
           {affairArray?.length ? <Inset>{affairArray[0].name}</Inset> : null}
-          <HorizontalSpacer size={10} />
-          {topicArray?.length ? (
+          {/* <HorizontalSpacer size={10} /> */}
+          {/* {topicArray?.length ? (
             <Inset>
               {topicArray.slice(3).map((t, i) => (
                 <span key={i} style={{ marginRight: "3px" }}>
@@ -110,7 +114,7 @@ const BookCard = ({
                 </span>
               ))}
             </Inset>
-          ) : null}
+          ) : null} */}
           <HorizontalSpacer size={10} />
           <HStack>
             <Inset>{recommenders} reviews</Inset>
