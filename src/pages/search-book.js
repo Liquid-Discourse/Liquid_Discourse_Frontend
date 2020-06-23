@@ -58,18 +58,20 @@ const SearchBook = () => {
     url.searchParams.append("q", searchValue);
     let response = await fetch(url);
     let answer = await response.json();
+    console.log("answer", answer.items);
 
     const books = answer.items;
 
     // de-duplication algorithm
     const seenBooks = new Set();
     const uniqueBooks = books.filter((book) => {
+      console.log(book.volumeInfo.authors);
       const testFragment = JSON.stringify({
-        // name: book.volumeInfo.title, // a less strict setting (needs exact match)
-        containsQuery: book.volumeInfo.title.includes(searchValue), // a more strict setting (requires only query match)
-        authors: book.volumeInfo.authors.map((author) =>
-          author.replace(/\s+/g, "").toLowerCase()
-        ),
+        name: book.volumeInfo.title, // a less strict setting (needs exact match)
+        //containsQuery: book.volumeInfo.title.includes(searchValue), // a more strict setting (requires only query match)
+        // authors: book.volumeInfo.authors.map((author) =>
+        //   author.replace(/\s+/g, "").toLowerCase()
+        // ),
       });
       const duplicate = seenBooks.has(testFragment);
       seenBooks.add(testFragment);

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useAuth0 } from "react-auth0-spa";
 import Grid from "components/reusable/grid";
-import { HorizontalSpacer } from "components/reusable/spacer";
+import StarRatings from "react-star-ratings";
 
 const Name = styled.div`
   font-size: 3.3vh;
@@ -63,7 +63,11 @@ const NothingYet = styled.div`
   font-family: Poppins;
   font-size: 13px;
 `;
-
+const Button = styled.button`
+  background-color: #f5f2ef;
+  border: 1px solid red;
+  border-radius: 5px;
+`;
 const Profile = (props) => {
   const history = useHistory();
   const [profile, setProfile] = useState({});
@@ -202,12 +206,33 @@ const Profile = (props) => {
             </div>
             <div style={{ width: "75%", marginLeft: "50px" }}>
               <BookReview style={{ height: "250px" }}>
-                <div>Your Review: {b.ratingOutOfFive}/5</div>
-                <div>Description</div>
-                <div>{b.description}</div>
-                {showReviewDelete ? (
-                  <div onClick={() => deleteReview(b.id)}>Delete</div>
-                ) : null}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <div>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <div style={{ marginRight: "10px" }}>Rating: </div>
+                      <StarRatings
+                        rating={b.ratingOutOfFive}
+                        starRatedColor="#ffca28"
+                        numberOfStars={5}
+                        starDimension="18px"
+                        starSpacing="5px"
+                      />
+                      <div style={{ marginLeft: "5px" }}>
+                        {b.ratingOutOfFive}/5
+                      </div>
+                    </div>
+                    <div>{b?.description}</div>
+                  </div>
+                  {showReviewDelete ? (
+                    <Button onClick={() => deleteReview(b.id)}>Delete</Button>
+                  ) : null}
+                </div>
               </BookReview>
             </div>
           </div>
