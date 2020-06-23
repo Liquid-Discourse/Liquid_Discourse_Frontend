@@ -15,9 +15,15 @@ export const getRelatedTags = async (tagId) => {
     allTags = [...allTags, ...book.tags];
   });
   // remove duplicates
-  allTags = Array.from(new Set(allTags));
+  const seenTags = new Set();
+  const uniqueTags = allTags.filter((tag) => {
+    const testFragment = JSON.stringify(tag);
+    const duplicate = seenTags.has(testFragment);
+    seenTags.add(testFragment);
+    return !duplicate;
+  });
   // sort by book count
-  allTags.sort((tagA, tagB) => tagB?.bookCount - tagA?.bookCount);
+  uniqueTags.sort((tagA, tagB) => tagB?.bookCount - tagA?.bookCount);
   // bucket them into categories
   const categorizedTags = {
     COUNTRY: [],
@@ -25,7 +31,7 @@ export const getRelatedTags = async (tagId) => {
     AFFAIR: [],
     GENRE: [],
   };
-  allTags.forEach((tag) => {
+  uniqueTags.forEach((tag) => {
     switch (tag.type) {
       case "COUNTRY":
         categorizedTags.COUNTRY.push(tag);
@@ -42,7 +48,7 @@ export const getRelatedTags = async (tagId) => {
     }
   });
   return {
-    ALL: allTags,
+    ALL: uniqueTags,
     CATEGORIZED: categorizedTags,
   };
 };
