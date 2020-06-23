@@ -150,7 +150,7 @@ const Book = (props) => {
         <Title>Reviews </Title>
         <ReviewContainer>
           {book?.reviews
-            ?.filter((b) => !b.isAdminReview)
+            ?.filter((b) => !b.isAdminReview && b.isCompleted)
             .map((t, i) => (
               <Review key={i}>
                 <div>
