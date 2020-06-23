@@ -7,7 +7,6 @@ const Name = styled.div`
   font-size: 3.3vh;
   font-family: Montaga;
   margin-bottom: 10px;
-  width: 70%;
 `;
 
 const Subtitle = styled.div`
@@ -67,6 +66,9 @@ const Book = (props) => {
   const { book, addToBookshelf } = useBook(props.match.params.id);
   const [saved, setSaved] = useState(false);
 
+  const affairs = book?.tags?.filter((t) => t.type === "AFFAIR");
+  const topics = book?.tags?.filter((t) => t.type === "TOPIC");
+
   const addTo = () => {
     addToBookshelf();
     setSaved(true);
@@ -93,6 +95,8 @@ const Book = (props) => {
             ))}
           </Subtitle>
           <br />
+          <Subtitle>{book?.description?.slice(0, 750)}...</Subtitle>
+          <br />
           {book?.reviewCount === 0 ? (
             <div />
           ) : (
@@ -108,12 +112,22 @@ const Book = (props) => {
             </div>
           )}
           <br />
-          <Subtitle>
-            Topics:{" "}
-            {book?.tags?.map((t, i) => (
-              <Tag key={i}>{t.name} </Tag>
-            ))}
-          </Subtitle>
+          {affairs?.length ? (
+            <Subtitle>
+              Current Affairs:{" "}
+              {affairs.map((t, i) => (
+                <Tag key={i}>{t.name} </Tag>
+              ))}
+            </Subtitle>
+          ) : null}
+          {topics?.length ? (
+            <Subtitle>
+              Topics:{" "}
+              {topics.map((t, i) => (
+                <Tag key={i}>{t.name} </Tag>
+              ))}
+            </Subtitle>
+          ) : null}
         </div>
         <Save onClick={addTo}>
           <svg
