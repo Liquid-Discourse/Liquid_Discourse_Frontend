@@ -107,11 +107,15 @@ const Profile = (props) => {
   };
 
   const completeReviews = profile?.data?.bookReviews.length
-    ? profile.data.bookReviews.filter((review) => review.isCompleted === true)
+    ? profile.data.bookReviews.filter(
+        (review) => review.isCompleted && !review.isAdminReview
+      )
     : [];
 
   const incompleteReviews = profile?.data?.bookReviews.length
-    ? profile.data.bookReviews.filter((review) => review.isCompleted === false)
+    ? profile.data.bookReviews.filter(
+        (review) => review.isCompleted && !review.isAdminReview
+      )
     : [];
 
   return (

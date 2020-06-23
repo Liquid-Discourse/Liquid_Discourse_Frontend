@@ -47,11 +47,60 @@ const Button = styled.button`
   border-radius: 5px;
   margin-top: 5%;
 `;
+const Switch = styled.label`
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+`;
+const Slider = styled.span`
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 34px;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  :before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+  :before {
+    border-radius: 50%;
+  }
+`;
+const SwitchInput = styled.input`
+  opacity: 0;
+  width: 0;
+  height: 0;
+  ${(props) => props.active} + ${Slider} {
+    background-color: #64dd17;
+  }
+  :focus + ${Slider} {
+    box-shadow: 0 0 1px #2196f3;
+  }
+  ${(props) => props.active} + ${Slider}:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+`;
 
 const AddReview = (props) => {
   const [reviewText, setReviewText] = useState("");
   const [reviewRating, setReviewRating] = useState(0);
   const [notifyUser, setNotifyUser] = useState(false);
+  const [isAdminReview, setIsAdminReview] = useState(false);
 
   // Tags
   const [reviewTopicTags, setReviewTopicTags] = useState([]);
@@ -91,6 +140,7 @@ const AddReview = (props) => {
         const review = await response.data[0];
 
         setReviewRating(review.ratingOutOfFive);
+        setIsAdminReview(review.isAdminReview);
 
         const affairTags = [];
         const topicTags = [];
@@ -139,6 +189,7 @@ const AddReview = (props) => {
         ratingOutOfFive: reviewRating,
         suggestedTags: combinedTags.map((tag) => tag.value),
         isCompleted: true,
+        isAdminReview: isAdminReview,
       };
 
       const response = await fetch(
@@ -222,6 +273,26 @@ const AddReview = (props) => {
             onChange={setReviewTopicTags}
           />
         </div>
+
+        {user?.database?.isAdmin ? (
+          <div style={{ width: "500px", marginTop: "25px" }}>
+            <Label>
+              You are an admin. Would you like this review to be an admin
+              review? Admin reviews are only used to contribute tag suggestions
+              for a book
+            </Label>
+            <Switch>
+              <SwitchInput
+                type="checkbox"
+                active={!isAdminReview}
+                onClick={() => {
+                  setIsAdminReview((isAdminReview) => !isAdminReview);
+                }}
+              />
+              <Slider class="slider round"></Slider>
+            </Switch>
+          </div>
+        ) : null}
 
         {/* Submit  */}
         <div style={{ display: "flex", alignItems: "center" }}>

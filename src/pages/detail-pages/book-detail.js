@@ -72,8 +72,6 @@ const Book = (props) => {
     setSaved(true);
   };
 
-  console.log("book", saved);
-
   return (
     <div style={{ marginRight: "15%", marginLeft: "15%", marginTop: "5%" }}>
       <div
@@ -138,26 +136,28 @@ const Book = (props) => {
       <div>
         <Title>Reviews </Title>
         <ReviewContainer>
-          {book?.reviews?.map((t, i) => (
-            <Review key={i}>
-              <div>
-                {t.userWhoReviewed.firstName} {t.userWhoReviewed.restOfName}
-              </div>
-              <br />
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <div style={{ marginRight: "10px" }}>Rating: </div>
-                <StarRatings
-                  rating={t.ratingOutOfFive}
-                  starRatedColor="#ffca28"
-                  numberOfStars={5}
-                  starDimension="18px"
-                  starSpacing="5px"
-                />
-                <div style={{ marginLeft: "5px" }}>{t.ratingOutOfFive}/5</div>
-              </div>
-              <div>{t?.description}</div>
-            </Review>
-          ))}
+          {book?.reviews
+            ?.filter((b) => !b.isAdminReview)
+            .map((t, i) => (
+              <Review key={i}>
+                <div>
+                  {t.userWhoReviewed.firstName} {t.userWhoReviewed.restOfName}
+                </div>
+                <br />
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <div style={{ marginRight: "10px" }}>Rating: </div>
+                  <StarRatings
+                    rating={t.ratingOutOfFive}
+                    starRatedColor="#ffca28"
+                    numberOfStars={5}
+                    starDimension="18px"
+                    starSpacing="5px"
+                  />
+                  <div style={{ marginLeft: "5px" }}>{t.ratingOutOfFive}/5</div>
+                </div>
+                <div>{t?.description}</div>
+              </Review>
+            ))}
         </ReviewContainer>
       </div>
     </div>
