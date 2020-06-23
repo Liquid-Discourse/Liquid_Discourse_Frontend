@@ -93,6 +93,8 @@ const Book = (props) => {
             ))}
           </Subtitle>
           <br />
+          <Subtitle>{book?.description?.slice(0, 750)}...</Subtitle>
+          <br />
           {book?.reviewCount === 0 ? (
             <div />
           ) : (
