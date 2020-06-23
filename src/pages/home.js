@@ -55,7 +55,7 @@ const Home = () => {
       );
       let books = response.data;
       if (books.length > 6) {
-        books.slice(6);
+        books = books.slice(6);
       }
       setBooks(books);
     };
@@ -113,7 +113,7 @@ const Home = () => {
               id={b.id}
               name={b.name}
               authors={b.authors}
-              topics={b.tags[0]?.name}
+              topics={b.tags}
               recommenders={b.reviewCount}
               rating={b.averageRatingOutOfFive}
             />

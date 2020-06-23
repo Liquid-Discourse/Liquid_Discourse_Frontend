@@ -70,6 +70,9 @@ const BookCard = ({
 }) => {
   const history = useHistory();
 
+  const affairArray = topics.filter((t) => t.type === "AFFAIR");
+  const topicArray = topics.filter((t) => t.type === "TOPIC");
+
   const redirectCurrentAffair = (id) => {
     history.push({ pathname: "/books/" + id });
   };
@@ -97,7 +100,16 @@ const BookCard = ({
         </div>
         {/* Bottom */}
         <div style={{ width: "100%" }}>
-          {topics ? <Inset>{topics}</Inset> : null}
+          {affairArray ? <Inset>{affairArray[0]}</Inset> : null}
+          {topicArray ? (
+            <Inset>
+              {topicArray.slice(3).map((t, i) => (
+                <span key={i} style={{ marginRight: "3px" }}>
+                  {t}
+                </span>
+              ))}
+            </Inset>
+          ) : null}
           <HorizontalSpacer size={10} />
           <HStack>
             <Inset>{recommenders} reviews</Inset>

@@ -83,7 +83,7 @@ const BookDiscovery = (props) => {
               id={book.id}
               name={book.name}
               authors={book.authors}
-              topics={book.tags[0]?.name}
+              topics={book.tags}
               recommenders={book.reviewCount}
               rating={book.averageRatingOutOfFive}
             />

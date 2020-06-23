@@ -75,7 +75,7 @@ const CurrentAffairDetail = (props) => {
                   id={b.id}
                   name={b.name}
                   authors={b.authors}
-                  topics={b.tags[0]?.name}
+                  topics={b.tags}
                   recommenders={b.reviewCount}
                   rating={b.averageRatingOutOfFive}
                 />

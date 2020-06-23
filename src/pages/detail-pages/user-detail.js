@@ -171,7 +171,7 @@ const Profile = (props) => {
               id={b.book.id}
               name={b.book.name}
               authors={b.book.authors}
-              topics=""
+              topics={b.book.tags}
               recommenders={b.book.reviewCount}
               rating={b.book.averageRatingOutOfFive}
             />
@@ -198,7 +198,7 @@ const Profile = (props) => {
                 id={b.book.id}
                 name={b.book.name}
                 authors={b.book.authors}
-                topics=""
+                topics={b.book.tags}
                 height={"250px"}
                 recommenders={b.book.reviewCount}
                 rating={b.book.averageRatingOutOfFive}
