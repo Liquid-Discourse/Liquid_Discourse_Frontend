@@ -79,6 +79,7 @@ const Card = ({ id, slug, name, upvotes, books, recommenders }) => {
     const getTags = async () => {
       const relatedTags = await getRelatedTags(id);
       let topics = relatedTags.CATEGORIZED.TOPIC;
+      console.log(relatedTags);
       setTopicCount(relatedTags.CATEGORIZED.TOPIC.length);
       if (topics.length > 5) {
         topics = topics.slice(0, 5);
