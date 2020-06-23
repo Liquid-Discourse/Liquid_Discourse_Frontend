@@ -72,7 +72,7 @@ const TopicDetail = (props) => {
                   id={b.id}
                   name={b.name}
                   authors={b.authors}
-                  topics={b.tags}
+                  tags={b.tags}
                   recommenders={b.reviewCount}
                   rating={b.averageRatingOutOfFive}
                 />
