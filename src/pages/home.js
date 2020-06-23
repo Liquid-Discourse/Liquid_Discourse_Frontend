@@ -57,7 +57,6 @@ const Home = () => {
       if (books.length > 6) {
         books = books.slice(6);
       }
-      console.log(books);
       setBooks(books);
     };
 
@@ -86,9 +85,8 @@ const Home = () => {
           redirectTo={() => redirectToPage(`/current-affairs`)}
         />
         {currentAffairs?.map((affair, i) => (
-          <>
+          <div key={i}>
             <Card
-              key={i}
               id={affair.id}
               slug={affair.slug}
               name={affair.name}
@@ -97,7 +95,7 @@ const Home = () => {
               recommenders="10 recommenders"
             />
             <HorizontalSpacer size={30} />
-          </>
+          </div>
         ))}
         <HorizontalSpacer size={60} />
         <CoverTitle
