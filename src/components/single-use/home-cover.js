@@ -47,6 +47,13 @@ const HomeCover = () => {
           />
         </div>
         <Title>Find and review books on the issues that matter.</Title>
+        <p>
+          We've been amazed by the resources shared on social media on
+          anti-racism. We hope this website can be a long-lasting space for
+          books on issues that matter. Currently, we are focusing on the Black
+          Lives Matter movement, and eventually hope to source books from
+          thoughtful community members around a selection of important issues.
+        </p>
         <div
           style={{
             width: "160px",
