@@ -54,9 +54,9 @@ const Home = () => {
         }
       );
       let books = response.data;
-      if (books.length > 6) {
-        books = books.slice(6);
-      }
+      // if (books.length > 6) {
+      //   books = books.slice(6);
+      // }
       setBooks(books);
     };
 
